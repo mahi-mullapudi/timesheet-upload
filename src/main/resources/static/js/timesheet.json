@@ -1,0 +1,84 @@
+{
+  "timesheetId": 999000,
+  "timesheetStartDate": 1492315200000,
+  "timesheetEndDate": 1492920000000,
+  "employeeId": 1111001,
+  "comments": "Timesheet for week.",
+  "nameLastModified": "Mahidhar",
+  "dateLastModified": 1492969487725,
+  "nameCreated": "Mahidhar M",
+  "dateCreated": 1492969487725,
+  "timesheetStatus": "",
+  "timesheetDetailsList": [
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Mon",
+      "workDayDescription": "Monday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    },
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Tue",
+      "workDayDescription": "Tueday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    },
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Wed",
+      "workDayDescription": "Wednesday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    },
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Thu",
+      "workDayDescription": "Thursday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    },
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Fri",
+      "workDayDescription": "Friday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    },
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Sat",
+      "workDayDescription": "Saturday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    },
+    {
+      "timesheetDetailsId": 110001,
+      "timesheetId": 111112,
+      "workDayDate": 1492401600000,
+      "workWeekDay": "Sun",
+      "workDayDescription": "Sunday",
+      "workDayRtHours": 8,
+      "workDayOtHours": 0,
+      "workDayTimeOffHours": 0
+    }
+  ]
+}

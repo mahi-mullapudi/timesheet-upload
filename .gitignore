@@ -1,0 +1,19 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### Maven ###
+.mvn
+
+#### Angular ####
+typings
+app/**/*.js
+app/**/*.map
+node_modules
+jspm_packages
+bower_components
