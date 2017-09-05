@@ -1,6 +1,10 @@
 # timesheet-expenses
-Role based application to maintain time sheets and expenses of the users and their submission and reviewal process. Based on the user rights every user is given certain functionality to submit their Timesheets and expenses for a selected week. An authorized reviewer can approve/disapprove the timesheets or expenses for the week.
+Role based application to maintain time sheets and work hours of the users along with time sheet review process. 
+Based on the user rights every user is given specif functionality to submit timesheet information and also upload approved Timesheets
+ for a selected week. An authorized reviewer can approve/disapprove the timesheets information by providing comments.
 
 ## Technologies
-This application make use of the latest and most optimized technology stack following MVC architecture using Spring Boot for the service and data access layers and Angular4 for the frontend. For logging slf4j-log4j, maven for the build, mockito-junit4 for the testing.
+This application make use of the latest and most optimized technology stack following MVC architecture using Spring Boot.
+This application also make use of Spring-web, spring-jpa, mySQL connectors, appache-commons and google-guava for utilities,
+ slf4j-log4j for logging, project lombok to reduce boiler plate code, JSTL, Apache Tomcat embedded server,  maven for the build, mockito-junit4 for the testing.
 
