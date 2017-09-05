@@ -29,65 +29,242 @@
                     <div class="form-signin">
                         <br><img src="images/technumen-logo.png">
                         <hr>
-                        <h2>Registration Details</h2>
                     </div>
                     <div class="col-md-12">
-                        <spring:url value="/register" var="registrationActionUrl"/>
+                        <h4 class="subheading"> Welcome to TechNumen Inc., - Timesheet App. Please create your Account
+                            to continue. </h4>
+                        <hr>
+                        <c:if test="${not empty msg}">
+                            <div class="col-md-12">
+                                <div class="alert alert-${css} alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">X</span>
+                                    </button>
+                                    <i class="fa fa-info-circle faa-flash animated"></i><strong> ${msg}</strong>
+                                </div>
+                            </div>
+                        </c:if>
+
+                        <spring:url value="/registration" var="registrationActionUrl"/>
                         <form:form method="POST" modelAttribute="employee"
-                                   action="${registrationActionUrl}" class="form-signin">
+                                   action="${registrationActionUrl}">
 
-                            <div class="form-group row">
+                            <div class="row">
+                                <spring:bind path="employeeFirstName">
+                                    <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="contactFName">First Name</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="employeeFirstName" name="contactFName"
+                                                        id="contactFName" maxlength="50"
+                                                        placeholder="Enter First Name" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                                        required="required"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="employeeFirstName"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+                                <spring:bind path="employeeLastName">
+                                    <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="contactLname">Last Name</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="employeeLastName"
+                                                        name="contactLname" id="contactLname"
+                                                        maxlength="50"
+                                                        placeholder="Enter Last Name" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                                        required="required"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="employeeLastName"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+                            </div>
+
+                            <div class="row">
                                 <spring:bind path="employeeEmailId">
-                                    <div class="form-group row ${status.error ? 'has-error' : ''}">
-                                        <label for="emailId" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-4">
-                                            <form:input path="employeeEmailId" type="email" class="control-label"
-                                                        id="emailId"
-                                                        placeholder="Email"/>
-                                            <form:errors path="employeeEmailId" class="control-label"/>
-                                        </div>
-                                    </div>
-                                </spring:bind>
-
-                                <spring:bind path="assignedEmployeeId">
-                                    <div class="form-group row ${status.error ? 'has-error' : ''}">
-                                        <label for="empId" class="col-sm-2 col-form-label">Employee Id</label>
-                                        <div class="col-sm-4">
-                                            <form:input path="assignedEmployeeId" class="form-control" id="empId"
-                                                        placeholder="Employee Id"/>
-                                            <form:errors path="employeeEmailId" class="control-label"/>
+                                    <div class="form-group required col-md-12 ${status.error ? 'has-danger' : ''}">
+                                        <label for="emailId" class="form-control-label">Email</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="employeeEmailId" maxlength="50" type="email" id="emailId"
+                                                        placeholder="Email" data-toggle="tooltip" data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                                        required="required"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="employeeEmailId"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </spring:bind>
                             </div>
 
-                            <%--<div class="form-group row">
-                                <label for="fName" class="col-sm-2 col-form-label">First Name</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="fName"
-                                           placeholder="First Name">
-                                </div>
+                            <div class="row">
+                                <spring:bind path="empPassword">
+                                    <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="employeeTitle">Password</label>
+                                        <div class="inputGroupContainer">
+                                            <form:password path="empPassword"
+                                                           name="password" id="password" maxlength="25"
+                                                           placeholder="Password" data-toggle="tooltip"
+                                                           data-animation="false" data-placement="left"
+                                                           title="Password can be 6 to 25 characters. Should consist of atleast one uppercase character, digit and special symbol (@#$%)"
+                                                           class="form-control ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="empPassword"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
 
-                                <label for="lName" class="col-sm-2 col-form-label">Last Name</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="lName"
-                                           placeholder="Last Name">
-                                </div>
+                                <spring:bind path="empPassword2">
+                                    <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="employeePhone">Re-enter Password</label>
+                                        <div class="inputGroupContainer">
+                                            <form:password path="empPassword2"
+                                                           name="password2" id="password2" maxlength="25"
+                                                           placeholder="Re-enter Password" data-toggle="tooltip"
+                                                           data-animation="false" data-placement="right"
+                                                           title="Please re-enter the same password."
+                                                           class="form-control phone_us ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="empPassword2"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <spring:bind path="empTitle">
+                                    <div class="form-group col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="employeeTitle">Role Title</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="empTitle"
+                                                        name="employeeTitle" id="employeeTitle" maxlength="50"
+                                                        placeholder="Enter Role Title" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="empTitle"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+                                <spring:bind path="phoneNumber">
+                                    <div class="form-group col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="employeePhone">Phone Number</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="phoneNumber"
+                                                        name="employeePhone" id="employeePhone" maxlength="10"
+                                                        placeholder="(xxx) xxx-xxxx" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control phone_us ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="phoneNumber"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
                             </div>
 
-                            <div class="form-group row">
-                                <label for="clientName" class="col-sm-2 col-form-label">Client Name</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="clientName"
-                                           placeholder="Client Name">
-                                </div>
+                            <div class="row">
+                                <spring:bind path="clientName">
+                                    <div class="form-group col-6 ${status.error ? 'has-danger' : ''} snears-vendor-info">
+                                        <label class="form-control-label" for="clientName">Client Name</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="clientName" name="clientName"
+                                                        maxlength="50"
+                                                        placeholder="Client Name" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                                        id="clientName"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="clientName"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
 
-                                <label for="clientAddress" class="col-sm-2 col-form-label">Client Address</label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="clientAddress"
-                                           placeholder="Client Address">
-                                </div>
-                            </div> --%>
+                                <spring:bind path="clientAddress">
+                                    <div class="form-group col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="clientAddress">Client Address</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="clientAddress"
+                                                        maxlength="100" name="clientAddress" id="clientAddress"
+                                                        placeholder="Client Address" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="clientAddress"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+                            </div>
+
+                            <div class="row">
+                                <spring:bind path="clientCity">
+                                    <div class="form-group col-md-6 ${status.error ? 'has-danger' : ''}">
+                                        <label class="form-control-label" for="clientCity">City</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="clientCity" maxlength="50" name="clientCity"
+                                                        id="clientCity"
+                                                        placeholder="Enter City" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors
+                                                        path="clientCity"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+                                <spring:bind path="clientState">
+                                    <div class="form-group col-md-3">
+                                        <label class="form-control-label" for="clientState">State</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input
+                                                    path="clientState"
+                                                    name="clientState" id="clientState" maxlength="2"
+                                                    placeholder="Enter State"
+                                                    data-toggle="tooltip" data-animation="false"
+                                                    class="form-control ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="clientState"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+
+                                <spring:bind path="clientZip">
+                                    <div class="form-group col-md-3">
+                                        <label class="form-control-label" for="clientZip">Zip</label>
+                                        <div class="inputGroupContainer">
+                                            <form:input path="clientZip"
+                                                        name="clientZip" id="clientZip" maxlength="5"
+                                                        placeholder="Enter Zip Code" data-toggle="tooltip"
+                                                        data-animation="false"
+                                                        class="form-control ${status.error ? 'form-control-danger' : ''}"/>
+                                            <div class="form-control-feedback">
+                                                <form:errors path="clientZip"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </spring:bind>
+                            </div>
+                            <br>
+
+                            <p class="text-center">By clicking on Register, you agree to
+                                <a href="#">Terms & Conditions/Privacy Policy</a>.
+                            </p>
 
                             <div class="form-signin">
                                 <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
@@ -111,7 +288,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
+<script src="js/external/popper.min.js"></script>
 <script src="js/external/bootstrap.min.js"></script>
+<script src="js/external/jquery.mask.min.js"></script>
 
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('.phone_us').mask('(000)000-0000');
+    })
+</script>
 </body>
 </html>

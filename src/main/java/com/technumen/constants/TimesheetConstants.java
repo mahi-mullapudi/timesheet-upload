@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 @Component
-@Scope("singleton")
 public class TimesheetConstants implements Serializable {
 
     //Enumeration which maintain the timesheet status
@@ -16,5 +15,7 @@ public class TimesheetConstants implements Serializable {
         APPROVED,
         REJECTED
     }
+
+    public static final String SALT = "technumen";
 
 }
