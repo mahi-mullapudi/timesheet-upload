@@ -29,15 +29,12 @@ public class Employee implements Serializable {
     private String clientCity;
     private String clientState;
     private String clientZip;
-    private long departmentId;
-    private String departmentName;
     private Date startDate; //Account Created Date.
     private String activeFlag; //Flag to check if the account is Active or Inactive.
     private Date inactivatedDate;
     private String inactivatedBy; // This contains the user info of who inactivated this user
 
     //TODO Include additional fields based on the requirements.
-
     public Employee() {
     }
 
