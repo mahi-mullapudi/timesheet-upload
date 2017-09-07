@@ -141,33 +141,33 @@
                             </div>
                             <hr>
                             <div class="row">
-                                <spring:bind path="empTitle">
+                                <spring:bind path="employeeTitle">
                                     <div class="form-group col-md-6 ${status.error ? 'has-danger' : ''}">
                                         <label class="form-control-label" for="employeeTitle">Role Title</label>
                                         <div class="inputGroupContainer">
-                                            <form:input path="empTitle"
+                                            <form:input path="employeeTitle"
                                                         name="employeeTitle" id="employeeTitle" maxlength="50"
                                                         placeholder="Enter Role Title" data-toggle="tooltip"
                                                         data-animation="false"
                                                         class="form-control ${status.error ? 'form-control-danger' : ''}"/>
                                             <div class="form-control-feedback">
-                                                <form:errors path="empTitle"/>
+                                                <form:errors path="employeeTitle"/>
                                             </div>
                                         </div>
                                     </div>
                                 </spring:bind>
 
-                                <spring:bind path="phoneNumber">
+                                <spring:bind path="employeePhone">
                                     <div class="form-group col-md-6 ${status.error ? 'has-danger' : ''}">
                                         <label class="form-control-label" for="employeePhone">Phone Number</label>
                                         <div class="inputGroupContainer">
-                                            <form:input path="phoneNumber"
+                                            <form:input path="employeePhone"
                                                         name="employeePhone" id="employeePhone" maxlength="10"
                                                         placeholder="(xxx) xxx-xxxx" data-toggle="tooltip"
                                                         data-animation="false"
                                                         class="form-control phone_us ${status.error ? 'form-control-danger' : ''}"/>
                                             <div class="form-control-feedback">
-                                                <form:errors path="phoneNumber"/>
+                                                <form:errors path="employeePhone"/>
                                             </div>
                                         </div>
                                     </div>

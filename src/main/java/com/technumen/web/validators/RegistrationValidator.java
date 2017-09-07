@@ -58,8 +58,8 @@ public class RegistrationValidator implements Validator {
             }
         }
 
-        if (!StringUtils.isBlank(employeeRegistration.getPhoneNumber())) {
-            String phoneNumber = employeeRegistration.getPhoneNumber().replaceAll("[()-]", "");
+        if (!StringUtils.isBlank(employeeRegistration.getEmployeePhone())) {
+            String phoneNumber = employeeRegistration.getEmployeePhone().replaceAll("[()-]", "");
             pattern = Pattern.compile(PHONE_PATTERN);
             matcher = pattern.matcher(phoneNumber);
             if (!matcher.matches()) {
