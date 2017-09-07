@@ -1,6 +1,7 @@
 package com.technumen.web.controllers;
 
 import com.technumen.models.Employee;
+import com.technumen.services.RegistrationService;
 import com.technumen.web.validators.RegistrationValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,22 @@ public class RegistrationController {
     //Autowiring Validators
     @Autowired
     RegistrationValidator registrationValidator;
+    //Autowiring Services
+    @Autowired
+    RegistrationService registrationService;
 
     @GetMapping
     public ModelAndView getRegistration() {
+        log.info("Inside getRegistration method of Registration Controller.");
         employee = new Employee();
         //Initiating ModelAndView object with the Employee object
         return new ModelAndView("registration", "employee", employee);
     }
 
     @PostMapping
-    public ModelAndView submitRegistation(@ModelAttribute("employee") Employee employeeRegistration, BindingResult result,
-                                          SessionStatus status, Model model, RedirectAttributes redirectAttributes) {
+    public ModelAndView submitRegistration(@ModelAttribute("employee") Employee employeeRegistration, BindingResult result,
+                                           SessionStatus status, Model model, RedirectAttributes redirectAttributes) {
+        log.info("Inside submitRegistation method of Registration Controller.");
         registrationValidator.validate(employeeRegistration, result);
         if (result.hasErrors()) {
             model.addAttribute("css", "danger");
@@ -45,7 +51,14 @@ public class RegistrationController {
             return new ModelAndView("registration", "employee", employeeRegistration);
         }
 
-        return new ModelAndView("registration", "employee", employee);
+        log.info("The form has no errors, so persisting the data.");
+        try {
+            registrationService.saveRegistrationDetails(employeeRegistration);
+        } catch (Exception ex) {
+            log.error("Exception while saving Registration details: " + ex);
+
+        }
+        return new ModelAndView("employee/dashboard");
     }
 }
 

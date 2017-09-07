@@ -6,10 +6,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer { //This configuration is because we are creating a war of the application
-
+public class Application extends SpringBootServletInitializer {
+    //This configuration is because we are creating a war of the application
     public static void main(String[] args) {
-
         SpringApplication.run(Application.class, args);
     }
 

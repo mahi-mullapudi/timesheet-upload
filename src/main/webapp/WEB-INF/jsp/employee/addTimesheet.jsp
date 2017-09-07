@@ -13,18 +13,15 @@
 
     <title>TechNumen Add Timesheets</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Icons -->
-    <link href="css/font-awesome.css" rel="stylesheet">
-
+    <link href="./css/external/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
-
+    <!-- Icons -->
+    <link href="./css/external/font-awesome.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid" id="wrapper">
@@ -43,11 +40,10 @@
                 <li class="nav-item"><a class="nav-link" href="reports.html"><em class="fa fa-bar-chart"></em>
                     Reports</a>
                 </li>
-                <!-- <li class="nav-item"><a class="nav-link" href="elements.html"><em class="fa fa-hand-o-up"></em> UI Elements</a></li> -->
-                <!-- <li class="nav-item"><a class="nav-link" href="cards.html"><em class="fa fa-clone"></em> Cards</a></li> -->
+
             </ul>
 
-            <!-- <a href="#" class="logout-button"><em class="fa fa-power-off"></em> Signout</a> -->
+
         </nav>
 
         <main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
@@ -250,18 +246,13 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/external/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
-<script src="dist/js/bootstrap.min.js"></script>
-
-<script src="js/chart.min.js"></script>
-<script src="js/chart-data.js"></script>
-<script src="js/easypiechart.js"></script>
-<script src="js/easypiechart-data.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/custom.js"></script>
+<script src="./js/external/bootstrap.min.js"></script>
+<script src="./js/external/bootstrap-datepicker.js"></script>
+<script src="./js/external/custom.js"></script>
 
 </body>
 </html>

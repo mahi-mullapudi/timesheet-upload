@@ -131,7 +131,7 @@
                                                            placeholder="Re-enter Password" data-toggle="tooltip"
                                                            data-animation="false" data-placement="right"
                                                            title="Please re-enter the same password."
-                                                           class="form-control phone_us ${status.error ? 'form-control-danger' : ''}"/>
+                                                           class="form-control ${status.error ? 'form-control-danger' : ''}"/>
                                             <div class="form-control-feedback">
                                                 <form:errors path="empPassword2"/>
                                             </div>

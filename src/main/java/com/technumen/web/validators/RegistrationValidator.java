@@ -50,13 +50,17 @@ public class RegistrationValidator implements Validator {
             errors.rejectValue("employeeEmailId", "NotValid.registration.email");
         }
 
-        if (!passwordValidator.validate(employeeRegistration.getEmpPassword())) {
-            errors.rejectValue("empPassword", "NotValid.registration.password");
-        } else {
-            if (!StringUtils.equalsIgnoreCase(employeeRegistration.getEmpPassword(), employeeRegistration.getEmpPassword2())) {
-                errors.rejectValue("empPassword2", "NotValid.registration.confirm.password");
+        
+        if (StringUtils.isNotBlank(employeeRegistration.getEmpPassword())) {
+            if (!passwordValidator.validate(employeeRegistration.getEmpPassword())) {
+                errors.rejectValue("empPassword", "NotValid.registration.password");
+            } else {
+                if (!StringUtils.equalsIgnoreCase(employeeRegistration.getEmpPassword(), employeeRegistration.getEmpPassword2())) {
+                    errors.rejectValue("empPassword2", "NotValid.registration.confirm.password");
+                }
             }
         }
+
 
         if (!StringUtils.isBlank(employeeRegistration.getEmployeePhone())) {
             String phoneNumber = employeeRegistration.getEmployeePhone().replaceAll("[()-]", "");

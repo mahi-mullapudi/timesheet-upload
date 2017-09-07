@@ -2,6 +2,7 @@ package com.technumen.services;
 
 import com.technumen.daos.RegistrationDao;
 import com.technumen.models.Employee;
+import com.technumen.repositories.EmployeeRepository;
 import com.technumen.utils.AuthenticationUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Autowired
     AuthenticationUtils authUtils;
     @Autowired
-    RegistrationDao registrationDao;
+    EmployeeRepository employeeRepository;
 
     @Override
-    public long saveRegistrationDetails(Employee employee) throws Exception {
-        log.info("Inside saveRegistrationDetails of RegistrationServiceImpl");
+    public void saveRegistrationDetails(Employee employee) throws Exception {
+        log.info("Inside saveRegistrationDetails of RegistrationServiceImpl: " + employee.toString());
         employee.setEmpPassword(authUtils.getHashValue(employee.getEmpPassword())); //Generating Hash for the password.
-        return registrationDao.saveRegistrationDetails(employee);
+        employeeRepository.save(employee);
     }
 }
