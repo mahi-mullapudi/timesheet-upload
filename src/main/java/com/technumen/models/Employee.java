@@ -22,6 +22,7 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employee_id", unique = true, nullable = false)
     private long employeeId; //Unique Id and the primary key for Employee table.
+    @Column(unique = true)
     private String employeeEmailId; //Primary EmailId/User Name of the user.
     private String empPassword; //This will be stored as a Hash value.
     @Transient
@@ -31,7 +32,7 @@ public class Employee implements Serializable {
     private String employeeLastName;
     private String employeeMiddleName;
     private String employeeTitle; //Description of the Employee Title.
-    private long employeeRoleId; //Foreign Reference for Employee_Roles table.
+    private int employeeRoleId; //Foreign Reference for Employee_Roles table.
     private String employeePhone;
     private String employeePhoneExt;
     private String clientName; //Name of the Client.

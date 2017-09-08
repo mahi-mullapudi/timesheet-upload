@@ -2,6 +2,7 @@ package com.technumen.web.controllers;
 
 import com.technumen.models.Employee;
 import com.technumen.services.RegistrationService;
+import com.technumen.utils.EncryptDecryptUtils;
 import com.technumen.web.validators.RegistrationValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class RegistrationController {
     //Autowiring Services
     @Autowired
     RegistrationService registrationService;
+    @Autowired
+    EncryptDecryptUtils encryptDecryptUtils;
 
     @GetMapping
     public ModelAndView getRegistration() {
@@ -58,7 +61,8 @@ public class RegistrationController {
             log.error("Exception while saving Registration details: " + ex);
 
         }
-        return new ModelAndView("employee/dashboard");
+        log.info("Successfully Registered the user, forwarding to the Login page.");
+        return new ModelAndView("redirect:/login?encodedEmail=" + encryptDecryptUtils.encodeInputString(employeeRegistration.getEmployeeEmailId()));
     }
 }
 

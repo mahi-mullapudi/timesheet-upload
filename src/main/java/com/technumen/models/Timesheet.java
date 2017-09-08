@@ -47,5 +47,4 @@ public class Timesheet implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false)
     private Employee employee;
-
 }

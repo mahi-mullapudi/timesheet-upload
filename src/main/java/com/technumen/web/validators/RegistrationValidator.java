@@ -32,7 +32,7 @@ public class RegistrationValidator implements Validator {
     }
 
     /*
-     *   This validate() method checks for all the validations related to Commercial Vendor Information.
+     *   This validate() method checks for all the validations related to Registration Information.
      */
     @Override
     public void validate(Object target, Errors errors) {
@@ -50,7 +50,7 @@ public class RegistrationValidator implements Validator {
             errors.rejectValue("employeeEmailId", "NotValid.registration.email");
         }
 
-        
+
         if (StringUtils.isNotBlank(employeeRegistration.getEmpPassword())) {
             if (!passwordValidator.validate(employeeRegistration.getEmpPassword())) {
                 errors.rejectValue("empPassword", "NotValid.registration.password");

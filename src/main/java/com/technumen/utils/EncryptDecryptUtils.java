@@ -14,8 +14,9 @@ import javax.crypto.spec.SecretKeySpec;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
-
+@Component
 @Slf4j
 public class EncryptDecryptUtils {
 
@@ -38,7 +39,7 @@ public class EncryptDecryptUtils {
      * @return
      * @throws Exception
      */
-    public static String encrypt(String key, String initVector, String value) throws Exception {
+    public String encrypt(String key, String initVector, String value) throws Exception {
         log.debug("Inside the encrypt method of EncryptDecryptService");
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes(ENCODING));
@@ -72,7 +73,7 @@ public class EncryptDecryptUtils {
      * @return
      * @throws Exception
      */
-    public static String decrypt(String key, String initVector, String encrypted) throws Exception {
+    public String decrypt(String key, String initVector, String encrypted) throws Exception {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes(ENCODING));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(ENCODING), ALGORITHM_AES);
@@ -92,31 +93,31 @@ public class EncryptDecryptUtils {
     }
 
     /**
-     * Encode the rowId to a URL safe string
+     * Encode the inputString to a URL safe string
      *
-     * @param rowId
+     * @param inputString
      * @return
      */
-    private String encodeRowId(String rowId) {
-        String encodedRowId = "";
-        if (StringUtils.isNotBlank(rowId)) {
-            encodedRowId = Base64.encodeBase64URLSafeString(rowId.getBytes());
+    public String encodeInputString(String inputString) {
+        String encodedOutput = "";
+        if (StringUtils.isNotBlank(inputString)) {
+            encodedOutput = Base64.encodeBase64URLSafeString(inputString.getBytes());
         }
-        return encodedRowId;
+        return encodedOutput;
     }
 
     /**
-     * Decode the RowId from Base64
+     * Decode the inputString from Base64
      *
-     * @param rowId
+     * @param inputString
      * @return
      */
-    private String decodeRowId(String rowId) {
-        String decodedRowId = "";
-        if (StringUtils.isNotBlank(rowId)) {
-            decodedRowId = new String(Base64.decodeBase64(rowId));
+    public String decodeInputString(String inputString) {
+        String decodedOutput = "";
+        if (StringUtils.isNotBlank(inputString)) {
+            decodedOutput = new String(Base64.decodeBase64(inputString));
         }
-        return decodedRowId;
+        return decodedOutput;
     }
 
 }

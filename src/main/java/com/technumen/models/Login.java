@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class Login implements Serializable {
 
-    private String userId;
+    private String emailId;
     private transient String password;
     private String clientIpAddress;
 

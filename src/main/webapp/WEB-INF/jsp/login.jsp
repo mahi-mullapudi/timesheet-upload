@@ -1,7 +1,11 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,30 +23,80 @@
     <link href="css/login.css" rel="stylesheet">
 </head>
 <body>
-<div class="container-fluid" id="wrapper">
+<div class="container" id="wrapper">
     <main class="col-md-12">
-        <section class="row">
-            <div class="col-sm-12">
-                <section class="row">
-                    <form class="form-signin">
-                        <br><img src="images/technumen-logo.png">
-                        <hr>
-                        <br>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
-                               autofocus=""><br>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password"
-                               required="">
-                        <p>By logging in, you <b>agree</b> to the <a href="">Privacy Policy</a>.</p>
-                        <button class="btn btn-lg btn-primary btn-block">Sign in</button>
-                        <br>
-                        <span><a href=""> Having Trouble Logging In? </a></span>
-                        <hr>
-                        <span>Need an account? <a href="registration.html"> Sign Up</a>. </span>
-                    </form>
-                </section>
+        <section>
+            <div class="form-signin">
+                <br><img src="images/technumen-logo.png" class="img-fluid">
+                <hr>
             </div>
+
+            <div class="col-md-10 form-signin">
+                <c:if test="${not empty msg}">
+                    <div class="col-md-12">
+                        <div class="alert alert-${css} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"
+                                    aria-label="Close">
+                                <span aria-hidden="true">X</span>
+                            </button>
+                            <i class="fa fa-info-circle faa-flash animated"></i><strong> ${msg}</strong>
+                        </div>
+                    </div>
+                </c:if>
+
+                <spring:url value="/login" var="loginActionUrl"/>
+                <form:form method="POST" modelAttribute="loginObj" action="${loginActionUrl}">
+                    <spring:bind path="emailId">
+                        <div class="form-group required ${status.error ? 'has-danger' : ''}">
+                            <div class="inputGroupContainer">
+                                <form:input path="emailId" type="email"
+                                            name="emailId" id="emailId" maxlength="50"
+                                            placeholder="Email Address" data-toggle="tooltip"
+                                            data-animation="false"
+                                            class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                            required="required"/>
+                                <div class="form-control-feedback">
+                                    <form:errors path="emailId"/>
+                                </div>
+                            </div>
+                        </div>
+                    </spring:bind>
+
+                    <spring:bind path="password">
+                        <div class="form-group required ${status.error ? 'has-danger' : ''}">
+                            <div class="inputGroupContainer">
+                                <form:password path="password"
+                                               name="password" id="password" maxlength="50"
+                                               placeholder="Password" data-toggle="tooltip"
+                                               data-animation="false"
+                                               class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                               required="required"/>
+                                <div class="form-control-feedback">
+                                    <form:errors path="password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </spring:bind>
+
+                    <form:hidden path="clientIpAddress"/>
+
+                    <p class="text-center">By logging in, you <b>agree</b> to
+                        <a href="">Terms & Conditions/Privacy Policy</a>.
+                    </p>
+
+                    <div class="form-signin">
+                        <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+                    </div>
+
+                </form:form>
+            </div>
+
+            <div class="form-signin">
+                <a href=""> Having Trouble Logging In? </a>
+                <hr>
+                <span>Need an account? <a href="/timesheetApp/registration"> Sign Up</a>. </span>
+            </div>
+
         </section>
     </main>
 </div>
