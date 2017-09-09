@@ -3,6 +3,8 @@ package com.technumen.web.restControllers;
 import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Timesheet;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,12 +12,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Blob;
-
-import org.apache.commons.io.*;
-import org.apache.commons.lang3.StringUtils;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/common")
+@RequestMapping("api/")
 @Slf4j
 public class TimesheetRestController {
 
@@ -32,9 +32,9 @@ public class TimesheetRestController {
         HttpHeaders header = null;
         try {
             Timesheet uploadedDocument = null;//ecasCommonService.getEcasDocumentByRowId(rowId);
-            Blob doc = uploadedDocument.getBlob_message();
+            Blob doc = uploadedDocument.getBlobMessage();
             bbn = doc.getBytes(1, (int) doc.length());
-            String extn = FilenameUtils.getExtension(uploadedDocument.getDsc_file_name());
+            String extn = FilenameUtils.getExtension(uploadedDocument.getDscFileName());
             String mimeType = TimesheetConstants.TIMESHEET_FILE_EXTENSION_MAP.get(extn);
             if (StringUtils.isEmpty(mimeType) || StringUtils.isBlank(mimeType)) {
                 mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;    //Unknown file type - defaulting to stream
@@ -42,7 +42,7 @@ public class TimesheetRestController {
             log.debug("Mime type detected is : " + mimeType + " for the file extn: " + extn);
             header = new HttpHeaders();
             header.setContentType(MediaType.valueOf(mimeType));
-            header.set("Content-Disposition", "inline; filename = " + uploadedDocument.getDsc_file_name());
+            header.set("Content-Disposition", "inline; filename = " + uploadedDocument.getDscFileName());
             header.setContentLength(doc.length());
         } catch (Exception ex) {
             log.error("Exception while retrieving document " + ex);
@@ -52,6 +52,12 @@ public class TimesheetRestController {
         }
 
         return new ResponseEntity(bbn, header, HttpStatus.OK);
+    }
+
+    @GetMapping("timesheetSummary")
+    public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
+        log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);
+        return null;
     }
 
 }

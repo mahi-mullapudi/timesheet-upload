@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,11 +42,7 @@
                 <li class="nav-item"><a class="nav-link" href="reports.html"><em class="fa fa-bar-chart"></em>
                     Reports</a>
                 </li>
-                <!-- <li class="nav-item"><a class="nav-link" href="elements.html"><em class="fa fa-hand-o-up"></em> UI Elements</a></li> -->
-                <!-- <li class="nav-item"><a class="nav-link" href="cards.html"><em class="fa fa-clone"></em> Cards</a></li> -->
             </ul>
-
-            <!-- <a href="#" class="logout-button"><em class="fa fa-power-off"></em> Signout</a> -->
         </nav>
 
         <main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
@@ -58,9 +58,9 @@
                              width="50" height="auto">
 
                         <div class="username mt-1">
-                            <h4 class="mb-1">testuser</h4>
+                            <h4 class="mb-1">${user.employeeFirstName} ${user.employeeFirstName}</h4>
 
-                            <h6 class="text-muted">Employee</h6>
+                            <h6 class="text-muted">${user.employeeRoleDesc}</h6>
                         </div>
                     </a>
 
@@ -86,43 +86,43 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Employee Name </label>
                                         <div class="col-lg-4">
-                                            <span> Test User </span>
+                                            <span> ${user.employeeFirstName} ${user.employeeLastName} </span>
                                         </div>
 
                                         <label class="col-lg-2 col-form-label">Employee Id </label>
                                         <div class="col-lg-4">
-                                            <span> 2323423423 </span>
+                                            <span> ${user.assignedEmployeeId} </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Email </label>
                                         <div class="col-lg-4">
-                                            <span> testuser@technumen.com </span>
+                                            <span> ${user.employeeEmailId} </span>
                                         </div>
 
                                         <label class="col-lg-2 col-form-label">Phone </label>
                                         <div class="col-lg-4">
-                                            <span> 123-465-4464 </span>
+                                            <span> ${user.employeePhone} </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Client </label>
                                         <div class="col-lg-4">
-                                            <span> PayPal Inc., </span>
+                                            <span> ${user.clientName} </span>
                                         </div>
 
                                         <label class="col-lg-2 col-form-label">Address </label>
                                         <div class="col-lg-4">
-                                            <span> 22 S Newton Dr, San Jose, California </span>
+                                            <span> ${user.clientAddress} </span>
                                         </div>
                                     </div>
 
                                 </form>
                             </div>
 
-                            <div class="card mb-4">
+                            <div class="card mb-4" id="viewTimesheet">
                                 <div class="card-block">
                                     <h3 class="card-title mb-4">View Timesheet</h3>
 
@@ -198,13 +198,12 @@
                                     <h3 class="card-title">Timesheet Summary</h3>
 
                                     <div class="table-responsive">
-                                        <table id="example" class="table table-striped table-bordered" cellspacing="0"
+                                        <table id="timesheetSummary" class="table table-striped table-bordered"
+                                               cellspacing="0"
                                                width="100%">
                                             <thead>
-
                                             <tr>
-                                                <th>Employee Name</th>
-                                                <th>Emp Title</th>
+                                                <th>Timesheet Id</th>
                                                 <th>From Period</th>
                                                 <th>To Period</th>
                                                 <th>RT Hours</th>
@@ -212,12 +211,11 @@
                                                 <th>Status</th>
                                                 <th>View</th>
                                             </tr>
-
                                             </thead>
+
                                             <tfoot>
                                             <tr>
-                                                <th>Employee Name</th>
-                                                <th>Emp Title</th>
+                                                <th>Timesheet Id</th>
                                                 <th>From Period</th>
                                                 <th>To Period</th>
                                                 <th>RT Hours</th>
@@ -226,249 +224,7 @@
                                                 <th>View</th>
                                             </tr>
                                             </tfoot>
-                                            <tbody>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
 
-                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -504,7 +260,22 @@
 <script>
 
     $(document).ready(function () {
-        $('#example').DataTable();
+        var table = $('#timesheetSummary').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "sAjaxSource": "/api/timesheetSummary?employeeId=" ${user.employeeId},
+            "sAjaxDataProp": "",
+            "order": [[0, "asc"]],
+            "aoColumns": [
+                {"data": "timesheetId"},
+                {"data": "fromDate"},
+                {"data": "toDate"},
+                {"data": "regularHours"},
+                {"data": "extraHours"},
+                {"data": "status"},
+                {"data": "rowid"}
+            ]
+        })
     });
 
 </script>

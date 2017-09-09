@@ -7,7 +7,6 @@ import com.technumen.services.AuthenticationService;
 import com.technumen.utils.EncryptDecryptUtils;
 import com.technumen.web.validators.LoginValidator;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -78,25 +77,29 @@ public class LoginController {
         }
         log.debug("\n Creating a new session");
         HttpSession newSession = request.getSession(true);
-        //Setting user object in the session.
-        newSession.setAttribute("user", employee);
         String viewName = "";
         switch (employee.getEmployeeRoleId()) {
             //Employee
             case 100:
+                employee.setEmployeeRoleDesc("employee");
                 viewName = "employee/dashboard";
                 break;
             //Employer-Staff
             case 200:
+                employee.setEmployeeRoleDesc("staff");
                 viewName = "staff/dashboard-staff";
                 break;
             //Admin
             case 500:
+                employee.setEmployeeRoleDesc("admin");
                 viewName = "admin/dashboard-admin";
                 break;
             default:
                 viewName = "login";
         }
+
+        //Setting user object in the session.
+        newSession.setAttribute("user", employee);
 
         return new ModelAndView(viewName);
     }

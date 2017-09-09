@@ -2,6 +2,7 @@ package com.technumen.models;
 
 import lombok.Data;
 import lombok.ToString;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -22,17 +23,23 @@ public class Employee implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "employee_id", unique = true, nullable = false)
     private long employeeId; //Unique Id and the primary key for Employee table.
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String employeeEmailId; //Primary EmailId/User Name of the user.
+    @Column(unique = true, nullable = false)
     private String empPassword; //This will be stored as a Hash value.
     @Transient
     private String empPassword2; //Just a confirmation field used for validation. Not saved/updated.
     private String assignedEmployeeId; //TechNumen assigned Identifier.
+    @Column(unique = true, nullable = false)
     private String employeeFirstName;
+    @Column(unique = true, nullable = false)
     private String employeeLastName;
+    @Transient
+    private String employeeFullName;
     private String employeeMiddleName;
     private String employeeTitle; //Description of the Employee Title.
     private int employeeRoleId; //Foreign Reference for Employee_Roles table.
+    private String employeeRoleDesc;
     private String employeePhone;
     private String employeePhoneExt;
     private String clientName; //Name of the Client.
@@ -58,6 +65,11 @@ public class Employee implements Serializable {
     private Set<Timesheet> timesheetRecords = new HashSet<>(0);
 
     public Employee() {
+    }
+
+    public String getEmployeeFullName() {
+        return (StringUtils.isNotBlank(this.employeeFirstName) ? this.employeeFirstName : "") +
+                " " + (StringUtils.isNotBlank(this.employeeLastName) ? this.employeeLastName : "");
     }
 
 }

@@ -24,17 +24,21 @@ public class Timesheet implements Serializable {
     private String timesheetType;
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
-    private Date timesheetStartDate;
+    private Date fromDate;
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
-    private Date timesheetEndDate;
+    private Date toDate;
     private String timesheetStatus;
+    //Timesheet Information
+    private double regularHours;
+    private double extraHours;
     //Upload Information
-    private java.sql.Blob blob_message;
-    private String dsc_file_name;
-    private String rowid;
-    private long file_size;
-    private String dsc_comments;
+    private java.sql.Blob blobMessage;
+    private String dscFileName;
+    @Transient
+    private transient String rowid;
+    private long fileSize;
+    private String dscComments;
     //Audit Information
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
