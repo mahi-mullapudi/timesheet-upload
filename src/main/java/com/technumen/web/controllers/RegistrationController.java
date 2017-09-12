@@ -24,8 +24,6 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class RegistrationController {
 
-    @Autowired
-    Employee employee;
     //Autowiring Validators
     @Autowired
     RegistrationValidator registrationValidator;
@@ -38,7 +36,7 @@ public class RegistrationController {
     @GetMapping
     public ModelAndView getRegistration() {
         log.info("Inside getRegistration method of Registration Controller.");
-        employee = new Employee();
+        Employee employee = new Employee();
         //Initiating ModelAndView object with the Employee object
         return new ModelAndView("registration", "employee", employee);
     }

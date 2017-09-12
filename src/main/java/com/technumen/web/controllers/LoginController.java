@@ -24,8 +24,6 @@ public class LoginController {
     @Autowired
     Login loginObj;
     @Autowired
-    Employee employee;
-    @Autowired
     LoginValidator loginValidator;
     @Autowired
     AuthenticationService authenticationService;
@@ -57,6 +55,7 @@ public class LoginController {
                                     @ModelAttribute("loginObj") Login loginObj, BindingResult result)
             throws CustomException {
         log.info("Inside submitLogin method:: ");
+        Employee employee;
         loginValidator.validate(loginObj, result);
         if (result.hasErrors()) {
             log.info("Inside result errors loop. Redirecting it to login page.");

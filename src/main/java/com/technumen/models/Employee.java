@@ -1,6 +1,8 @@
 package com.technumen.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
@@ -13,11 +15,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Component
-@Scope("prototype")
 @Data
 @Entity
 @ToString(exclude = {"empPassword", "empPassword2"})
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,9 +65,6 @@ public class Employee implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<Timesheet> timesheetRecords = new HashSet<>(0);
-
-    public Employee() {
-    }
 
     public String getEmployeeFullName() {
         return (StringUtils.isNotBlank(this.employeeFirstName) ? this.employeeFirstName : "") +
