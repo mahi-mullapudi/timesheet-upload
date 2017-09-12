@@ -261,24 +261,41 @@
 
     $(document).ready(function () {
         var table = $('#timesheetSummary').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "sAjaxSource": "/api/timesheetSummary?employeeId=" ${user.employeeId},
-            "sAjaxDataProp": "",
-            "order": [[0, "asc"]],
-            "aoColumns": [
-                {"data": "timesheetId"},
-                {"data": "fromDate"},
-                {"data": "toDate"},
-                {"data": "regularHours"},
-                {"data": "extraHours"},
-                {"data": "status"},
-                {"data": "rowid"}
+            ajax: {
+                url: '/timesheetApp/api/timesheetSummary?employeeId=${user.employeeId}',
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: 'timesheetId'
+                },
+                {
+                    data: 'fromDate'
+                },
+                {
+                    data: 'toDate'
+                },
+                {
+                    data: 'regularHours'
+                },
+                {
+                    data: 'extraHours'
+                },
+                {
+                    data: 'timesheetStatus'
+                },
+                {
+                    data: 'rowid',
+                    mRender: function (data, type, row) {
+                        var link = '';
+                        link += '<a href="/timesheetApp/api/timesheetSummary?employeeId=' + data + '">View Timesheet</a>';
+                        return link;
+                    }
+                }
             ]
         })
     });
 
 </script>
-
 </body>
 </html>

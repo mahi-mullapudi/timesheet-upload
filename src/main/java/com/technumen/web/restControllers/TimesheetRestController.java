@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/api")
 @Slf4j
 public class TimesheetRestController {
     @Autowired
@@ -60,7 +60,7 @@ public class TimesheetRestController {
         return new ResponseEntity(bbn, header, HttpStatus.OK);
     }
 
-    @GetMapping("timesheetSummary")
+    @GetMapping("/timesheetSummary")
     public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
         log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);
         Employee employee = employeeService.getEmployeeByEmployeeId(employeeId);
