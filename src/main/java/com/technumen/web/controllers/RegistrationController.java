@@ -17,8 +17,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
-
 @Controller
 @RequestMapping("/registration")
 @Slf4j
@@ -38,7 +36,6 @@ public class RegistrationController {
     @GetMapping
     public ModelAndView getRegistration() {
         log.info("Inside getRegistration method of Registration Controller.");
-        employee = new Employee();
         //Initiating ModelAndView object with the Employee object
         return new ModelAndView("registration", "employee", employee);
     }

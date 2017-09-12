@@ -1,10 +1,13 @@
 package com.technumen.web.restControllers;
 
 import com.technumen.constants.TimesheetConstants;
+import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
+import com.technumen.services.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,9 +18,14 @@ import java.sql.Blob;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/api")
 @Slf4j
 public class TimesheetRestController {
+
+    @Autowired
+    Employee employee;
+    @Autowired
+    EmployeeService employeeService;
 
     /**
      * Get the file from the database FNS_ECAS_CONTRACT_DOCUMENT table and then
@@ -54,10 +62,16 @@ public class TimesheetRestController {
         return new ResponseEntity(bbn, header, HttpStatus.OK);
     }
 
-    @GetMapping("timesheetSummary")
+    @GetMapping("/timesheetSummary")
     public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
-        log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);
-        return null;
+        log.info("Inside getTimesheetSummary method of Timesheet Rest Controller:: employeeId: " + employeeId);
+        employee = employeeService.getEmployeeByEmpId(employeeId);
+        if (employee != null) {
+            log.debug("After getting the employee object: " + employee.toString());
+            return new ResponseEntity(employee.getTimesheetRecords(), new HttpHeaders(), HttpStatus.OK);
+        }
+        log.info("No Employee object returned for the given EmployeeId. So returning an empty array");
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
 }
