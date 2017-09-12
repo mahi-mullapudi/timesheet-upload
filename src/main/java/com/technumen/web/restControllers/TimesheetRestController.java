@@ -4,6 +4,7 @@ import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
 import com.technumen.services.EmployeeService;
+import com.technumen.services.TimesheetService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,9 @@ import java.util.List;
 public class TimesheetRestController {
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    TimesheetService timesheetService;
 
     /**
      * Get the file from the database FNS_ECAS_CONTRACT_DOCUMENT table and then
@@ -66,6 +70,13 @@ public class TimesheetRestController {
         Employee employee = employeeService.getEmployeeByEmployeeId(employeeId);
         return new ResponseEntity(new ArrayList(employee.getTimesheetRecords()), new HttpHeaders(), HttpStatus.OK);
 
+    }
+
+    @GetMapping(value = "/getTimesheet", produces = "application/json")
+    public ResponseEntity<Timesheet> getTimesheet(@RequestParam("timesheetId") long timesheetId) {
+        log.info("Inside getTimesheetSummary method of TimesheetRestController:: timesheetId: " + timesheetId);
+        Timesheet timesheet = timesheetService.getTimesheetByTimesheetId(timesheetId);
+        return new ResponseEntity(timesheet, new HttpHeaders(), HttpStatus.OK);
     }
 
 }

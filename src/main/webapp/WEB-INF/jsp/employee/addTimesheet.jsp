@@ -26,27 +26,43 @@
 <body>
 <div class="container-fluid" id="wrapper">
     <div class="row">
+        <!-- Side Navbar -->
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
-            <h1 class="site-title"><a href="index.html"><em class="fa fa-rocket"></em> TechNumen Inc.,</a></h1>
+            <h1 class="site-title">
+                <a href="index.html">
+                    <em class="fa fa-rocket"></em> TechNumen Inc.,
+                </a>
+            </h1>
 
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+                <em class="fa fa-bars"></em>
+            </a>
 
             <ul class="nav nav-pills flex-column sidebar-nav">
-                <li class="nav-item"><a class="nav-link" href="index.html"><em class="fa fa-dashboard"></em>
-                    Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link active" href="addTimesheet.html"><em
-                        class="fa fa-calendar-o"></em>
-                    Upload Timesheet <span class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="reports.html"><em class="fa fa-bar-chart"></em>
-                    Reports</a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/timesheetApp/dashboard">
+                        <em class="fa fa-dashboard"></em> Dashboard
+
+                    </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/addTimesheet">
+                        <em class="fa fa-calendar-o"></em>
+                        Upload Timesheet <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/reports">
+                        <em class="fa fa-bar-chart"></em> Reports
+                    </a>
+                </li>
             </ul>
-
-
         </nav>
-
+        <!-- Main section -->
         <main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
+            <!-- Header section -->
             <header class="page-header row justify-center">
                 <div class="col-md-6 col-lg-8">
                     <h1 class="float-left text-center text-md-left"> Upload New Timesheet </h1>
@@ -59,9 +75,8 @@
                              width="50" height="auto">
 
                         <div class="username mt-1">
-                            <h4 class="mb-1">testuser</h4>
-
-                            <h6 class="text-muted">Employee</h6>
+                            <h4 class="mb-1">${user.employeeFirstName} ${user.employeeFirstName}</h4>
+                            <h6 class="text-muted">${user.employeeRoleDesc}</h6>
                         </div>
                     </a>
 
@@ -86,26 +101,26 @@
                                 <form>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Emp Name </label>
+                                        <label class="col-lg-2 col-form-label">Employee Name </label>
                                         <div class="col-lg-4">
-                                            <span> Test User </span>
+                                            <span> ${user.employeeFirstName} ${user.employeeLastName} </span>
                                         </div>
 
                                         <label class="col-lg-2 col-form-label">Employee Id </label>
                                         <div class="col-lg-4">
-                                            <span> 2323423423 </span>
+                                            <span> ${user.assignedEmployeeId} </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Client </label>
                                         <div class="col-lg-4">
-                                            <span> PayPal Inc., </span>
+                                            <span> ${user.clientName} </span>
                                         </div>
 
                                         <label class="col-lg-2 col-form-label">Address </label>
                                         <div class="col-lg-4">
-                                            <span> 22 S Newton Dr, San Jose, California </span>
+                                            <span> ${user.clientAddress} </span>
                                         </div>
                                     </div>
                                     <br>
@@ -164,8 +179,6 @@
                                 <div class="card-block">
 
                                     <h3 class="card-title">Timesheet Upload Process</h3>
-
-                                    <!-- <h6 class="card-subtitle mb-2 text-muted">Vertical Layout</h6> -->
 
                                     <ul class="timeline">
                                         <li>

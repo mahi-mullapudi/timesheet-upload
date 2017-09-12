@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,14 +25,14 @@ public class Employee implements Serializable {
     private long employeeId; //Unique Id and the primary key for Employee table.
     @Column(unique = true, nullable = false)
     private String employeeEmailId; //Primary EmailId/User Name of the user.
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String empPassword; //This will be stored as a Hash value.
     @Transient
     private String empPassword2; //Just a confirmation field used for validation. Not saved/updated.
     private String assignedEmployeeId; //TechNumen assigned Identifier.
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String employeeFirstName;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String employeeLastName;
     @Transient
     private String employeeFullName;
@@ -56,7 +54,7 @@ public class Employee implements Serializable {
     private Date employeeStartDate; //Account Created Date.
     private String accountStatusFlag; //Flag to check if the account is Active or Inactive.
     @DateTimeFormat(pattern = "MM/dd/yyyy")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dteInactivated;
     private String nmeUserInactivated; // Who inactivated this user
     @DateTimeFormat(pattern = "MM/dd/yyyy")

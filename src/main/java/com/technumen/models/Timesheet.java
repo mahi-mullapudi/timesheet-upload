@@ -1,5 +1,6 @@
 package com.technumen.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,12 +44,15 @@ public class Timesheet implements Serializable {
     private long fileSize;
     private String dscComments;
     //Audit Information
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    @DateTimeFormat(pattern = "MM/dd/yyyy hh:mm")
     @Temporal(TemporalType.DATE)
     private Date dateCreated;
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "MM/dd/yyyy hh:mm")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateLastModified;
+    @DateTimeFormat(pattern = "MM/dd/yyyy hh:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateApproved;
     private String nameCreated; //Name of the user Uploaded the timesheet.
     private String nameLastModified;
     @ManyToOne(fetch = FetchType.LAZY)

@@ -27,20 +27,36 @@
 <body>
 <div class="container-fluid" id="wrapper">
     <div class="row">
-        <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
-            <h1 class="site-title"><a href="index.html"><em class="fa fa-rocket"></em> TechNumen Inc.,</a></h1>
 
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
+        <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
+            <h1 class="site-title">
+                <a href="index.html">
+                    <em class="fa fa-rocket"></em> TechNumen Inc.,
+                </a>
+            </h1>
+
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+                <em class="fa fa-bars"></em>
+            </a>
 
             <ul class="nav nav-pills flex-column sidebar-nav">
-                <li class="nav-item"><a class="nav-link active" href="index.html"><em class="fa fa-dashboard"></em>
-                    Dashboard <span class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" href="addTimesheet.html"><em class="fa fa-calendar-o"></em>
-                    Upload
-                    Timesheet</a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/timesheetApp/dashboard">
+                        <em class="fa fa-dashboard"></em>
+                        Dashboard <span class="sr-only">(current)</span>
+                    </a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="reports.html"><em class="fa fa-bar-chart"></em>
-                    Reports</a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/addTimesheet">
+                        <em class="fa fa-calendar-o"></em> Upload Timesheet
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/reports">
+                        <em class="fa fa-bar-chart"></em> Reports
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -59,7 +75,6 @@
 
                         <div class="username mt-1">
                             <h4 class="mb-1">${user.employeeFirstName} ${user.employeeFirstName}</h4>
-
                             <h6 class="text-muted">${user.employeeRoleDesc}</h6>
                         </div>
                     </a>
@@ -82,6 +97,8 @@
                                 <h1 class="mb-4">Employee Details</h1>
 
                                 <form>
+
+                                    <input type="hidden" id="employeeId" value="${user.employeeId}">
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">Employee Name </label>
@@ -129,62 +146,66 @@
                                     <form>
 
                                         <div class="form-group row">
-                                            <label for="selectTimePeriod" class="col-lg-2 col-form-label">Selected
-                                                TimePeriod </label>
+                                            <label for="selectedTimePeriod" class="col-lg-2 col-form-label">Selected
+                                                TimePeriod : </label>
                                             <div class="col-lg-4">
-                                                <select class="form-control" id="selectTimePeriod" readonly>
-                                                    <option>09/04/17 - 09/10/17</option>
-                                                </select>
+                                                <span id="selectedTimePeriod"></span>
                                             </div>
 
-                                            <label for="selectTimePeriod"
-                                                   class="col-lg-2 col-form-label">Status </label>
+                                            <label class="col-lg-2 col-form-label">Status : </label>
                                             <div class="col-lg-4">
-                                                Submitted
+                                                <span id="timesheetStatus"></span>
                                             </div>
-
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="col-lg-2 col-form-label">Regular
-                                                Hours </label>
+                                                Hours : </label>
                                             <div class="col-lg-2">
-                                                <span>40.0 Hours</span>
+                                                <span id="regularHours"></span>
                                             </div>
 
                                             <label class="col-lg-2 col-form-label">Extra
-                                                Hours </label>
+                                                Hours : </label>
                                             <div class="col-lg-2">
-                                                <span>0.0 Hours</span>
+                                                <span id="extraHours"></span>
                                             </div>
 
                                             <label class="col-lg-2 col-form-label">Total
-                                                Hours </label>
+                                                Hours : </label>
                                             <div class="col-lg-2">
-                                                <span>40.0 Hours</span>
+                                                <span id="totalHours"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Submitted By </label>
+                                            <label class="col-lg-2 col-form-label">Submitted By : </label>
                                             <div class="col-lg-2">
-                                                <span>John Doe</span>
+                                                <span id="submitterName"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Submitted On </label>
+                                            <label class="col-lg-2 col-form-label">Submitted On : </label>
                                             <div class="col-lg-2">
-                                                <span>09/05/2017 0235PM</span>
+                                                <span id="submittedDate"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Approved On </label>
+                                            <label class="col-lg-2 col-form-label">Approved On : </label>
                                             <div class="col-lg-2">
-                                                <span>09/06/2017 03:35PM</span>
+                                                <span id="approvalDate"></span>
                                             </div>
                                         </div>
+                                        <br>
+
+                                        <div class="form-group row" id="uploadedTimesheet">
+                                            <a href="#" id="uploadTimesheetLink"> Click here to access the uploaded
+                                                timesheet: <span id="uploadedTimesheetName"></span> </a>
+                                        </div>
+                                        <br>
+
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Comments </label>
-                                            <textarea class="form-control col-xl-8" id="exampleFormControlTextarea1"
+                                            <label for="timesheetComments">Comments : </label>
+                                            <textarea class="form-control col-xl-8" id="timesheetComments"
                                                       rows="3" readonly></textarea>
                                         </div>
 
@@ -257,45 +278,6 @@
 
 <script src="./js/external/bootstrap-datepicker.js"></script>
 <script src="./js/external/custom.js"></script>
-<script>
-
-    $(document).ready(function () {
-        var table = $('#timesheetSummary').DataTable({
-            ajax: {
-                url: '/timesheetApp/api/timesheetSummary?employeeId=${user.employeeId}',
-                dataSrc: ''
-            },
-            columns: [
-                {
-                    data: 'timesheetId'
-                },
-                {
-                    data: 'fromDate'
-                },
-                {
-                    data: 'toDate'
-                },
-                {
-                    data: 'regularHours'
-                },
-                {
-                    data: 'extraHours'
-                },
-                {
-                    data: 'timesheetStatus'
-                },
-                {
-                    data: 'rowid',
-                    mRender: function (data, type, row) {
-                        var link = '';
-                        link += '<a href="/timesheetApp/api/timesheetSummary?employeeId=' + data + '">View Timesheet</a>';
-                        return link;
-                    }
-                }
-            ]
-        })
-    });
-
-</script>
+<script src="./js/dashboard.js"></script>
 </body>
 </html>
