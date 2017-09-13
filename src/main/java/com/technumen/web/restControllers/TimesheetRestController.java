@@ -1,21 +1,19 @@
 package com.technumen.web.restControllers;
 
-import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
 import com.technumen.services.EmployeeService;
 import com.technumen.services.TimesheetService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,13 +34,13 @@ public class TimesheetRestController {
      * @param rowId
      * @return
      */
-    @GetMapping("/getContractDocument/{rowId}")
+    /*@GetMapping("/getContractDocument/{rowId}")
     public ResponseEntity getContractDocument(@PathVariable("rowId") String rowId) {
         byte[] bbn = null;
         HttpHeaders header = null;
         try {
             Timesheet uploadedDocument = null;//ecasCommonService.getEcasDocumentByRowId(rowId);
-            Blob doc = uploadedDocument.getBlobMessage();
+            Blob doc = uploadedDocument.getBlobContent();
             bbn = doc.getBytes(1, (int) doc.length());
             String extn = FilenameUtils.getExtension(uploadedDocument.getDscFileName());
             String mimeType = TimesheetConstants.TIMESHEET_FILE_EXTENSION_MAP.get(extn);
@@ -62,8 +60,7 @@ public class TimesheetRestController {
         }
 
         return new ResponseEntity(bbn, header, HttpStatus.OK);
-    }
-
+    } */
     @GetMapping("/timesheetSummary")
     public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
         log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);

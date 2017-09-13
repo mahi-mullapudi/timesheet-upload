@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,27 +102,28 @@
                             <div class="jumbotron">
                                 <h1 class="mb-4">Timesheet Information</h1>
 
-                                <form>
+                                <form:form method="POST" modelAttribute="timesheetObj" action="addTimesheet"
+                                           enctype="multipart/form-data">
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Employee Name </label>
+                                        <label class="col-lg-2 form-control-label">Employee Name </label>
                                         <div class="col-lg-4">
                                             <span> ${user.employeeFirstName} ${user.employeeLastName} </span>
                                         </div>
 
-                                        <label class="col-lg-2 col-form-label">Employee Id </label>
+                                        <label class="col-lg-2 form-control-label">Employee Id </label>
                                         <div class="col-lg-4">
                                             <span> ${user.assignedEmployeeId} </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Client </label>
+                                        <label class="col-lg-2 form-control-label">Client </label>
                                         <div class="col-lg-4">
                                             <span> ${user.clientName} </span>
                                         </div>
 
-                                        <label class="col-lg-2 col-form-label">Address </label>
+                                        <label class="col-lg-2 form-control-label">Address </label>
                                         <div class="col-lg-4">
                                             <span> ${user.clientAddress} </span>
                                         </div>
@@ -126,52 +131,80 @@
                                     <br>
 
                                     <div class="form-group row">
-                                        <label for="selectTimePeriod" class="col-lg-2 col-form-label">Select
+                                        <label for="selectTimePeriod" class="col-lg-2 form-control-label">Select
                                             TimePeriod </label>
                                         <div class="col-lg-4">
-                                            <select class="form-control" id="selectTimePeriod">
-                                                <option>09/04/17 - 09/10/17</option>
+                                            <form:select path="" class="form-control" id="selectTimePeriod">
+                                                <option>09/04/2017 - 09/10/2017</option>
                                                 <option>08/28/17 - 09/03/17</option>
                                                 <option>08/21/17 - 09/27/17</option>
                                                 <option>08/14/17 - 08/20/17</option>
                                                 <option>08/07/17 - 08/13/17</option>
-                                            </select>
+                                            </form:select>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label for="regularHoursText" class="col-lg-2 col-form-label">Regular
-                                            Hours </label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control-plaintext" id="regularHoursText">
-                                        </div>
+                                    <div class="row">
 
-                                        <label for="extraHoursText" class="col-lg-2 col-form-label">Extra
-                                            Hours </label>
-                                        <div class="col-lg-4">
-                                            <input type="text" class="form-control-plaintext" id="extraHoursText">
-                                        </div>
+                                        <spring:bind path="regularHours">
+                                            <div class="form-group row required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                                <label class="form-control-label col-lg-4" for="regularHoursText">Regular
+                                                    Hours: </label>
+                                                <div class="inputGroupContainer col-lg-8">
+                                                    <form:input path="regularHours"
+                                                                name="regularHoursText" id="regularHoursText"
+                                                                maxlength="5"
+                                                                placeholder="Ex: 40.0" data-toggle="tooltip"
+                                                                data-animation="false" data-placement="left"
+                                                                title="Enter the total regular hours you worked for the selected week."
+                                                                class="form-control col-lg-12 ${status.error ? 'form-control-danger' : ''}"/>
+                                                    <div class="form-control-feedback">
+                                                        <form:errors path="regularHours"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </spring:bind>
+
+                                        <spring:bind path="extraHours">
+                                            <div class="form-group row required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                                <label class="form-control-label col-lg-4" for="extraHoursText">Extra
+                                                    Hours: </label>
+                                                <div class="inputGroupContainer col-lg-8">
+                                                    <form:input path="extraHours"
+                                                                name="extraHoursText" id="extraHoursText"
+                                                                maxlength="5"
+                                                                placeholder="Ex: 10.0" data-toggle="tooltip"
+                                                                data-animation="false" data-placement="right"
+                                                                title="Please enter the extra hours worked for the selected week."
+                                                                class="form-control col-lg-12 ${status.error ? 'form-control-danger' : ''}"/>
+                                                    <div class="form-control-feedback">
+                                                        <form:errors path="extraHours"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </spring:bind>
+
                                     </div>
 
                                     <p>Please Upload your approved timesheet for the selected time period</p>
 
                                     <div class="form-group row">
-                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                                        <button type="submit" class="btn btn-primary">Upload Timesheet</button>
+                                        <form:input path="uploadFile" type="file" name="file"
+                                                    class="form-control-file"/>
                                     </div>
+                                    <br>
 
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1">Comments </label>
-                                        <textarea class="form-control col-xl-8" id="exampleFormControlTextarea1"
-                                                  rows="3"></textarea>
+                                        <label for="dscCommentsText">Comments : </label>
+                                        <form:textarea path="dscComments" id="dscCommentsText"
+                                                       class="form-control col-xl-8"/>
                                     </div>
 
                                     <div class="text-center">
-                                        <input type="submit" class="btn btn-success"
-                                               value="Submit For Review"/>
+                                        <input type="submit" class="btn btn-success" value="Submit For Review"/>
                                     </div>
 
-                                </form>
+                                </form:form>
 
                             </div>
 

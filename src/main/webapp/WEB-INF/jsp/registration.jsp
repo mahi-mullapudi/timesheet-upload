@@ -105,7 +105,7 @@
                             <div class="row">
                                 <spring:bind path="empPassword">
                                     <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
-                                        <label class="form-control-label" for="employeeTitle">Password</label>
+                                        <label class="form-control-label" for="password">Password</label>
                                         <div class="inputGroupContainer">
                                             <form:password path="empPassword"
                                                            name="password" id="password" maxlength="25"
@@ -122,7 +122,7 @@
 
                                 <spring:bind path="empPassword2">
                                     <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
-                                        <label class="form-control-label" for="employeePhone">Re-enter Password</label>
+                                        <label class="form-control-label" for="password2">Re-enter Password</label>
                                         <div class="inputGroupContainer">
                                             <form:password path="empPassword2"
                                                            name="password2" id="password2" maxlength="25"

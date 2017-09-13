@@ -101,36 +101,36 @@
                                     <input type="hidden" id="employeeId" value="${user.employeeId}">
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Employee Name </label>
+                                        <label class="col-lg-2 form-control-label">Employee Name </label>
                                         <div class="col-lg-4">
                                             <span> ${user.employeeFirstName} ${user.employeeLastName} </span>
                                         </div>
 
-                                        <label class="col-lg-2 col-form-label">Employee Id </label>
+                                        <label class="col-lg-2 form-control-label">Employee Id </label>
                                         <div class="col-lg-4">
                                             <span> ${user.assignedEmployeeId} </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Email </label>
+                                        <label class="col-lg-2 form-control-label">Email </label>
                                         <div class="col-lg-4">
                                             <span> ${user.employeeEmailId} </span>
                                         </div>
 
-                                        <label class="col-lg-2 col-form-label">Phone </label>
+                                        <label class="col-lg-2 form-control-label">Phone </label>
                                         <div class="col-lg-4">
                                             <span> ${user.employeePhone} </span>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Client </label>
+                                        <label class="col-lg-2 form-control-label">Client </label>
                                         <div class="col-lg-4">
                                             <span> ${user.clientName} </span>
                                         </div>
 
-                                        <label class="col-lg-2 col-form-label">Address </label>
+                                        <label class="col-lg-2 form-control-label">Address </label>
                                         <div class="col-lg-4">
                                             <span> ${user.clientAddress} </span>
                                         </div>
@@ -146,32 +146,32 @@
                                     <form>
 
                                         <div class="form-group row">
-                                            <label for="selectedTimePeriod" class="col-lg-2 col-form-label">Selected
+                                            <label for="selectedTimePeriod" class="col-lg-2 form-control-label">Selected
                                                 TimePeriod : </label>
                                             <div class="col-lg-4">
                                                 <span id="selectedTimePeriod"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Status : </label>
+                                            <label class="col-lg-2 form-control-label">Status : </label>
                                             <div class="col-lg-4">
                                                 <span id="timesheetStatus"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Regular
+                                            <label class="col-lg-2 form-control-label">Regular
                                                 Hours : </label>
                                             <div class="col-lg-2">
                                                 <span id="regularHours"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Extra
+                                            <label class="col-lg-2 form-control-label">Extra
                                                 Hours : </label>
                                             <div class="col-lg-2">
                                                 <span id="extraHours"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Total
+                                            <label class="col-lg-2 form-control-label">Total
                                                 Hours : </label>
                                             <div class="col-lg-2">
                                                 <span id="totalHours"></span>
@@ -179,17 +179,17 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Submitted By : </label>
+                                            <label class="col-lg-2 form-control-label">Submitted By : </label>
                                             <div class="col-lg-2">
                                                 <span id="submitterName"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Submitted On : </label>
+                                            <label class="col-lg-2 form-control-label">Submitted On : </label>
                                             <div class="col-lg-2">
                                                 <span id="submittedDate"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Approved On : </label>
+                                            <label class="col-lg-2 form-control-label">Approved On : </label>
                                             <div class="col-lg-2">
                                                 <span id="approvalDate"></span>
                                             </div>

@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,18 +27,20 @@ public class Timesheet implements Serializable {
     @Column(name = "TIMESHEET_ID", unique = true, nullable = false)
     private long timesheetId;
     private String timesheetType;
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date fromDate;
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date toDate;
     private String timesheetStatus;
     //Timesheet Information
     private double regularHours;
     private double extraHours;
-    //Upload Information
-    private java.sql.Blob blobMessage;
+    //File Upload Information
+    @Transient
+    private MultipartFile uploadFile;
+    private byte[] blobContent;
     private String dscFileName;
     @Transient
     private transient String rowid;
