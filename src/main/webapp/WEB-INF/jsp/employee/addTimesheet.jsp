@@ -75,7 +75,7 @@
                 <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right">
                     <a class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="images/profile-pic.jpg" alt="profile photo" class="circle float-left profile-photo"
+                        <img src="images/profile-pic.png" alt="profile photo" class="circle float-left profile-photo"
                              width="50" height="auto">
 
                         <div class="username mt-1">
@@ -104,6 +104,10 @@
 
                                 <form:form method="POST" modelAttribute="timesheetObj" action="addTimesheet"
                                            enctype="multipart/form-data">
+
+                                    <c:if test="${not empty msg}">
+                                        <span> ${msg}</span>
+                                    </c:if>
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 form-control-label">Employee Name </label>

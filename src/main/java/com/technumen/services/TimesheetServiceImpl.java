@@ -19,4 +19,9 @@ public class TimesheetServiceImpl implements TimesheetService {
         return timesheetRepository.findOne(timesheetId);
     }
 
+    @Override
+    public void save(Timesheet timesheetObj) throws Exception {
+        log.info("Inside save method of TimesheetServiceImpl :: " + timesheetObj.getTimesheetId());
+        timesheetRepository.save(timesheetObj);
+    }
 }

@@ -1,13 +1,17 @@
 package com.technumen.web.restControllers;
 
+import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
 import com.technumen.services.EmployeeService;
 import com.technumen.services.TimesheetService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,36 +35,44 @@ public class TimesheetRestController {
      * Get the file from the database FNS_ECAS_CONTRACT_DOCUMENT table and then
      * covert it to a stream and display it to the user.
      *
-     * @param rowId
+     * @param timesheetId
      * @return
      */
-    /*@GetMapping("/getContractDocument/{rowId}")
-    public ResponseEntity getContractDocument(@PathVariable("rowId") String rowId) {
-        byte[] bbn = null;
+    @GetMapping("/getUploadedTimesheet")
+    public ResponseEntity getContractDocument(@RequestParam("timesheetId") long timesheetId) {
+        log.info("Inside getContractDocument method of TimesheetRestController:: timesheetId: " + timesheetId);
+        byte[] doc = null;
         HttpHeaders header = null;
         try {
-            Timesheet uploadedDocument = null;//ecasCommonService.getEcasDocumentByRowId(rowId);
-            Blob doc = uploadedDocument.getBlobContent();
-            bbn = doc.getBytes(1, (int) doc.length());
-            String extn = FilenameUtils.getExtension(uploadedDocument.getDscFileName());
-            String mimeType = TimesheetConstants.TIMESHEET_FILE_EXTENSION_MAP.get(extn);
-            if (StringUtils.isEmpty(mimeType) || StringUtils.isBlank(mimeType)) {
-                mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;    //Unknown file type - defaulting to stream
+            Timesheet timesheetObj = timesheetService.getTimesheetByTimesheetId(timesheetId);
+            log.info("After getting the timesheetObj");
+            if (timesheetObj != null) {
+                doc = timesheetObj.getBlobContent();
+                String extn = FilenameUtils.getExtension(timesheetObj.getDscFileName());
+                log.info("File Extension: " + extn);
+                String mimeType = TimesheetConstants.TIMESHEET_FILE_EXTENSION_MAP.get(extn);
+                if (StringUtils.isEmpty(mimeType) || StringUtils.isBlank(mimeType)) {
+                    mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;    //Unknown file type - defaulting to stream
+                }
+                log.info("Mime type detected is : " + mimeType + " for the file extn: " + extn);
+                header = new HttpHeaders();
+                header.setContentType(MediaType.valueOf(mimeType));
+                header.set("Content-Disposition", "inline; filename = " + timesheetObj.getDscFileName());
+                header.setContentLength(doc.length);
+            } else {
+                log.error("No Timesheet found for the given timesheetId.");
+                return new ResponseEntity(doc, header, HttpStatus.NO_CONTENT);
             }
-            log.debug("Mime type detected is : " + mimeType + " for the file extn: " + extn);
-            header = new HttpHeaders();
-            header.setContentType(MediaType.valueOf(mimeType));
-            header.set("Content-Disposition", "inline; filename = " + uploadedDocument.getDscFileName());
-            header.setContentLength(doc.length());
         } catch (Exception ex) {
             log.error("Exception while retrieving document " + ex);
         }
-        if (bbn == null || bbn.length == 0) {
-            return new ResponseEntity(bbn, header, HttpStatus.NO_CONTENT);
+        if (doc == null || doc.length == 0) {
+            return new ResponseEntity(doc, header, HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity(bbn, header, HttpStatus.OK);
-    } */
+        return new ResponseEntity(doc, header, HttpStatus.OK);
+    }
+
     @GetMapping("/timesheetSummary")
     public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
         log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);

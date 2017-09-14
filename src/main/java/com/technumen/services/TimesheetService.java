@@ -11,4 +11,11 @@ public interface TimesheetService {
      * @return
      */
     public Timesheet getTimesheetByTimesheetId(long timesheetId);
+
+    /**
+     * Save Timesheet information along with file upload information.
+     *
+     * @param timesheetObj
+     */
+    public void save(Timesheet timesheetObj) throws Exception;
 }

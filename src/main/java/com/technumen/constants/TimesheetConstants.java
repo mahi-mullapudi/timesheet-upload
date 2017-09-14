@@ -9,13 +9,15 @@ import java.util.Map;
 @Component
 public class TimesheetConstants implements Serializable {
 
-    //Enumeration which maintain the status of timesheets.
-    public enum Status {
-        SAVED,
-        SUBMITTED,
-        APPROVED,
-        REJECTED
-    }
+    public static final String TIMESHEET_STATUS_APPROVED = "APPROVED";
+
+    public static final String TIMESHEET_STATUS_SUBMITTED = "SUBMITTED";
+
+    public static final String TIMESHEET_STATUS_REJECTED = "REJECTED";
+
+    public static final String TIMESHEET_TYPE_WEEKLY = "WEEKLY";
+
+    public static final String TIMESHEET_TYPE_BIWEEKLY = "BIWEEKLY";
 
     public static final String SALT = "technumen";
 

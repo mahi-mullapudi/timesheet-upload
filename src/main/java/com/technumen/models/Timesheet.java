@@ -39,11 +39,12 @@ public class Timesheet implements Serializable {
     private double extraHours;
     //File Upload Information
     @Transient
-    private MultipartFile uploadFile;
-    private byte[] blobContent;
+    private MultipartFile uploadFile; //Just to get the uploaded file.
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(length = 1048576)
+    private byte[] blobContent; //Byte stream of the file saved in the database.
     private String dscFileName;
-    @Transient
-    private transient String rowid;
     private long fileSize;
     private String dscComments;
     //Audit Information
