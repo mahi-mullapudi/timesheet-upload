@@ -9,6 +9,10 @@ import java.util.Map;
 @Component
 public class TimesheetConstants implements Serializable {
 
+    public static final String REGISTRATION_STATUS_ACTIVE = "ACTIVE";
+
+    public static final String REGISTRATION_STATUS_INACTIVE = "INACTIVE";
+
     public static final String TIMESHEET_STATUS_APPROVED = "APPROVED";
 
     public static final String TIMESHEET_STATUS_SUBMITTED = "SUBMITTED";

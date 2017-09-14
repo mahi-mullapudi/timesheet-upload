@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -76,16 +77,37 @@ public class TimesheetRestController {
     @GetMapping("/timesheetSummary")
     public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
         log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);
-        Employee employee = employeeService.getEmployeeByEmployeeId(employeeId);
-        return new ResponseEntity(new ArrayList(employee.getTimesheetRecords()), new HttpHeaders(), HttpStatus.OK);
-
+        try {
+            Employee employee = employeeService.getEmployeeByEmployeeId(employeeId);
+            return new ResponseEntity(new ArrayList(employee.getTimesheetRecords()), new HttpHeaders(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error("Exception while getting Timesheet Summary: " + ex);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping(value = "/getTimesheet", produces = "application/json")
-    public ResponseEntity<Timesheet> getTimesheet(@RequestParam("timesheetId") long timesheetId) {
-        log.info("Inside getTimesheetSummary method of TimesheetRestController:: timesheetId: " + timesheetId);
-        Timesheet timesheet = timesheetService.getTimesheetByTimesheetId(timesheetId);
-        return new ResponseEntity(timesheet, new HttpHeaders(), HttpStatus.OK);
+    @GetMapping(value = "/getTimesheetById", produces = "application/json")
+    public ResponseEntity<Timesheet> getTimesheetByTimesheetId(@RequestParam("timesheetId") long timesheetId) throws Exception {
+        log.info("Inside getTimesheetByTimesheetId method of TimesheetRestController:: timesheetId: " + timesheetId);
+        try {
+            Timesheet timesheet = timesheetService.getTimesheetByTimesheetId(timesheetId);
+            return new ResponseEntity(timesheet, new HttpHeaders(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error("Exception while getting Timesheet By TimesheetId: " + ex);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/getTimesheetByEndDate", produces = "application/json")
+    public ResponseEntity<Timesheet> getTimesheetByEndDate(@RequestParam("endDate") Date endDate) throws Exception {
+        log.info("Inside getTimesheetByEndDate method of TimesheetRestController:: endDate: " + endDate);
+        try {
+            Timesheet timesheet = timesheetService.getTimesheetByEndDate(endDate);
+            return new ResponseEntity(timesheet, new HttpHeaders(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error("Exception while getting Timesheet By EndDate: " + ex);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

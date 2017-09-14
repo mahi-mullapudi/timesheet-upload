@@ -1,6 +1,8 @@
 package com.technumen.web.controllers;
 
+import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
+import com.technumen.models.Timesheet;
 import com.technumen.services.RegistrationService;
 import com.technumen.utils.EncryptDecryptUtils;
 import com.technumen.web.validators.RegistrationValidator;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/registration")
@@ -54,6 +57,13 @@ public class RegistrationController {
 
         log.info("The form has no errors, so persisting the data.");
         try {
+            //TODO check for an optimized implementation.
+            employeeRegistration.setAccountStatusFlag(TimesheetConstants.REGISTRATION_STATUS_ACTIVE);
+            employeeRegistration.setEmployeeRoleId(100);
+            employeeRegistration.setEmployeeRoleDesc("EMPLOYEE");
+            employeeRegistration.setDateCreated(new Date());
+            employeeRegistration.setNameUserCreated(employeeRegistration.getEmployeeFullName());
+
             registrationService.saveRegistrationDetails(employeeRegistration);
         } catch (Exception ex) {
             log.error("Exception while saving Registration details: " + ex);

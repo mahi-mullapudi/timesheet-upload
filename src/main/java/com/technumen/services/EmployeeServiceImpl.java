@@ -13,7 +13,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     EmployeeRepository employeeRepository;
 
     @Override
-    public Employee getEmployeeByEmployeeId(long employeeId) {
+    public Employee getEmployeeByEmployeeId(long employeeId) throws Exception {
         log.info("Inside getEmployeeByEmployeeId method of EmployeeServiceImpl: " + employeeId);
         return employeeRepository.findOne(employeeId);
     }

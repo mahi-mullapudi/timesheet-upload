@@ -99,6 +99,7 @@
                                 <form>
 
                                     <input type="hidden" id="employeeId" value="${user.employeeId}">
+                                    <input type="hidden" id="currentEndDate" value="${currentEndDate}">
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 form-control-label">Employee Name </label>

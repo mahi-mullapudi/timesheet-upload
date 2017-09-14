@@ -76,31 +76,10 @@ public class LoginController {
         }
         log.debug("\n Creating a new session");
         HttpSession newSession = request.getSession(true);
-        String viewName = "";
-        switch (employee.getEmployeeRoleId()) {
-            //Employee
-            case 100:
-                employee.setEmployeeRoleDesc("employee");
-                viewName = "employee/dashboard";
-                break;
-            //Employer-Staff
-            case 200:
-                employee.setEmployeeRoleDesc("staff");
-                viewName = "staff/dashboard-staff";
-                break;
-            //Admin
-            case 500:
-                employee.setEmployeeRoleDesc("admin");
-                viewName = "admin/dashboard-admin";
-                break;
-            default:
-                viewName = "login";
-        }
-
         //Setting user object in the session.
         newSession.setAttribute("user", employee);
 
-        return new ModelAndView(viewName);
+        return new ModelAndView("redirect:/dashboard");
     }
 
 }

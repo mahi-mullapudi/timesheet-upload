@@ -2,15 +2,9 @@ package com.technumen.services;
 
 import com.technumen.models.Timesheet;
 
-public interface TimesheetService {
+import java.util.Date;
 
-    /**
-     * Returns the Timesheet information from the Timesheet table based on the given timesheetId.
-     *
-     * @param timesheetId
-     * @return
-     */
-    public Timesheet getTimesheetByTimesheetId(long timesheetId);
+public interface TimesheetService {
 
     /**
      * Save Timesheet information along with file upload information.
@@ -18,4 +12,22 @@ public interface TimesheetService {
      * @param timesheetObj
      */
     public void save(Timesheet timesheetObj) throws Exception;
+
+    /**
+     * Returns the Timesheet information from the Timesheet table based on the given timesheetId.
+     *
+     * @param timesheetId
+     * @return
+     */
+    public Timesheet getTimesheetByTimesheetId(long timesheetId) throws Exception;
+
+    /**
+     * Returns the Timesheet information from the Timesheet table based on the given Timesheet EndDate.
+     *
+     * @param endDate
+     * @return
+     */
+    public Timesheet getTimesheetByEndDate(Date endDate) throws Exception;
+
+
 }

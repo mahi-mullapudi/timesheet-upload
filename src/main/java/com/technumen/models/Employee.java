@@ -52,14 +52,15 @@ public class Employee implements Serializable {
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.DATE)
     private Date employeeStartDate; //Account Created Date.
-    private String accountStatusFlag; //Flag to check if the account is Active or Inactive.
+    private String accountStatusFlag; //Flag to check if the account is ACTIVE or INACTIVE.
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dteInactivated;
-    private String nmeUserInactivated; // Who inactivated this user
+    private Date dateInactivated;
+    private String nameUserInactivated; // Who inactivated this user
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dteCreated;
+    private Date dateCreated;
+    private String nameUserCreated;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     private Set<Timesheet> timesheetRecords = new HashSet<>(0);

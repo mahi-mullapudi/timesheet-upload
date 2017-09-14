@@ -4,5 +4,5 @@ import com.technumen.models.Employee;
 
 public interface EmployeeService {
 
-    public Employee getEmployeeByEmployeeId(long employeeId);
+    public Employee getEmployeeByEmployeeId(long employeeId) throws Exception;
 }
