@@ -99,15 +99,27 @@
                 <div class="col-md-12">
                     <section class="row">
                         <div class="col-md-12">
+
+                            <c:if test="${not empty msg}">
+                                <div class="col-md-12">
+                                    <div class="alert alert-${css} alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">X</span>
+                                        </button>
+                                        <i class="fa fa-info-circle faa-flash animated"></i><strong> ${msg}</strong>
+                                    </div>
+                                </div>
+                            </c:if>
+
                             <div class="jumbotron">
+
                                 <h1 class="mb-4">Timesheet Information</h1>
 
                                 <form:form method="POST" modelAttribute="timesheetObj" action="addTimesheet"
-                                           enctype="multipart/form-data">
+                                           enctype="multipart/form-data" id="addTimesheetForm">
 
-                                    <c:if test="${not empty msg}">
-                                        <span> ${msg}</span>
-                                    </c:if>
+                                    <input type="hidden" id="summarymodalDisplayFlag" value="${summarymodal}"/>
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 form-control-label">Employee Name </label>
@@ -134,21 +146,28 @@
                                     </div>
                                     <br>
 
-                                    <spring:bind path="toDate">
-                                        <div class="form-group row ${status.error ? 'has-danger' : ''}">
-                                            <label for="selectTimePeriod" class="col-lg-2 form-control-label">Select
-                                                End Date: </label>
-                                            <div class="inputGroupContainer col-lg-4">
-                                                <form:select path="toDate" items="${startEndDatesMap}"
-                                                             class="form-control ${status.error ? 'form-control-danger' : ''}"
-                                                             id="selectTimePeriod">
-                                                </form:select>
-                                                <div class="form-control-feedback">
-                                                    <form:errors path="regularHours"/>
+                                    <div class="row">
+                                        <spring:bind path="toDate">
+                                            <div class="form-group row col-md-6 ${status.error ? 'has-danger' : ''}">
+                                                <label for="selectTimePeriod" class="col-lg-4 form-control-label">Select
+                                                    Time Period: </label>
+                                                <div class="inputGroupContainer col-lg-8">
+                                                    <form:select path="toDate" items="${startEndDatesMap}"
+                                                                 class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                                                 id="selectTimePeriod"
+                                                                 onchange="getTimesheetDetails()">
+                                                    </form:select>
+                                                    <div class="form-control-feedback">
+                                                        <form:errors path="regularHours"/>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </spring:bind>
+
+                                        <div class="col-md-6">
+                                            <span id="timesheetStatus" class="text-right"> ${timesheetStatus} </span>
                                         </div>
-                                    </spring:bind>
+                                    </div>
 
                                     <div class="row">
 
@@ -205,6 +224,41 @@
                                         <form:textarea path="dscComments" id="dscCommentsText"
                                                        class="form-control col-xl-8"/>
                                     </div>
+                                    <br>
+
+                                    <div class="form-group row" id="uploadedTimesheet">
+                                        <a href="" target="_blank" id="uploadTimesheetLink">
+                                            Click here to access the uploaded timesheet:
+                                            <span id="uploadedTimesheetName"></span>
+                                        </a>
+                                    </div>
+                                    <br>
+
+                                    <div class="form-group row" id="submissionInfoDiv">
+                                        <label class="col-lg-2 form-control-label">Submitter Name: </label>
+                                        <div class="col-lg-4">
+                                            <span id="submitterName"></span>
+                                        </div>
+
+                                        <label class="col-lg-2 form-control-label">Submitted Date: </label>
+                                        <div class="col-lg-4">
+                                            <span id="submittedDate"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row" id="approvalInfoDiv">
+                                        <label class="col-lg-2 form-control-label">Reviewer Name: </label>
+                                        <div class="col-lg-4">
+                                            <span id="approverName"></span>
+                                        </div>
+
+                                        <label class="col-lg-2 form-control-label">Reviewal Date: </label>
+                                        <div class="col-lg-4">
+                                            <span id="approvalDate"></span>
+                                        </div>
+                                    </div>
+
+                                    <br>
 
                                     <div class="text-center">
                                         <input type="submit" class="btn btn-success" value="Submit For Review"/>
@@ -291,6 +345,32 @@
                     </section>
                 </div>
             </section>
+
+            <!-- Modal for Forwarding to the Dashboard page after successful submission of the Timesheet Information -->
+            <div id="successModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" id="my-account">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <h4 class="modal-title"> Success!! </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                            <p> Your Timesheet Information is SUBMITTED successfully. </p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="/timesheetApp/dashboard" class="btn btn-success">
+                                Continue to Dashboard Page!!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Modal -->
         </main>
     </div>
 </div>
@@ -305,6 +385,6 @@
 <script src="./js/external/bootstrap.min.js"></script>
 <script src="./js/external/bootstrap-datepicker.js"></script>
 <script src="./js/external/custom.js"></script>
-
+<script src="./js/addTimesheet.js"></script>
 </body>
 </html>

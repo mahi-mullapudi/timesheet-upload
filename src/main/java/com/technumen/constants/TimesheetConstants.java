@@ -13,6 +13,18 @@ public class TimesheetConstants implements Serializable {
 
     public static final String REGISTRATION_STATUS_INACTIVE = "INACTIVE";
 
+    public static final String USER_ROLE_EMPLOYEE = "EMPLOYEE";
+
+    public static final String USER_ROLE_SUPERVISOR = "SUPERVISOR";
+
+    public static final String USER_ROLE_ADMIN = "ADMIN";
+
+    public static final int USER_ROLE_EMPLOYEE_ID = 100;
+
+    public static final int USER_ROLE_SUPERVISOR_ID = 200;
+
+    public static final int USER_ROLE_ADMIN_ID = 500;
+
     public static final String TIMESHEET_STATUS_APPROVED = "APPROVED";
 
     public static final String TIMESHEET_STATUS_SUBMITTED = "SUBMITTED";
@@ -32,7 +44,6 @@ public class TimesheetConstants implements Serializable {
             .put("jpg", "image/jpeg")
             .put("jpeg", "image/jpeg")
             .put("png", "image/png")
-            //pdf
             .put("pdf", "application/pdf")
             .build();
 

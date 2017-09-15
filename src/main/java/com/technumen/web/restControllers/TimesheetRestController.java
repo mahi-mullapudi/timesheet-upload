@@ -33,7 +33,7 @@ public class TimesheetRestController {
     TimesheetService timesheetService;
 
     /**
-     * Get the file from the database FNS_ECAS_CONTRACT_DOCUMENT table and then
+     * Get the file from the database TIMESHEET table and then
      * covert it to a stream and display it to the user.
      *
      * @param timesheetId
@@ -86,7 +86,7 @@ public class TimesheetRestController {
         }
     }
 
-    @GetMapping(value = "/getTimesheetById", produces = "application/json")
+    @GetMapping(value = "/getTimesheetById")
     public ResponseEntity<Timesheet> getTimesheetByTimesheetId(@RequestParam("timesheetId") long timesheetId) throws Exception {
         log.info("Inside getTimesheetByTimesheetId method of TimesheetRestController:: timesheetId: " + timesheetId);
         try {
@@ -98,7 +98,7 @@ public class TimesheetRestController {
         }
     }
 
-    @GetMapping(value = "/getTimesheetByEndDate", produces = "application/json")
+    @GetMapping(value = "/getTimesheetByEndDate")
     public ResponseEntity<Timesheet> getTimesheetByEndDate(@RequestParam("endDate") Date endDate) throws Exception {
         log.info("Inside getTimesheetByEndDate method of TimesheetRestController:: endDate: " + endDate);
         try {

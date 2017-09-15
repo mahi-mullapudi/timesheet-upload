@@ -1,5 +1,6 @@
 package com.technumen.web.controllers;
 
+import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
 import com.technumen.utils.DateUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -27,25 +28,27 @@ public class DashboardController {
         }
         log.info("Check for Employee role and forward to appropriate employee role");
         String viewName = "";
+        log.info("Switch case to check for the Employee role based on the employeeRoleId");
         switch (employee.getEmployeeRoleId()) {
             //Employee
-            case 100:
+            case TimesheetConstants.USER_ROLE_EMPLOYEE_ID:
                 employee.setEmployeeRoleDesc("employee");
                 viewName = "employee/dashboard";
                 break;
-            //Employer-Staff
-            case 200:
+            //Supervisor
+            case TimesheetConstants.USER_ROLE_SUPERVISOR_ID:
                 employee.setEmployeeRoleDesc("staff");
                 viewName = "staff/dashboard-staff";
                 break;
             //Admin
-            case 500:
+            case TimesheetConstants.USER_ROLE_ADMIN_ID:
                 employee.setEmployeeRoleDesc("admin");
                 viewName = "admin/dashboard-admin";
                 break;
             default:
                 viewName = "login";
         }
+
         log.info("View Name from the switch case: " + viewName);
         model.addAttribute("currentEndDate", DateUtils.getCurrentTimesheetWeekEndDate());
         return new ModelAndView(viewName);

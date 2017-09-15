@@ -223,8 +223,7 @@
 
                                     <div class="table-responsive">
                                         <table id="timesheetSummary" class="table table-striped table-bordered"
-                                               cellspacing="0"
-                                               width="100%">
+                                               cellspacing="0" width="100%">
                                             <thead>
                                             <tr>
                                                 <th>Timesheet Id</th>
@@ -251,6 +250,7 @@
 
                                         </table>
                                     </div>
+
                                 </div>
                             </div>
 

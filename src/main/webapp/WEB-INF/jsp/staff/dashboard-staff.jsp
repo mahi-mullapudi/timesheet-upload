@@ -4,25 +4,16 @@
     <meta charset="utf-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <meta name="description" content="">
-
-    <meta name="author" content="">
-
     <link rel="icon" href="images/favicon.ico">
-
     <title>TechNumen Home</title>
-
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
-
     <!-- Icons -->
     <link href="css/font-awesome.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -36,12 +27,16 @@
 
             <ul class="nav nav-pills flex-column sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="dashboard-internal.html">
+                    <a class="nav-link active" href="/timesheetApp/dashboard">
                         <em class="fa fa-dashboard"></em>
-                        Dashboard <span class="sr-only">(current)</span></a>
+                        Dashboard <span class="sr-only">(current)</span>
+                    </a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="reports.html"><em class="fa fa-bar-chart"></em>
-                    Reports</a>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/reports">
+                        <em class="fa fa-bar-chart"></em> Reports
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -52,24 +47,25 @@
                     <h1 class="float-left text-center text-md-left">Dashboard</h1>
                 </div>
 
-                <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right"><a
-                        class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="images/profile-pic.png" alt="profile photo" class="circle float-left profile-photo"
-                         width="50" height="auto">
+                <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right">
+                    <a
+                            class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="images/profile-pic.png" alt="profile photo" class="circle float-left profile-photo"
+                             width="50" height="auto">
 
-                    <div class="username mt-1">
-                        <h4 class="mb-1">testuser</h4>
-
-                        <h6 class="text-muted">Employer</h6>
-                    </div>
-                </a>
+                        <div class="username mt-1">
+                            <h4 class="mb-1">${user.employeeFirstName} ${user.employeeFirstName}</h4>
+                            <h6 class="text-muted">${user.employeeRoleDesc}</h6>
+                        </div>
+                    </a>
 
                     <div class="dropdown-menu dropdown-menu-right" style="margin-right: 1.5rem;"
-                         aria-labelledby="dropdownMenuLink"><a class="dropdown-item" href="#"><em
-                            class="fa fa-user-circle mr-1"></em> View Profile</a>
+                         aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#"><em class="fa fa-user-circle mr-1"></em> View Profile</a>
                         <a class="dropdown-item" href="#"><em class="fa fa-sliders mr-1"></em> Preferences</a>
-                        <a class="dropdown-item" href="#"><em class="fa fa-power-off mr-1"></em> Logout</a></div>
+                        <a class="dropdown-item" href="#"><em class="fa fa-power-off mr-1"></em> Logout</a>
+                    </div>
                 </div>
 
                 <div class="clear"></div>
@@ -80,104 +76,75 @@
                     <section class="row">
                         <div class="col-md-12">
 
-                            <div class="card mb-4">
+                            <div class="card mb-4" id="viewTimesheet">
                                 <div class="card-block">
                                     <h3 class="card-title mb-4">View Timesheet</h3>
 
                                     <form>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Employee Name </label>
+                                            <label for="selectedTimePeriod" class="col-lg-2 form-control-label">Selected
+                                                TimePeriod : </label>
                                             <div class="col-lg-4">
-                                                <span> Test User </span>
+                                                <span id="selectedTimePeriod"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Employee Id </label>
+                                            <label class="col-lg-2 form-control-label">Status : </label>
                                             <div class="col-lg-4">
-                                                <span> 2323423423 </span>
+                                                <span id="timesheetStatus"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Email </label>
-                                            <div class="col-lg-4">
-                                                <span> testuser@technumen.com </span>
+                                            <label class="col-lg-2 form-control-label">Regular
+                                                Hours : </label>
+                                            <div class="col-lg-2">
+                                                <span id="regularHours"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Phone </label>
-                                            <div class="col-lg-4">
-                                                <span> 123-465-4464 </span>
+                                            <label class="col-lg-2 form-control-label">Extra
+                                                Hours : </label>
+                                            <div class="col-lg-2">
+                                                <span id="extraHours"></span>
+                                            </div>
+
+                                            <label class="col-lg-2 form-control-label">Total
+                                                Hours : </label>
+                                            <div class="col-lg-2">
+                                                <span id="totalHours"></span>
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Client </label>
-                                            <div class="col-lg-4">
-                                                <span> PayPal Inc., </span>
+                                            <label class="col-lg-2 form-control-label">Submitted By : </label>
+                                            <div class="col-lg-2">
+                                                <span id="submitterName"></span>
                                             </div>
 
-                                            <label class="col-lg-2 col-form-label">Address </label>
-                                            <div class="col-lg-4">
-                                                <span> 22 S Newton Dr, San Jose, California </span>
+                                            <label class="col-lg-2 form-control-label">Submitted On : </label>
+                                            <div class="col-lg-2">
+                                                <span id="submittedDate"></span>
+                                            </div>
+
+                                            <label class="col-lg-2 form-control-label">Approved On : </label>
+                                            <div class="col-lg-2">
+                                                <span id="approvalDate"></span>
                                             </div>
                                         </div>
+                                        <br>
 
-                                        <div class="form-group row">
-                                            <label for="selectTimePeriod" class="col-lg-2 col-form-label">Selected
-                                                TimePeriod </label>
-                                            <div class="col-lg-4">
-                                                <select class="form-control" id="selectTimePeriod" readonly>
-                                                    <option>09/04/17 - 09/10/17</option>
-                                                </select>
-                                            </div>
-
-                                            <label for="selectTimePeriod"
-                                                   class="col-lg-2 col-form-label">Status </label>
-                                            <div class="col-lg-4">
-                                                APPROVED
-                                            </div>
+                                        <div class="form-group row" id="uploadedTimesheet">
+                                            <a href="" target="_blank" id="uploadTimesheetLink">
+                                                Click here to access the uploaded timesheet:
+                                                <span id="uploadedTimesheetName"></span>
+                                            </a>
                                         </div>
+                                        <br>
 
-                                        <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Regular
-                                                Hours </label>
-                                            <div class="col-lg-2">
-                                                <span>40.0 Hours</span>
-                                            </div>
-
-                                            <label class="col-lg-2 col-form-label">Extra
-                                                Hours </label>
-                                            <div class="col-lg-2">
-                                                <span>0.0 Hours</span>
-                                            </div>
-
-                                            <label class="col-lg-2 col-form-label">Total
-                                                Hours </label>
-                                            <div class="col-lg-2">
-                                                <span>40.0 Hours</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-2 col-form-label">Submitted By </label>
-                                            <div class="col-lg-2">
-                                                <span>John Doe</span>
-                                            </div>
-
-                                            <label class="col-lg-2 col-form-label">Submitted On </label>
-                                            <div class="col-lg-2">
-                                                <span>09/05/2017 02:35PM</span>
-                                            </div>
-
-                                            <label class="col-lg-2 col-form-label">Approved On </label>
-                                            <div class="col-lg-2">
-                                                <span>09/06/2017 03:35PM</span>
-                                            </div>
-                                        </div>
 
                                         <div class="form-group">
-                                            <label for="exampleFormControlTextarea1">Comments </label>
-                                            <textarea class="form-control col-xl-8" id="exampleFormControlTextarea1"
+                                            <label for="timesheetComments">Comments : </label>
+                                            <textarea class="form-control col-xl-8" id="timesheetComments"
                                                       rows="3" readonly></textarea>
                                         </div>
 
@@ -193,24 +160,23 @@
                                     <form>
 
                                         <div class="form-group row">
-                                            <label for="selectTime" class="col-lg-2 col-form-label">Selected
-                                                TimePeriod </label>
+                                            <label for="selectTime" class="col-lg-2 col-form-label">
+                                                Select TimePeriod
+                                            </label>
                                             <div class="col-lg-4">
                                                 <select class="form-control" id="selectTime">
-                                                    <option>09/04/17 - 09/10/17</option>
-                                                    <option>08/28/17 - 09/03/17</option>
-                                                    <option>08/21/17 - 09/27/17</option>
-                                                    <option>08/14/17 - 08/20/17</option>
-                                                    <option>08/07/17 - 08/13/17</option>
+
                                                 </select>
                                             </div>
 
-                                            <label for="selectTimePeriod"
-                                                   class="col-lg-2 col-form-label">Status </label>
+                                            <label for="selectStatus"
+                                                   class="col-lg-2 col-form-label">Status
+                                            </label>
                                             <div class="col-lg-4">
                                                 <select class="form-control" id="selectStatus">
                                                     <option>SUBMITTED</option>
                                                     <option>APPROVED</option>
+                                                    <option>REJECTED</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -224,10 +190,9 @@
                                     </form>
 
                                     <div class="table-responsive">
-                                        <table id="example" class="table table-striped table-bordered" cellspacing="0"
-                                               width="100%">
+                                        <table id="timesheetSummary" class="table table-striped table-bordered"
+                                               cellspacing="0" width="100%">
                                             <thead>
-
                                             <tr>
                                                 <th>Employee Name</th>
                                                 <th>Emp Title</th>
@@ -238,8 +203,8 @@
                                                 <th>Status</th>
                                                 <th>View</th>
                                             </tr>
-
                                             </thead>
+
                                             <tfoot>
                                             <tr>
                                                 <th>Employee Name</th>
@@ -252,251 +217,10 @@
                                                 <th>View</th>
                                             </tr>
                                             </tfoot>
-                                            <tbody>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>John Doe</td>
-                                                <td>Programmer Analyst</td>
-                                                <td>09/04/17</td>
-                                                <td>09/10/17</td>
-                                                <td>40.0</td>
-                                                <td>0.0</td>
-                                                <td>Submitted</td>
-                                                <td><a href="#">View</a></td>
-                                            </tr>
 
-                                            </tbody>
                                         </table>
                                     </div>
+
                                 </div>
                             </div>
 
@@ -525,14 +249,7 @@
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 <script src="./js/external/custom.js"></script>
-
-<script>
-
-    $(document).ready(function () {
-        $('#example').DataTable();
-    });
-
-</script>
+<script src=".js/dashboard-staff.js"></script>
 
 </body>
 </html>

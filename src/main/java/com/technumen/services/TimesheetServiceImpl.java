@@ -29,7 +29,7 @@ public class TimesheetServiceImpl implements TimesheetService {
 
     @Override
     public Timesheet getTimesheetByEndDate(Date endDate) throws Exception {
-        log.info("Inside save method of getTimesheetByEndDate :: " + endDate);
+        log.info("Inside getTimesheetByEndDate method of TimesheetServiceImpl :: " + endDate);
         return timesheetRepository.findTimesheetByToDate(endDate);
     }
 }

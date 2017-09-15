@@ -94,13 +94,15 @@ public class TimesheetController {
             timesheetObj.setDateCreated(new Date());
             timesheetService.save(timesheetObj);
 
-            redirectAttributes.addAttribute("msg", "Timesheet Added Successfully!!");
+            model.addAttribute("css", "success");
+            model.addAttribute("msg", "Timesheet Information Submitted successfully!!");
+            model.addAttribute("summarymodal", "yes");
+
             return new ModelAndView("employee/addTimesheet", "timesheetObj", timesheetObj);
         } else {
             log.info("File not found");
             return new ModelAndView("employee/addTimesheet", "timesheetObj", timesheetObj);
         }
-
 
     }
 

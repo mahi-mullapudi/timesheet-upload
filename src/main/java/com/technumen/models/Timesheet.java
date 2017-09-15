@@ -59,6 +59,7 @@ public class Timesheet implements Serializable {
     private Date dateApproved;
     private String nameCreated; //Name of the user Uploaded the timesheet.
     private String nameLastModified;
+    private String nameApproved;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EMPLOYEE_ID", nullable = false)
     @JsonIgnore
