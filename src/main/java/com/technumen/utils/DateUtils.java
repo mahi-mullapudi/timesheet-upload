@@ -1,7 +1,6 @@
 package com.technumen.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -12,8 +11,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +20,7 @@ import java.util.stream.Stream;
 public class DateUtils implements Serializable {
 
     /**
-     * Returns output date in MM/dd/yyyy format for any given input date.
+     * Returns output java.util date in MM/dd/yyyy format for any given input date String.
      *
      * @param date
      * @return
@@ -37,13 +35,30 @@ public class DateUtils implements Serializable {
     }
 
     /**
+     * Returns output String date in MM/dd/yyyy format for any given input java util date.
+     *
+     * @param inputDate
+     * @return
+     */
+
+    public static String parseDate(Date inputDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            return sdf.format(inputDate);
+        } catch (Exception ex) {
+            log.error("Parse Exception: " + ex);
+            return null;
+        }
+    }
+
+    /**
      * Returns java.util weekend date (Sunday) based on the current local date.
      *
      * @return
      */
     public static Date getCurrentTimesheetWeekEndDate() {
         LocalDate lastSunday = LocalDate.now()
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         log.info("lastSunday: " + lastSunday);
         return Date.from(lastSunday.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
@@ -56,9 +71,45 @@ public class DateUtils implements Serializable {
     public static LocalDate getLocalTimesheetWeekEndDate() {
         log.info("Inside getLocalTimesheetWeekEndDate");
         LocalDate lastSunday = LocalDate.now()
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         log.info("lastSunday: " + lastSunday);
         return lastSunday;
+    }
+
+    /**
+     * Returns java.util weekend date (Sunday) for a given date.
+     *
+     * @return
+     */
+    public static Date getTimesheetWeekStartDate(Date inputDate) {
+        log.info("Inside getTimesheetWeekStartDate :: inputDate: " + inputDate);
+        if (inputDate != null) {
+            LocalDate localDate = inputDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate firstMonday = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            log.info("Inside inputdate not null loop, firstMonday: " + firstMonday);
+            return Date.from(firstMonday.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        } else {
+            log.error("Input date not found. So returning null.");
+            return null;
+        }
+    }
+
+    /**
+     * Returns java.time LocalDate weekend date (Sunday) for a given date.
+     *
+     * @return
+     */
+    public static LocalDate getLocalTimesheetWeekStartDate(Date inputDate) {
+        log.info("Inside getLocalTimesheetWeekStartDate :: inputDate: " + inputDate);
+        if (inputDate != null) {
+            LocalDate localDate = inputDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate firstMonday = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            log.info("Inside inputDate not null loop, firstMonday: " + firstMonday);
+            return firstMonday;
+        } else {
+            log.error("Input date not found. So returning null.");
+            return null;
+        }
     }
 
     /**
@@ -70,7 +121,7 @@ public class DateUtils implements Serializable {
         log.info("Inside getTimesheetWeekEndDate :: inputDate: " + inputDate);
         if (inputDate != null) {
             LocalDate localDate = inputDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate lastSunday = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+            LocalDate lastSunday = localDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
             log.info("Inside inputdate not null loop, lastSunday: " + lastSunday);
             return Date.from(lastSunday.atStartOfDay(ZoneId.systemDefault()).toInstant());
         } else {
@@ -88,7 +139,7 @@ public class DateUtils implements Serializable {
         log.info("Inside getLocalTimesheetWeekEndDate :: inputDate: " + inputDate);
         if (inputDate != null) {
             LocalDate localDate = inputDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate lastSunday = localDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+            LocalDate lastSunday = localDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
             log.info("Inside inputDate not null loop, lastSunday: " + lastSunday);
             return lastSunday;
         } else {
@@ -102,10 +153,10 @@ public class DateUtils implements Serializable {
      *
      * @return
      */
-    public static List<Date> getListEndDatesOfLastThreeMonths() {
+    public static List<Date> getListWeekEndDatesOfLastThreeMonths() {
         log.info("Inside getListEndDatesOfLastThreeMonths method of DateUtils.");
         LocalDate lastSunday = LocalDate.now()
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         log.info("lastSunday: " + lastSunday);
         long weeks = ChronoUnit.WEEKS.between(lastSunday.minusMonths(3L), lastSunday);
         log.info("Number of weeks in last three months: " + weeks);
@@ -122,10 +173,10 @@ public class DateUtils implements Serializable {
      *
      * @return
      */
-    public static List<LocalDate> getListLocalEndDatesOfLastThreeMonths() {
+    public static List<LocalDate> getListLocalWeekEndDatesOfLastThreeMonths() {
         log.info("Inside getListLocalEndDatesOfLastThreeMonths method of DateUtils.");
         LocalDate lastSunday = LocalDate.now()
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         log.info("lastSunday: " + lastSunday);
         long weeks = ChronoUnit.WEEKS.between(lastSunday.minusMonths(3L), lastSunday);
         log.info("Number of weeks in last three months: " + weeks);
@@ -134,6 +185,72 @@ public class DateUtils implements Serializable {
                 .collect(Collectors.toList());
         log.info("list of java.time LocalDate end dates: " + collect);
         return collect;
+    }
+
+    /**
+     * Returns list of LocaDate for start of timesheet week Dates for last three months from current week.
+     *
+     * @return
+     */
+    public static List<Date> getListWeekStartDatesOfLastThreeMonths() {
+        log.info("Inside getListWeekStartDatesOfLastThreeMonths method of DateUtils.");
+        LocalDate startMonday = LocalDate.now()
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        log.info("startMonday: " + startMonday);
+        long weeks = ChronoUnit.WEEKS.between(startMonday.minusMonths(3L), startMonday);
+        log.info("Number of weeks in last three months: " + weeks);
+        List<Date> collect = Stream.iterate(startMonday.minusWeeks(weeks), d -> d.plusWeeks(1L))
+                .limit(weeks + 1)
+                .map(d -> Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .collect(Collectors.toList());
+        log.info("list of java.util week start dates: " + collect);
+        return collect;
+    }
+
+    /**
+     * Returns list of java util start of timesheet week Dates for last three months from current week.
+     *
+     * @return
+     */
+    public static List<LocalDate> getListLocalStartDatesOfLastThreeMonths() {
+        log.info("Inside getListLocalStartDatesOfLastThreeMonths method of DateUtils.");
+        LocalDate startMonday = LocalDate.now()
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+        log.info("startMonday: " + startMonday);
+        long weeks = ChronoUnit.WEEKS.between(startMonday.minusMonths(3L), startMonday);
+        log.info("Number of weeks in last three months: " + weeks);
+        List<LocalDate> collect = Stream.iterate(startMonday.minusWeeks(weeks), d -> d.plusWeeks(1L))
+                .limit(weeks + 1)
+                .collect(Collectors.toList());
+        log.info("list of java.time LocalDate end dates: " + collect);
+        return collect;
+    }
+
+    /**
+     * Return String with appending StartDate and EndDate for a given input date.
+     *
+     * @param inputDate
+     * @return
+     */
+    public static String getWeekStartEndDatesString(Date inputDate) {
+        log.info("Inside getWeekStartEndDates:: inputDate: " + inputDate);
+        return parseDate(getTimesheetWeekStartDate(inputDate)) + " - " + parseDate(getTimesheetWeekEndDate(inputDate));
+    }
+
+    /**
+     * Returns a map of Date, String values for a given endDatesList.
+     *
+     * @param endDatesList
+     * @return
+     */
+    public static Map<Date, String> getWeekStartEndDatesMap(List<Date> endDatesList) {
+        log.info("Inside getWeekStartEndDatesMap of DateUtils:: ");
+        Map<Date, String> startEndDatesMap = new TreeMap<>(Collections.reverseOrder());
+        for (Date endDate : endDatesList) {
+            startEndDatesMap.put(endDate, getWeekStartEndDatesString(endDate));
+        }
+
+        return startEndDatesMap;
     }
 
 

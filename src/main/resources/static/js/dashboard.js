@@ -31,7 +31,6 @@ $(document).ready(function () {
                 mRender: function (data, type, row) {
                     var link = '';
                     link = '<button class="btn-link" onclick="getTimesheetById(' + data + ')">View Timesheet</button>';
-                    console.log("Link: " + link);
                     return link;
                 }
             }
@@ -90,4 +89,6 @@ function populateViewTimesheet(timesheetObj) {
     $('#submittedDate').html(timesheetObj.dateCreated);
     $('#approvalDate').html(timesheetObj.dateApproved);
     $('#timesheetComments').html(timesheetObj.dscComments);
+    $('#uploadedTimesheetName').html(timesheetObj.dscFileName);
+    $('#uploadTimesheetLink').attr('href', '/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId);
 }

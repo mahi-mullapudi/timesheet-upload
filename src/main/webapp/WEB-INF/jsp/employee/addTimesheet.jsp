@@ -44,14 +44,14 @@
 
             <ul class="nav nav-pills flex-column sidebar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/timesheetApp/dashboard">
+                    <a class="nav-link" href="/timesheetApp/dashboard">
                         <em class="fa fa-dashboard"></em> Dashboard
 
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/timesheetApp/addTimesheet">
+                    <a class="nav-link active" href="/timesheetApp/addTimesheet">
                         <em class="fa fa-calendar-o"></em>
                         Upload Timesheet <span class="sr-only">(current)</span>
                     </a>
@@ -134,24 +134,26 @@
                                     </div>
                                     <br>
 
-                                    <div class="form-group row">
-                                        <label for="selectTimePeriod" class="col-lg-2 form-control-label">Select
-                                            TimePeriod </label>
-                                        <div class="col-lg-4">
-                                            <form:select path="" class="form-control" id="selectTimePeriod">
-                                                <option>09/04/2017 - 09/10/2017</option>
-                                                <option>08/28/17 - 09/03/17</option>
-                                                <option>08/21/17 - 09/27/17</option>
-                                                <option>08/14/17 - 08/20/17</option>
-                                                <option>08/07/17 - 08/13/17</option>
-                                            </form:select>
+                                    <spring:bind path="toDate">
+                                        <div class="form-group row ${status.error ? 'has-danger' : ''}">
+                                            <label for="selectTimePeriod" class="col-lg-2 form-control-label">Select
+                                                End Date: </label>
+                                            <div class="inputGroupContainer col-lg-4">
+                                                <form:select path="toDate" items="${startEndDatesMap}"
+                                                             class="form-control ${status.error ? 'form-control-danger' : ''}"
+                                                             id="selectTimePeriod">
+                                                </form:select>
+                                                <div class="form-control-feedback">
+                                                    <form:errors path="regularHours"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </spring:bind>
 
                                     <div class="row">
 
                                         <spring:bind path="regularHours">
-                                            <div class="form-group row required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                            <div class="form-group row col-md-6 ${status.error ? 'has-danger' : ''}">
                                                 <label class="form-control-label col-lg-4" for="regularHoursText">Regular
                                                     Hours: </label>
                                                 <div class="inputGroupContainer col-lg-8">
@@ -170,7 +172,7 @@
                                         </spring:bind>
 
                                         <spring:bind path="extraHours">
-                                            <div class="form-group row required col-md-6 ${status.error ? 'has-danger' : ''}">
+                                            <div class="form-group row col-md-6 ${status.error ? 'has-danger' : ''}">
                                                 <label class="form-control-label col-lg-4" for="extraHoursText">Extra
                                                     Hours: </label>
                                                 <div class="inputGroupContainer col-lg-8">

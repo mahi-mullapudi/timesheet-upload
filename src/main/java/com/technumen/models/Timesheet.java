@@ -28,10 +28,10 @@ public class Timesheet implements Serializable {
     private long timesheetId;
     private String timesheetType;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "EST")
     private Date fromDate;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(pattern = "MM/dd/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "EST")
     private Date toDate;
     private String timesheetStatus;
     //Timesheet Information

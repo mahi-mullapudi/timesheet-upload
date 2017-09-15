@@ -198,8 +198,10 @@
                                         <br>
 
                                         <div class="form-group row" id="uploadedTimesheet">
-                                            <a href="#" id="uploadTimesheetLink"> Click here to access the uploaded
-                                                timesheet: <span id="uploadedTimesheetName"></span> </a>
+                                            <a href="" target="_blank" id="uploadTimesheetLink">
+                                                Click here to access the uploaded timesheet:
+                                                <span id="uploadedTimesheetName"></span>
+                                            </a>
                                         </div>
                                         <br>
 
