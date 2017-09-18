@@ -7,12 +7,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
     <link rel="icon" href="images/favicon.ico">
-
     <title>TechNumen Home</title>
-
     <!-- Bootstrap core CSS -->
     <link href="./css/external/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -30,7 +26,7 @@
 
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
             <h1 class="site-title">
-                <a href="index.html">
+                <a href="/timesheetApp/dashboard">
                     <em class="fa fa-rocket"></em> TechNumen Inc.,
                 </a>
             </h1>
@@ -149,12 +145,12 @@
                                         <div class="form-group row">
                                             <label for="selectedTimePeriod" class="col-lg-2 form-control-label">Selected
                                                 TimePeriod : </label>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-2">
                                                 <span id="selectedTimePeriod"></span>
                                             </div>
 
                                             <label class="col-lg-2 form-control-label">Status : </label>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-2">
                                                 <span id="timesheetStatus"></span>
                                             </div>
                                         </div>
@@ -275,12 +271,11 @@
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
 <script src="./js/external/bootstrap.min.js"></script>
-
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
 <script src="./js/external/bootstrap-datepicker.js"></script>
 <script src="./js/external/custom.js"></script>
+<script src="./js/external/moment.min.js"></script>
 <script src="./js/dashboard.js"></script>
 </body>
 </html>

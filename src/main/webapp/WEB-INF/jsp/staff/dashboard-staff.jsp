@@ -1,3 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,23 +11,29 @@
     <link rel="icon" href="images/favicon.ico">
     <title>TechNumen Home</title>
     <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/external/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
     <!-- Icons -->
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="./css/external/font-awesome.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid" id="wrapper">
     <div class="row">
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
-            <h1 class="site-title"><a href="index.html"><em class="fa fa-rocket"></em> TechNumen Inc.,</a></h1>
+            <h1 class="site-title">
+                <a href="/timesheetApp/dashboard">
+                    <em class="fa fa-rocket"></em> TechNumen Inc.,
+                </a>
+            </h1>
 
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+                <em class="fa fa-bars"></em>
+            </a>
 
             <ul class="nav nav-pills flex-column sidebar-nav">
                 <li class="nav-item">
@@ -85,13 +95,36 @@
                                         <div class="form-group row">
                                             <label for="selectedTimePeriod" class="col-lg-2 form-control-label">Selected
                                                 TimePeriod : </label>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-6">
                                                 <span id="selectedTimePeriod"></span>
                                             </div>
 
                                             <label class="col-lg-2 form-control-label">Status : </label>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-2">
                                                 <span id="timesheetStatus"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 form-control-label">
+                                                Employee Name:
+                                            </label>
+                                            <div class="col-lg-2">
+                                                <span id="employeeName"></span>
+                                            </div>
+
+                                            <label class="col-lg-2 form-control-label">
+                                                Employee Title:
+                                            </label>
+                                            <div class="col-lg-2">
+                                                <span id="employeeTitle"></span>
+                                            </div>
+
+                                            <label class="col-lg-2 form-control-label">
+                                                Client Name:
+                                            </label>
+                                            <div class="col-lg-2">
+                                                <span id="clientName"></span>
                                             </div>
                                         </div>
 
@@ -143,9 +176,26 @@
 
 
                                         <div class="form-group">
-                                            <label for="timesheetComments">Comments : </label>
-                                            <textarea class="form-control col-xl-8" id="timesheetComments"
-                                                      rows="3" readonly></textarea>
+                                            <label for="timesheetComments">Employee Comments : </label>
+                                            <span id="timesheetComments"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="timesheetComments">Reviewer Comments : </label>
+                                            <textarea class="form-control col-xl-8" id="reviewerComments"
+                                                      rows="2" readonly>
+                                            </textarea>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="text-center col-md-6">
+                                                <input type="submit" class="btn btn-success"
+                                                       value="Approve" onclick="approveTimesheet()"/>
+                                            </div>
+                                            <div class="text-center col-md-6">
+                                                <input type="submit" class="btn btn-danger"
+                                                       value="Reject" onclick="rejectTimesheet()"/>
+                                            </div>
                                         </div>
 
                                     </form>
@@ -160,34 +210,51 @@
                                     <form>
 
                                         <div class="form-group row">
-                                            <label for="selectTime" class="col-lg-2 col-form-label">
-                                                Select TimePeriod
+                                            <label for="selectFromDate" class="col-lg-2 col-form-label">
+                                                From Date:
                                             </label>
-                                            <div class="col-lg-4">
-                                                <select class="form-control" id="selectTime">
+                                            <div class="col-lg-2">
+                                                <select class="form-control" id="selectFromDate" name="selectFromDate">
+                                                    <c:forEach var="fromDateMap" items="${weekStartDatesList}">
+                                                        <option value="${fromDateMap.key}">${fromDateMap.value}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
 
+                                            <label for="selectToDate" class="col-lg-2 col-form-label">
+                                                To Date:
+                                            </label>
+
+                                            <div class="col-lg-2">
+                                                <select class="form-control" id="selectToDate" name="selectToDate">
+                                                    <c:forEach var="toDateMap" items="${weekEndDatesList}">
+                                                        <option value="${toDateMap.key}">${toDateMap.value}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
 
                                             <label for="selectStatus"
-                                                   class="col-lg-2 col-form-label">Status
+                                                   class="col-lg-1 col-form-label">Status:
                                             </label>
-                                            <div class="col-lg-4">
-                                                <select class="form-control" id="selectStatus">
-                                                    <option>SUBMITTED</option>
-                                                    <option>APPROVED</option>
-                                                    <option>REJECTED</option>
+
+                                            <div class="col-lg-2">
+                                                <select class="form-control" id="selectStatus" name="selectStatus">
+                                                    <c:forEach var="timesheetStatus" items="${timesheetStatusList}">
+                                                        <option value="${timesheetStatus}">${timesheetStatus}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
+
                                         </div>
-                                        <br>
+
                                         <div class="text-center">
                                             <input type="submit" class="btn btn-success"
-                                                   value="Search For Timesheets"/>
+                                                   value="Search" onclick="loadDataTable()"/>
                                         </div>
                                         <br>
 
                                     </form>
+                                    <hr>
 
                                     <div class="table-responsive">
                                         <table id="timesheetSummary" class="table table-striped table-bordered"
@@ -195,7 +262,7 @@
                                             <thead>
                                             <tr>
                                                 <th>Employee Name</th>
-                                                <th>Emp Title</th>
+                                                <th>Client Name</th>
                                                 <th>From Period</th>
                                                 <th>To Period</th>
                                                 <th>RT Hours</th>
@@ -208,7 +275,7 @@
                                             <tfoot>
                                             <tr>
                                                 <th>Employee Name</th>
-                                                <th>Emp Title</th>
+                                                <th>Client Name</th>
                                                 <th>From Period</th>
                                                 <th>To Period</th>
                                                 <th>RT Hours</th>
@@ -240,16 +307,17 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="../js/external/jquery-3.2.1.min.js"></script>
+<script src="./js/external/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
-<script src="../js/external/bootstrap.min.js"></script>
-<script src="./js/external/bootstrap-datepicker.js"></script>
+<script src="./js/external/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="./js/external/bootstrap-datepicker.js"></script>
 <script src="./js/external/custom.js"></script>
-<script src=".js/dashboard-staff.js"></script>
+<script src="./js/external/moment.min.js"></script>
+<script src="./js/dashboard-staff.js"></script>
 
 </body>
 </html>

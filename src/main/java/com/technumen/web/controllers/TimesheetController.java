@@ -83,6 +83,8 @@ public class TimesheetController {
                     " Size: " + file.getSize() + " Original Name: " + file.getOriginalFilename());
             //Set the fromDate based on the selected end date of the week.
             timesheetObj.setFromDate(DateUtils.getTimesheetWeekStartDate(timesheetObj.getToDate()));
+            timesheetObj.setEmployeeName(employee.getEmployeeFullName());
+            timesheetObj.setClientName(employee.getClientName());
             //Upload information
             timesheetObj.setBlobContent(file.getBytes());
             timesheetObj.setFileSize(file.getSize());

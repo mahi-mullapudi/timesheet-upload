@@ -238,6 +238,53 @@ public class DateUtils implements Serializable {
     }
 
     /**
+     * Returns a Map of Date, String for a given list of Dates.
+     *
+     * @param datesList
+     * @return
+     */
+    public static Map<Date, String> getWeekDatesMap(List<Date> datesList) {
+        log.info("Inside getWeekDatesMap of DateUtils:: ");
+        Map<Date, String> datesMap = new TreeMap<>(Collections.reverseOrder());
+        for (Date inputDate : datesList) {
+            datesMap.put(inputDate, parseDate(inputDate));
+        }
+
+        return datesMap;
+    }
+
+    /**
+     * Returns a Map of Date, String of Weekly Start Dates.
+     *
+     * @return
+     */
+    public static Map<Date, String> getWeekStartDatesMap() {
+        log.info("Inside getWeekStartDatesMap of DateUtils:: ");
+        Map<Date, String> datesMap = new TreeMap<>(Collections.reverseOrder());
+        for (Date inputDate : getListWeekStartDatesOfLastThreeMonths()) {
+            datesMap.put(inputDate, parseDate(inputDate));
+        }
+
+        return datesMap;
+    }
+
+    /**
+     * Returns a Map of Date, String of Weekly End Dates.
+     *
+     * @return
+     */
+    public static Map<Date, String> getWeekEndDatesMap() {
+        log.info("Inside getWeekEndDatesMap of DateUtils:: ");
+        Map<Date, String> datesMap = new TreeMap<>(Collections.reverseOrder());
+        for (Date inputDate : getListWeekEndDatesOfLastThreeMonths()) {
+            datesMap.put(inputDate, parseDate(inputDate));
+        }
+
+        return datesMap;
+    }
+
+
+    /**
      * Returns a map of Date, String values for a given endDatesList.
      *
      * @param endDatesList

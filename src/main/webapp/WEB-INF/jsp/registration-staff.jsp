@@ -47,7 +47,7 @@
                             </div>
                         </c:if>
 
-                        <spring:url value="/submitStaffRegistration" var="staffRegistrationActionUrl"/>
+                        <spring:url value="/registration" var="staffRegistrationActionUrl"/>
                         <form:form method="POST" modelAttribute="employee" action="${staffRegistrationActionUrl}">
                             <div class="row">
                                 <spring:bind path="employeeFirstName">

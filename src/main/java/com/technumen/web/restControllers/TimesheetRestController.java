@@ -110,4 +110,39 @@ public class TimesheetRestController {
         }
     }
 
+    @GetMapping("/timesheetSummaryStaff")
+    public ResponseEntity<Timesheet> getTsSummaryStaff(@RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
+                                                       @RequestParam("timesheetStatus") String timesheetStatus) throws Exception {
+        log.info("Inside getTsSummaryStaff method of TimesheetRestController:: fromDate: " + fromDate +
+                " toDate: " + toDate + " timesheetStatus: " + timesheetStatus);
+        return null;
+
+    }
+
+    /*
+    @GetMapping("/approveTimesheet")
+    public String approveTimesheet(@RequestParam("timesheetId") long timesheetId) throws Exception {
+        log.info("Inside approveTimesheet method of TimesheetRestController. ");
+        try {
+            timesheetService.approveTimesheet(timesheetId);
+        } catch (Exception ex) {
+            log.error("Exception while approving Timesheet: " + ex);
+            return "Error while Approving the timesheet.";
+        }
+        return "Timesheet Approved Successfully!!";
+    }
+
+    @GetMapping("/rejectTimesheet")
+    public String rejectTimesheet(@RequestParam("timesheetId") long timesheetId,
+                                  @RequestParam("reviewerComments") String reviewerComments) throws Exception {
+        log.info("Inside rejectTimesheet method of TimesheetRestController. ");
+        try {
+            timesheetService.rejectTimesheet(timesheetId, reviewerComments);
+        } catch (Exception ex) {
+            log.error("Exception while rejecting the Timesheet: " + ex);
+            return "Error while Rejecting the timesheet.";
+        }
+        return "Timesheet Rejected!!";
+    }*/
+
 }

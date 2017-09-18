@@ -29,5 +29,20 @@ public interface TimesheetService {
      */
     public Timesheet getTimesheetByEndDate(Date endDate) throws Exception;
 
+    /**
+     * Approve the Timesheet based on the given TimesheetId.
+     *
+     * @param timesheetId
+     * @throws Exception
+     */
+    //public void approveTimesheet(long timesheetId) throws Exception;
+
+    /**
+     * Reject the Timesheet based on the given TimesheetId and submit the reviewer comments.
+     *
+     * @param timesheetId
+     * @throws Exception
+     */
+    //public void rejectTimesheet(long timesheetId, String reviewerComments) throws Exception;
 
 }

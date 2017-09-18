@@ -12,10 +12,16 @@ $(document).ready(function () {
                 data: 'timesheetId'
             },
             {
-                data: 'fromDate'
+                data: 'fromDate',
+                mRender: function (data) {
+                    return moment(data).format("MM/DD/YYYY");
+                }
             },
             {
-                data: 'toDate'
+                data: 'toDate',
+                mRender: function (data) {
+                    return moment(data).format("MM/DD/YYYY");
+                }
             },
             {
                 data: 'regularHours'
@@ -34,7 +40,8 @@ $(document).ready(function () {
                     return link;
                 }
             }
-        ]
+        ],
+        order: [[1, 'desc'], [2, 'desc']]
     })
 });
 
@@ -78,9 +85,14 @@ function getTimesheetById(timesheetId) {
     });
 }
 
+/**
+ * Populates the Timesheet Information into the View Timesheet fields.
+ * @param timesheetObj
+ */
 function populateViewTimesheet(timesheetObj) {
     console.log("Inside populateViewTimesheet method ::");
-    $('#selectedTimePeriod').html(timesheetObj.fromDate + ' - ' + timesheetObj.toDate);
+    $('#selectedTimePeriod').html(moment(timesheetObj.fromDate).format("MM/DD/YYYY") + ' - '
+        + moment(timesheetObj.toDate).format("MM/DD/YYYY"));
     $('#timesheetStatus').html(timesheetObj.timesheetStatus);
     $('#regularHours').html(timesheetObj.regularHours);
     $('#extraHours').html(timesheetObj.extraHours);

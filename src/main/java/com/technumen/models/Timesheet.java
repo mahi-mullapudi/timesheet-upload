@@ -28,15 +28,17 @@ public class Timesheet implements Serializable {
     private long timesheetId;
     private String timesheetType;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "EST")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private Date fromDate;
     @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy", timezone = "EST")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy")
     private Date toDate;
     private String timesheetStatus;
     //Timesheet Information
     private double regularHours;
     private double extraHours;
+    private String employeeName;
+    private String clientName; //Employee Client Name while submitting the Timesheet.
     //File Upload Information
     @Transient
     private MultipartFile uploadFile; //Just to get the uploaded file.
@@ -47,6 +49,7 @@ public class Timesheet implements Serializable {
     private String dscFileName;
     private long fileSize;
     private String dscComments;
+    private String reviewerComments;
     //Audit Information
     @DateTimeFormat(pattern = "MM/dd/yyyy hh:mm")
     @Temporal(TemporalType.DATE)

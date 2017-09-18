@@ -3,7 +3,6 @@ package com.technumen.web.controllers;
 import com.technumen.constants.TimesheetConstants;
 import com.technumen.exceptions.CustomException;
 import com.technumen.models.Employee;
-import com.technumen.models.Timesheet;
 import com.technumen.services.RegistrationService;
 import com.technumen.utils.EncryptDecryptUtils;
 import com.technumen.web.validators.RegistrationValidator;
@@ -16,12 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -59,7 +56,7 @@ public class RegistrationController {
         modelMap.addAttribute("roleIdDescMap", roleIdDescMap);
         modelMap.addAttribute("employee", new Employee());
         //Initiating ModelAndView object with the Employee object
-        return new ModelAndView("registration", modelMap);
+        return new ModelAndView("registration-staff", modelMap);
     }
 
     @PostMapping("/registration")
@@ -87,5 +84,6 @@ public class RegistrationController {
         log.info("Successfully Registered the user, forwarding to the Login page.");
         return new ModelAndView("redirect:/login?encodedEmail=" + encryptDecryptUtils.encodeInputString(employeeRegistration.getEmployeeEmailId()));
     }
+
 }
 

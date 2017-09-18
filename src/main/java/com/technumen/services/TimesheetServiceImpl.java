@@ -29,7 +29,21 @@ public class TimesheetServiceImpl implements TimesheetService {
 
     @Override
     public Timesheet getTimesheetByEndDate(Date endDate) throws Exception {
-        log.info("Inside getTimesheetByEndDate method of TimesheetServiceImpl :: " + endDate);
+        log.info("Inside getTimesheetByEndDate method of TimesheetServiceImpl :: endDate: " + endDate);
         return timesheetRepository.findTimesheetByToDate(endDate);
     }
+
+    /*
+    @Override
+    public void approveTimesheet(long timesheetId) throws Exception {
+        log.info("Inside approveTimesheet method of TimesheetServiceImpl, timesheetId :: " + timesheetId);
+        timesheetRepository.updateTimesheetApprovalInfo();
+    }
+
+    @Override
+    public void rejectTimesheet(long timesheetId, String reviewerComments) throws Exception {
+        log.info("Inside rejectTimesheet method of TimesheetServiceImpl, timesheetId :: "
+                + timesheetId + " reviewerComments: " + reviewerComments);
+        timesheetRepository.updateTimesheetRejectInfo();
+    }*/
 }

@@ -10,4 +10,5 @@ import java.util.Date;
 public interface TimesheetRepository extends CrudRepository<Timesheet, Long> {
 
     public Timesheet findTimesheetByToDate(Date endDate);
+
 }

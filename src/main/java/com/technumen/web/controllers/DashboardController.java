@@ -32,18 +32,24 @@ public class DashboardController {
         switch (employee.getEmployeeRoleId()) {
             //Employee
             case TimesheetConstants.USER_ROLE_EMPLOYEE_ID:
-                employee.setEmployeeRoleDesc("employee");
+                employee.setEmployeeRoleDesc(TimesheetConstants.USER_ROLE_EMPLOYEE);
                 viewName = "employee/dashboard";
                 break;
             //Supervisor
             case TimesheetConstants.USER_ROLE_SUPERVISOR_ID:
-                employee.setEmployeeRoleDesc("staff");
+                employee.setEmployeeRoleDesc(TimesheetConstants.USER_ROLE_SUPERVISOR);
+                session.setAttribute("weekStartDatesList", DateUtils.getWeekStartDatesMap());
+                session.setAttribute("weekEndDatesList", DateUtils.getWeekEndDatesMap());
+                session.setAttribute("timesheetStatusList", TimesheetConstants.TIMESHEET_STATUS_LIST);
                 viewName = "staff/dashboard-staff";
                 break;
             //Admin
             case TimesheetConstants.USER_ROLE_ADMIN_ID:
-                employee.setEmployeeRoleDesc("admin");
-                viewName = "admin/dashboard-admin";
+                employee.setEmployeeRoleDesc(TimesheetConstants.USER_ROLE_ADMIN);
+                session.setAttribute("weekStartDatesList", DateUtils.getListWeekStartDatesOfLastThreeMonths());
+                session.setAttribute("weekEndDatesList", DateUtils.getListLocalWeekEndDatesOfLastThreeMonths());
+                session.setAttribute("timesheetStatusList", TimesheetConstants.TIMESHEET_STATUS_LIST);
+                viewName = "staff/dashboard-admin";
                 break;
             default:
                 viewName = "login";
