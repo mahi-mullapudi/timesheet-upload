@@ -21,4 +21,11 @@ public class IndexController {
         model.addAttribute("message", "Hello Mahidhar");
         return "welcome";
     }
+
+
+    @GetMapping("/reports")
+    public String reports(Model model) {
+        log.info("Inside reports method of IndexController");
+        return "employee/reports";
+    }
 }

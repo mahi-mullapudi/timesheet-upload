@@ -13,41 +13,45 @@
 
     <title>TechNumen Charts</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="./css/external/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
-
     <!-- Icons -->
-    <link href="css/font-awesome.css" rel="stylesheet">
-
+    <link href="./css/external/font-awesome.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid" id="wrapper">
     <div class="row">
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
-            <h1 class="site-title"><a href="dashboard-internal.html">
-                <em class="fa fa-rocket"></em> TechNumen Inc.,</a>
+            <h1 class="site-title">
+                <a href="/timesheetApp/dashboard">
+                    <em class="fa fa-rocket"></em>
+                    <img src="./images/technumen-logo.png" class="img-fluid">
+                </a>
             </h1>
 
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+                <em class="fa fa-bars"></em>
+            </a>
 
             <ul class="nav nav-pills flex-column sidebar-nav">
-                <li class="nav-item"><a class="nav-link" href="dashboard-internal.html">
-                    <em class="fa fa-dashboard"></em>
-                    Dashboard</a>
-                </li>
-                <li class="nav-item"><a class="nav-link active" href="reports-internal.html">
-                    <em class="fa fa-bar-chart"></em> Reports <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/timesheetApp/dashboard">
+                        <em class="fa fa-dashboard"></em>
+                        Dashboard <span class="sr-only">(current)</span>
+                    </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/reports">
+                        <em class="fa fa-bar-chart"></em> Reports
+                    </a>
+                </li>
             </ul>
-
-            <!-- <a href="#" class="logout-button"><em class="fa fa-power-off"></em> Signout</a> -->
         </nav>
 
         <main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
@@ -65,7 +69,7 @@
                     <div class="username mt-1">
                         <h4 class="mb-1">testuser</h4>
 
-                        <h6 class="text-muted">Employer</h6>
+                        <h6 class="text-muted">Employee</h6>
                     </div>
                 </a>
 
@@ -89,16 +93,18 @@
 
                                     <div class="dropdown card-title-btn-container">
                                         <button class="btn btn-sm btn-subtle dropdown-toggle" type="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><em
-                                                class="fa fa-cog"></em></button>
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <em class="fa fa-cog"></em>
+                                        </button>
 
                                         <div class="dropdown-menu dropdown-menu-right"
                                              aria-labelledby="dropdownMenuButton"><a class="dropdown-item" href="#"><em
-                                                class="fa fa-search mr-1"></em> More info</a>
+                                                class="fa fa-search mr-1"></em> More info </a>
                                             <a class="dropdown-item" href="#"><em class="fa fa-thumb-tack mr-1"></em>
                                                 Pin Window</a>
                                             <a class="dropdown-item" href="#"><em class="fa fa-remove mr-1"></em> Close
-                                                Window</a></div>
+                                                Window</a>
+                                        </div>
                                     </div>
 
                                     <h6 class="card-subtitle mb-2 text-muted">Sample Data</h6>
@@ -296,18 +302,18 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/external/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
-<script src="dist/js/bootstrap.min.js"></script>
+<script src="./js/external/bootstrap.min.js"></script>
 
-<script src="js/chart.min.js"></script>
-<script src="js/chart-data.js"></script>
-<script src="js/easypiechart.js"></script>
-<script src="js/easypiechart-data.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/custom.js"></script>
+<script src="./js/external/chart.min.js"></script>
+<script src="./js/external/chart-data.js"></script>
+<script src="./js/external/easypiechart.js"></script>
+<script src="./js/external/easypiechart-data.js"></script>
+<script src="./js/external/bootstrap-datepicker.js"></script>
+<script src="./js/external/custom.js"></script>
 <script>
     window.onload = function () {
         var chart1 = document.getElementById("line-chart").getContext("2d");
@@ -346,7 +352,8 @@
             scaleLineColor: "rgba(0,0,0,.2)",
             segmentShowStroke: false
         });
-    };</script>
+    };
+</script>
 
 </body>
 </html>

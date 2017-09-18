@@ -27,24 +27,31 @@
 <div class="container-fluid" id="wrapper">
     <div class="row">
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
-            <h1 class="site-title"><a href="index.html"><em class="fa fa-rocket"></em> TechNumen Inc.,</a></h1>
+            <h1 class="site-title">
+                <a href="/timesheetApp/dashboard">
+                    <em class="fa fa-rocket"></em>
+                    <img src="./images/technumen-logo.png" class="img-fluid">
+                </a>
+            </h1>
 
-            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
+            <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">
+                <em class="fa fa-bars"></em>
+            </a>
 
             <ul class="nav nav-pills flex-column sidebar-nav">
-                <li class="nav-item"><a class="nav-link" href="index.html"><em class="fa fa-dashboard"></em>
-                    Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link" href="addTimesheet.html"><em class="fa fa-calendar-o"></em>
-                    Upload
-                    Timesheet
-                </a></li>
-                <li class="nav-item"><a class="nav-link active" href="reports.html"><em class="fa fa-bar-chart"></em>
-                    Reports <span class="sr-only">(current)</span></a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="elements.html"><em class="fa fa-hand-o-up"></em> UI Elements</a></li> -->
-                <!-- <li class="nav-item"><a class="nav-link" href="cards.html"><em class="fa fa-clone"></em> Cards</a></li> -->
-            </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/timesheetApp/dashboard">
+                        <em class="fa fa-dashboard"></em>
+                        Dashboard <span class="sr-only">(current)</span>
+                    </a>
+                </li>
 
-            <!-- <a href="#" class="logout-button"><em class="fa fa-power-off"></em> Signout</a> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/timesheetApp/reports">
+                        <em class="fa fa-bar-chart"></em> Reports
+                    </a>
+                </li>
+            </ul>
         </nav>
 
         <main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
@@ -295,18 +302,18 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="js/jquery-3.2.1.min.js"></script>
+<script src="./js/external/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
         crossorigin="anonymous"></script>
-<script src="dist/js/bootstrap.min.js"></script>
+<script src="./js/external/bootstrap.min.js"></script>
 
-<script src="js/chart.min.js"></script>
-<script src="js/chart-data.js"></script>
-<script src="js/easypiechart.js"></script>
-<script src="js/easypiechart-data.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/custom.js"></script>
+<script src="./js/external/chart.min.js"></script>
+<script src="./js/external/chart-data.js"></script>
+<script src="./js/external/easypiechart.js"></script>
+<script src="./js/external/easypiechart-data.js"></script>
+<script src="./js/external/bootstrap-datepicker.js"></script>
+<script src="./js/external/custom.js"></script>
 <script>
     window.onload = function () {
         var chart1 = document.getElementById("line-chart").getContext("2d");
@@ -345,7 +352,8 @@
             scaleLineColor: "rgba(0,0,0,.2)",
             segmentShowStroke: false
         });
-    };</script>
+    };
+</script>
 
 </body>
 </html>
