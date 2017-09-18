@@ -248,8 +248,9 @@
                                         </div>
 
                                         <div class="text-center">
-                                            <input type="submit" class="btn btn-success"
-                                                   value="Search" onclick="loadDataTable()"/>
+                                            <button type="submit" class="btn btn-success"
+                                                    onclick="return setSummaryTable();">Search
+                                            </button>
                                         </div>
                                         <br>
 

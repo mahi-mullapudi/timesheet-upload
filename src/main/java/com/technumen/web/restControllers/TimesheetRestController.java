@@ -111,12 +111,17 @@ public class TimesheetRestController {
     }
 
     @GetMapping("/timesheetSummaryStaff")
-    public ResponseEntity<Timesheet> getTsSummaryStaff(@RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
-                                                       @RequestParam("timesheetStatus") String timesheetStatus) throws Exception {
-        log.info("Inside getTsSummaryStaff method of TimesheetRestController:: fromDate: " + fromDate +
+    public ResponseEntity<Timesheet> getTimesheetSummaryStaff(@RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
+                                                              @RequestParam("timesheetStatus") String timesheetStatus) throws Exception {
+        log.info("Inside getTimesheetSummaryStaff method of Timesheet Rest Controller:: fromDate: " + fromDate +
                 " toDate: " + toDate + " timesheetStatus: " + timesheetStatus);
-        return null;
-
+        try {
+            List<Timesheet> timesheetList = timesheetService.getTimesheetSummaryStaff(fromDate, toDate, timesheetStatus);
+            return new ResponseEntity(timesheetList, new HttpHeaders(), HttpStatus.OK);
+        } catch (Exception ex) {
+            log.error("Exception while getting Timesheet Summary for Staff: " + ex);
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
     /*

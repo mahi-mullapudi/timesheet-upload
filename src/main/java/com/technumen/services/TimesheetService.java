@@ -3,6 +3,7 @@ package com.technumen.services;
 import com.technumen.models.Timesheet;
 
 import java.util.Date;
+import java.util.List;
 
 public interface TimesheetService {
 
@@ -28,6 +29,17 @@ public interface TimesheetService {
      * @return
      */
     public Timesheet getTimesheetByEndDate(Date endDate) throws Exception;
+
+    /**
+     * Returns the list of Timesheets for a given From Date, To Date and Timesheet Status.
+     *
+     * @param fromDate
+     * @param toDate
+     * @param timesheetStatus
+     * @return
+     * @throws Exception
+     */
+    public List<Timesheet> getTimesheetSummaryStaff(Date fromDate, Date toDate, String timesheetStatus) throws Exception;
 
     /**
      * Approve the Timesheet based on the given TimesheetId.

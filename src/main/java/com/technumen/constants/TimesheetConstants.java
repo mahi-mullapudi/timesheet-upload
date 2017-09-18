@@ -34,6 +34,8 @@ public class TimesheetConstants implements Serializable {
 
     public static final String TIMESHEET_STATUS_REJECTED = "REJECTED";
 
+    public static final String TIMESHEET_STATUS_ALL = "ALL";
+
     public static final String TIMESHEET_TYPE_WEEKLY = "WEEKLY";
 
     public static final String TIMESHEET_TYPE_BIWEEKLY = "BIWEEKLY";
@@ -41,7 +43,7 @@ public class TimesheetConstants implements Serializable {
     public static final String SALT = "technumen";
 
     public static final List<String> TIMESHEET_STATUS_LIST = new ArrayList<>(
-            Arrays.asList(TIMESHEET_STATUS_SUBMITTED, TIMESHEET_STATUS_SUBMITTED, TIMESHEET_STATUS_REJECTED));
+            Arrays.asList(TIMESHEET_STATUS_ALL, TIMESHEET_STATUS_SUBMITTED, TIMESHEET_STATUS_APPROVED, TIMESHEET_STATUS_REJECTED));
 
     // All anticipated document types.
     public static final Map<String, String> TIMESHEET_FILE_EXTENSION_MAP = ImmutableMap.<String, String>builder()
