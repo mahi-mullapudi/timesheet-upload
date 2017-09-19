@@ -27,7 +27,7 @@
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
             <h1 class="site-title">
                 <a href="/timesheetApp/dashboard">
-                    <em class="fa fa-rocket"></em>
+
                     <img src="./images/technumen-logo.png" class="img-fluid">
                 </a>
             </h1>
@@ -59,9 +59,8 @@
                 </div>
 
                 <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right">
-                    <a
-                            class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="btn btn-stripped dropdown-toggle" href="https://example.com" id="dropdownMenuLink"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="images/profile-pic.png" alt="profile photo" class="circle float-left profile-photo"
                              width="50" height="auto">
 
@@ -87,16 +86,34 @@
                     <section class="row">
                         <div class="col-md-12">
 
-                            <div class="card mb-4" id="viewTimesheet">
+                            <div class="card mb-4" id="viewTimesheetDiv">
                                 <div class="card-block">
                                     <h3 class="card-title mb-4">View Timesheet</h3>
+                                    <hr>
+
+                                    <div class="col-md-12" id="alertDiv">
+                                        <div class="alert alert-dismissible" id="alertSubDiv" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">X</span>
+                                            </button>
+                                            <i class="fa fa-info-circle faa-flash animated"></i>
+                                            <strong> <span id="alertMsg"></span></strong>
+                                        </div>
+                                    </div>
 
                                     <form>
 
+                                        <input type="hidden" id="loggedEmployeeId" value="${user.employeeId}">
+                                        <input type="hidden" id="loggedEmployeeName" value="${user.employeeFullName}">
+                                        <input type="hidden" id="selectedTimesheetId">
+
                                         <div class="form-group row">
-                                            <label for="selectedTimePeriod" class="col-lg-2 form-control-label">Selected
-                                                TimePeriod : </label>
-                                            <div class="col-lg-6">
+                                            <label for="selectedTimePeriod" class="col-lg-2 form-control-label">
+                                                Selected TimePeriod :
+                                            </label>
+
+                                            <div class="col-lg-2">
                                                 <span id="selectedTimePeriod"></span>
                                             </div>
 
@@ -175,27 +192,28 @@
                                         </div>
                                         <br>
 
-
-                                        <div class="form-group">
+                                        <div class="form-group row">
                                             <label for="timesheetComments">Employee Comments : </label>
                                             <span id="timesheetComments"></span>
                                         </div>
+                                        <br>
 
-                                        <div class="form-group">
+                                        <div class="form-group row">
                                             <label for="timesheetComments">Reviewer Comments : </label>
                                             <textarea class="form-control col-xl-8" id="reviewerComments"
-                                                      rows="2" readonly>
+                                                      rows="2">
                                             </textarea>
                                         </div>
 
                                         <div class="row">
                                             <div class="text-center col-md-6">
                                                 <input type="submit" class="btn btn-success"
-                                                       value="Approve" onclick="approveTimesheet()"/>
+                                                       value="Approve" onclick="return approveTimesheet()"/>
                                             </div>
+
                                             <div class="text-center col-md-6">
                                                 <input type="submit" class="btn btn-danger"
-                                                       value="Reject" onclick="rejectTimesheet()"/>
+                                                       value="Reject" onclick="return rejectTimesheet()"/>
                                             </div>
                                         </div>
 
@@ -206,7 +224,8 @@
 
                             <div class="card mb-4">
                                 <div class="card-block">
-                                    <h3 class="card-title">Timesheet Summary</h3><br>
+                                    <h3 class="card-title">Timesheet Summary</h3>
+                                    <hr>
 
                                     <form>
 
@@ -250,7 +269,7 @@
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-success"
-                                                    onclick="return setSummaryTable();">Search
+                                                    onclick="return loadSummaryTable();">Search
                                             </button>
                                         </div>
                                         <br>
@@ -302,6 +321,57 @@
                     </section>
                 </div>
             </section>
+            <!-- TODO implement logic to show/hide the modal -->
+            <!-- Modal for Forwarding to the Dashboard page after successful Approval of the Timesheet Information -->
+            <div id="successModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" id="my-account">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <h4 class="modal-title"> Success!! </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <i class="fa fa-check fa-5x text-center" aria-hidden="true"></i>
+                            <p> Timesheet Information is APPROVED successfully. </p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="/timesheetApp/dashboard" class="btn btn-success">
+                                CLOSE
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Modal -->
+            <!-- Modal for Forwarding to the Dashboard page after Rejection of the Timesheet Information -->
+            <div id="rejectionModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog" id="reject-div">
+                    <div class="modal-content">
+                        <div class="modal-header bg-warning">
+                            <h4 class="modal-title"> DISAPPROVED!! </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <i class="fa fa-check fa-5x text-center" aria-hidden="true"></i>
+                            <p> The Selected Timesheet Information is REJECTED. </p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="/timesheetApp/dashboard" class="btn btn-warning">
+                                CLOSE
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Modal -->
         </main>
     </div>
 </div>

@@ -42,19 +42,21 @@ public interface TimesheetService {
     public List<Timesheet> getTimesheetSummaryStaff(Date fromDate, Date toDate, String timesheetStatus) throws Exception;
 
     /**
-     * Approve the Timesheet based on the given TimesheetId.
+     * Approve the Timesheet based on the given TimesheetId and Reviewer Comments.
+     * Also updates other approval date and audit information.
      *
      * @param timesheetId
      * @throws Exception
      */
-    //public void approveTimesheet(long timesheetId) throws Exception;
+    public void approveTimesheet(long timesheetId, String reviewerName, String reviewerComments) throws Exception;
 
     /**
-     * Reject the Timesheet based on the given TimesheetId and submit the reviewer comments.
+     * Reject the Timesheet based on the given TimesheetId and the reviewer comments.
+     * Empty out any Approval information on the Timesheet if exists.
      *
      * @param timesheetId
      * @throws Exception
      */
-    //public void rejectTimesheet(long timesheetId, String reviewerComments) throws Exception;
+    public void rejectTimesheet(long timesheetId, String reviewerName, String reviewerComments) throws Exception;
 
 }

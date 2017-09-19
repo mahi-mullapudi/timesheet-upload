@@ -12,6 +12,8 @@ import java.util.Map;
 @Component
 public class TimesheetConstants implements Serializable {
 
+    public static final String SALT = "technumen"; //Key used for Encryption.
+
     public static final String REGISTRATION_STATUS_ACTIVE = "ACTIVE";
 
     public static final String REGISTRATION_STATUS_INACTIVE = "INACTIVE";
@@ -40,7 +42,9 @@ public class TimesheetConstants implements Serializable {
 
     public static final String TIMESHEET_TYPE_BIWEEKLY = "BIWEEKLY";
 
-    public static final String SALT = "technumen";
+    public static final String REST_RESPONSE_CODE_SUCCESS = "SUCCESS";
+
+    public static final String REST_RESPONSE_CODE_ERROR = "ERROR";
 
     public static final List<String> TIMESHEET_STATUS_LIST = new ArrayList<>(
             Arrays.asList(TIMESHEET_STATUS_ALL, TIMESHEET_STATUS_SUBMITTED, TIMESHEET_STATUS_APPROVED, TIMESHEET_STATUS_REJECTED));

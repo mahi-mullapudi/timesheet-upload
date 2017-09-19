@@ -2,6 +2,7 @@ package com.technumen.web.restControllers;
 
 import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
+import com.technumen.models.RestResponseEntity;
 import com.technumen.models.Timesheet;
 import com.technumen.services.EmployeeService;
 import com.technumen.services.TimesheetService;
@@ -26,6 +27,10 @@ import java.util.List;
 @RequestMapping("/api")
 @Slf4j
 public class TimesheetRestController {
+
+    @Autowired
+    RestResponseEntity restResponseEntity;
+
     @Autowired
     EmployeeService employeeService;
 
@@ -74,6 +79,12 @@ public class TimesheetRestController {
         return new ResponseEntity(doc, header, HttpStatus.OK);
     }
 
+    /**
+     * Returns the list of Timesheet summary for a given EmployeeId.
+     *
+     * @param employeeId
+     * @return
+     */
     @GetMapping("/timesheetSummary")
     public ResponseEntity<List<Timesheet>> getTimesheetSummary(@RequestParam("employeeId") long employeeId) {
         log.info("Inside getTimesheetSummary method of TimesheetRestController:: employeeId: " + employeeId);
@@ -86,6 +97,13 @@ public class TimesheetRestController {
         }
     }
 
+    /**
+     * Returns Timesheet object for a given Timesheet Id.
+     *
+     * @param timesheetId
+     * @return
+     * @throws Exception
+     */
     @GetMapping(value = "/getTimesheetById")
     public ResponseEntity<Timesheet> getTimesheetByTimesheetId(@RequestParam("timesheetId") long timesheetId) throws Exception {
         log.info("Inside getTimesheetByTimesheetId method of TimesheetRestController:: timesheetId: " + timesheetId);
@@ -98,10 +116,18 @@ public class TimesheetRestController {
         }
     }
 
+    /**
+     * Returns Timesheet object for a given End Date of the timesheet.
+     *
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
     @GetMapping(value = "/getTimesheetByEndDate")
     public ResponseEntity<Timesheet> getTimesheetByEndDate(@RequestParam("endDate") Date endDate) throws Exception {
         log.info("Inside getTimesheetByEndDate method of TimesheetRestController:: endDate: " + endDate);
         try {
+            //TODO Implement logic to also add the Employee Id along with the End date.
             Timesheet timesheet = timesheetService.getTimesheetByEndDate(endDate);
             return new ResponseEntity(timesheet, new HttpHeaders(), HttpStatus.OK);
         } catch (Exception ex) {
@@ -110,6 +136,15 @@ public class TimesheetRestController {
         }
     }
 
+    /**
+     * Returns the Timesheet Summary for the Internal Staff for review based on the given Search criteria..
+     *
+     * @param fromDate
+     * @param toDate
+     * @param timesheetStatus
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/timesheetSummaryStaff")
     public ResponseEntity<Timesheet> getTimesheetSummaryStaff(@RequestParam("fromDate") Date fromDate, @RequestParam("toDate") Date toDate,
                                                               @RequestParam("timesheetStatus") String timesheetStatus) throws Exception {
@@ -124,30 +159,64 @@ public class TimesheetRestController {
         }
     }
 
-    /*
+    /**
+     * Approve the Timesheet by updating the Timesheet status to APPROVED along with Review Comments.
+     *
+     * @param timesheetId
+     * @param reviewerName
+     * @param reviewComments
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/approveTimesheet")
-    public String approveTimesheet(@RequestParam("timesheetId") long timesheetId) throws Exception {
-        log.info("Inside approveTimesheet method of TimesheetRestController. ");
+    public ResponseEntity<RestResponseEntity> approveTimesheet(@RequestParam("timesheetId") long timesheetId,
+                                                               @RequestParam("reviewerName") String reviewerName,
+                                                               @RequestParam("reviewComments") String reviewComments)
+            throws Exception {
+        log.info("Inside approveTimesheet method of TimesheetRestController:: timesheetId: " + timesheetId
+                + "reviewerName: " + reviewerName + " reviewComments: " + reviewComments);
         try {
-            timesheetService.approveTimesheet(timesheetId);
+            timesheetService.approveTimesheet(timesheetId, reviewerName, reviewComments);
+            restResponseEntity = new RestResponseEntity(TimesheetConstants.REST_RESPONSE_CODE_SUCCESS,
+                    "Selected Timesheet Approved Successfully!!", "alert-success");
         } catch (Exception ex) {
-            log.error("Exception while approving Timesheet: " + ex);
-            return "Error while Approving the timesheet.";
+            log.error("Exception while Approving Timesheet: " + ex);
+            restResponseEntity = new RestResponseEntity(TimesheetConstants.REST_RESPONSE_CODE_ERROR,
+                    "Exception while Approving the timesheet. Please contact Admin for help.",
+                    "alert-danger");
         }
-        return "Timesheet Approved Successfully!!";
+        //Return response entity object with Status ok even for the error.
+        return new ResponseEntity(restResponseEntity, new HttpHeaders(), HttpStatus.OK);
     }
 
+    /**
+     * Disapprove the Timesheet by updating the Timesheet status to REJECTED along with Review Comments.
+     *
+     * @param timesheetId
+     * @param reviewerName
+     * @param reviewComments
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/rejectTimesheet")
-    public String rejectTimesheet(@RequestParam("timesheetId") long timesheetId,
-                                  @RequestParam("reviewerComments") String reviewerComments) throws Exception {
-        log.info("Inside rejectTimesheet method of TimesheetRestController. ");
+    public ResponseEntity<RestResponseEntity> rejectTimesheet(@RequestParam("timesheetId") long timesheetId,
+                                                              @RequestParam("reviewerName") String reviewerName,
+                                                              @RequestParam("reviewComments") String reviewComments)
+            throws Exception {
+        log.info("Inside rejectTimesheet method of TimesheetRestController:: timesheetId: " + timesheetId
+                + "reviewerName: " + reviewerName + " reviewComments: " + reviewComments);
         try {
-            timesheetService.rejectTimesheet(timesheetId, reviewerComments);
+            timesheetService.rejectTimesheet(timesheetId, reviewerName, reviewComments);
+            restResponseEntity = new RestResponseEntity(TimesheetConstants.REST_RESPONSE_CODE_SUCCESS,
+                    "Selected Timesheet Disapproved Successfully", "alert-success");
         } catch (Exception ex) {
             log.error("Exception while rejecting the Timesheet: " + ex);
-            return "Error while Rejecting the timesheet.";
+            restResponseEntity = new RestResponseEntity(TimesheetConstants.REST_RESPONSE_CODE_ERROR,
+                    "Exception while Disapproving the timesheet. Please contact Admin for help.",
+                    "alert-danger");
         }
-        return "Timesheet Rejected!!";
-    }*/
+        //Return response entity object with Status ok even for the error.
+        return new ResponseEntity(restResponseEntity, new HttpHeaders(), HttpStatus.OK);
+    }
 
 }

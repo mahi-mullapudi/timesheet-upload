@@ -1,5 +1,6 @@
 package com.technumen.services;
 
+import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Timesheet;
 import com.technumen.repositories.TimesheetRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -49,17 +50,32 @@ public class TimesheetServiceImpl implements TimesheetService {
         }
     }
 
-    /*
     @Override
-    public void approveTimesheet(long timesheetId) throws Exception {
+    public void approveTimesheet(long timesheetId, String reviewerName, String reviewComments) throws Exception {
         log.info("Inside approveTimesheet method of TimesheetServiceImpl, timesheetId :: " + timesheetId);
-        timesheetRepository.updateTimesheetApprovalInfo();
+        Timesheet timesheetObj = timesheetRepository.findOne(timesheetId);
+        timesheetObj.setTimesheetStatus(TimesheetConstants.TIMESHEET_STATUS_APPROVED);
+        timesheetObj.setDateApproved(new Date());
+        timesheetObj.setNameApproved(reviewerName);
+        timesheetObj.setReviewerComments(reviewComments);
+        timesheetObj.setDateLastModified(new Date());
+        timesheetObj.setNameLastModified(reviewerName);
+        //Updating the Timesheet object with necessary information.
+        timesheetRepository.save(timesheetObj);
     }
 
     @Override
-    public void rejectTimesheet(long timesheetId, String reviewerComments) throws Exception {
+    public void rejectTimesheet(long timesheetId, String reviewerName, String reviewComments) throws Exception {
         log.info("Inside rejectTimesheet method of TimesheetServiceImpl, timesheetId :: "
-                + timesheetId + " reviewerComments: " + reviewerComments);
-        timesheetRepository.updateTimesheetRejectInfo();
-    }*/
+                + timesheetId + " reviewerComments: " + reviewComments);
+        Timesheet timesheetObj = timesheetRepository.findOne(timesheetId);
+        timesheetObj.setTimesheetStatus(TimesheetConstants.TIMESHEET_STATUS_REJECTED);
+        timesheetObj.setDateApproved(null);
+        timesheetObj.setNameApproved("");
+        timesheetObj.setReviewerComments(reviewComments);
+        timesheetObj.setDateLastModified(new Date());
+        timesheetObj.setNameLastModified(reviewerName);
+        //Updating the Timesheet object with necessary information.
+        timesheetRepository.save(timesheetObj);
+    }
 }

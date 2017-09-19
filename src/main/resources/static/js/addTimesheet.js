@@ -9,36 +9,6 @@ $(document).ready(function () {
 });
 
 /**
- *  Disaply or Hide the Auditing information for Submission, Approval and Rejection based on the Timesheet status.
- */
-function showHideAuditInfoBasedOnStatus() {
-    console.log('Timesheet Status: ' + $('#timesheetStatus').html());
-    //Check Timesheet Status and change the Display configurations
-    if (!$('#timesheetStatus').html()) {
-        $('#submissionInfoDiv').hide();
-        $('#approvalInfoDiv').hide();
-        $('#uploadedTimesheet').hide();
-    } else if ($('#timesheetStatus').html() === 'SUBMITTED') {
-        $('#submissionInfoDiv').show();
-        $('#uploadedTimesheet').show();
-        $('#approvalInfoDiv').hide();
-        enableComponents();
-    } else if ($('#timesheetStatus').html() === 'APPROVED') {
-        $('#submissionInfoDiv').show();
-        $('#uploadedTimesheet').show();
-        $('#approvalInfoDiv').show();
-        disableComponents();
-    } else if ($('#timesheetStatus').html() === 'REJECTED') {
-        $('#submissionInfoDiv').show();
-        $('#uploadedTimesheet').show();
-        $('#approvalInfoDiv').hide();
-        enableComponents();
-    } else {
-        console.log("Error Status");
-    }
-}
-
-/**
  * Get the Timesheet Information and populate the fields based on the information.
  */
 function getTimesheetDetails() {
@@ -64,23 +34,55 @@ function getTimesheetDetails() {
  * @param timesheetObj
  */
 function populateTimesheetInfo(timesheetObj) {
-
-    $('#regularHoursText').val(timesheetObj.regularHours);
-    $('#extraHoursText').val(timesheetObj.extraHours);
-    $('#dscCommentsText').val(timesheetObj.dscComments);
-
+    //Populate the input values.
+    $('#regularHoursText').val(timesheetObj.regularHours !== null ? timesheetObj.regularHours : 0.0);
+    $('#extraHoursText').val(timesheetObj.extraHours !== null ? timesheetObj.extraHours : 0.0);
+    $('#dscCommentsText').val(timesheetObj.dscComments !== null ? timesheetObj.dscComments : '');
+    //Populate the HTML information.
     $('#timesheetStatus').html(timesheetObj.timesheetStatus !== null ? timesheetObj.timesheetStatus : '');
     $('#submitterName').html(timesheetObj.nameCreated !== null ? timesheetObj.nameCreated : '');
-    $('#submittedDate').html(timesheetObj.dateCreated !== null ? timesheetObj.dateCreated : '');
+    $('#submittedDate').html(timesheetObj.dateCreated !== null ? moment(timesheetObj.dateCreated).format("MM/DD/YYYY hh:mm a") : '');
     $('#approverName').html(timesheetObj.nameApproved !== null ? timesheetObj.nameApproved : '');
-    $('#approvalDate').html(timesheetObj.dateApproved !== null ? timesheetObj.dateApproved : '');
+    $('#approvalDate').html(timesheetObj.dateApproved !== null ? moment(timesheetObj.dateApproved).format("MM/DD/YYYY hh:mm a") : '');
     //Timesheet Upload Information
     $('#uploadedTimesheetName').html(timesheetObj.dscFileName !== null ? timesheetObj.dscFileName : '');
-    $('#uploadTimesheetLink').attr('href', timesheetObj.timesheetId !== null ? ('/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId) : '#');
+    $('#uploadTimesheetLink').attr('href', timesheetObj.timesheetId !== null ?
+        ('/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId) : '#');
 }
 
 /**
- * Disable form fields and other form components.
+ *  Show or Hide Audit information for Submission, Approval and Rejection based on the Timesheet status.
+ */
+function showHideAuditInfoBasedOnStatus() {
+    console.log('Timesheet Status: ' + $('#timesheetStatus').html());
+    //Check Timesheet Status and change the Display configurations based on the Status.
+    if (!$('#timesheetStatus').html()) {
+        $('#submissionInfoDiv').hide();
+        $('#approvalInfoDiv').hide();
+        $('#uploadedTimesheet').hide();
+        disableComponents();
+    } else if ($('#timesheetStatus').html() === 'SUBMITTED') {
+        $('#submissionInfoDiv').show();
+        $('#uploadedTimesheet').show();
+        $('#approvalInfoDiv').hide();
+        enableComponents();
+    } else if ($('#timesheetStatus').html() === 'APPROVED') {
+        $('#submissionInfoDiv').show();
+        $('#uploadedTimesheet').show();
+        $('#approvalInfoDiv').show();
+        disableComponents();
+    } else if ($('#timesheetStatus').html() === 'REJECTED') {
+        $('#submissionInfoDiv').show();
+        $('#uploadedTimesheet').show();
+        $('#approvalInfoDiv').hide();
+        enableComponents();
+    } else {
+        console.log("Error Status");
+    }
+}
+
+/**
+ * Disable the form fields and other form components.
  */
 function disableComponents() {
     $('#addTimesheetForm').find('input, textarea, datepicker').attr('readonly', 'readonly');
@@ -88,7 +90,7 @@ function disableComponents() {
 }
 
 /**
- * Enable form fields and other form components by removing the readonly and disabled attributes.
+ * Enable the form fields and other form components by removing the readonly and disabled attributes.
  */
 function enableComponents() {
     $('#addTimesheetForm').find('input, textarea, datepicker').removeAttr('readonly');
