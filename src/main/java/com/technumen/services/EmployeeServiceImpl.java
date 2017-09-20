@@ -17,5 +17,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         log.info("Inside getEmployeeByEmployeeId method of EmployeeServiceImpl: " + employeeId);
         return employeeRepository.findOne(employeeId);
     }
+
+    @Override
+    public boolean checkIfEmployeeIdExists(String emailAddress) throws Exception {
+        log.info("Inside checkIfEmployeeIdExists method of EmployeeServiceImpl:: emailAddress: " + emailAddress);
+        return employeeRepository.countEmployeeByEmployeeEmailId(emailAddress) > 0;
+    }
 }
 

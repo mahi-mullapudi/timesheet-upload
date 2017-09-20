@@ -27,10 +27,8 @@ import java.util.TreeMap;
 @Slf4j
 public class RegistrationController {
 
-    //Autowiring Validators
     @Autowired
     RegistrationValidator registrationValidator;
-    //Autowiring Services
     @Autowired
     RegistrationService registrationService;
     @Autowired
@@ -82,6 +80,9 @@ public class RegistrationController {
             throw new CustomException("employee.registration.save.error", "Error while saving employee registration details. ");
         }
         log.info("Successfully Registered the user, forwarding to the Login page.");
+        redirectAttributes.addFlashAttribute("msg", "You are successfully registered. Please Login to Continue.");
+        redirectAttributes.addFlashAttribute("css", "success");
+
         return new ModelAndView("redirect:/login?encodedEmail=" + encryptDecryptUtils.encodeInputString(employeeRegistration.getEmployeeEmailId()));
     }
 

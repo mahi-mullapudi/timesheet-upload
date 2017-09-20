@@ -32,6 +32,7 @@
             </div>
 
             <div class="col-md-10 form-signin">
+
                 <c:if test="${not empty msg}">
                     <div class="col-md-12">
                         <div class="alert alert-${css} alert-dismissible" role="alert">

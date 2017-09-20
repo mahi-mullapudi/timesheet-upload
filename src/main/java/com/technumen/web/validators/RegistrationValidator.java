@@ -1,6 +1,7 @@
 package com.technumen.web.validators;
 
 import com.technumen.models.Employee;
+import com.technumen.services.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class RegistrationValidator implements Validator {
     EmailValidator emailValidator;
     @Autowired
     PasswordValidator passwordValidator;
+    @Autowired
+    EmployeeService employeeService;
 
     private Pattern pattern;
     private Matcher matcher;
@@ -48,8 +51,17 @@ public class RegistrationValidator implements Validator {
         //Email Validation
         if (!emailValidator.validate(employeeRegistration.getEmployeeEmailId())) {
             errors.rejectValue("employeeEmailId", "NotValid.registration.email");
+        } else {
+            //Check if the Email Id has a linked account.
+            try {
+                if (employeeService.checkIfEmployeeIdExists(employeeRegistration.getEmployeeEmailId())) {
+                    errors.rejectValue("employeeEmailId", "Duplicate.registration.email");
+                }
+            } catch (Exception ex) {
+                log.error("Exception while checking if the email id already exist:: ");
+                errors.rejectValue("employeeEmailId", "Error.checking.registration.email");
+            }
         }
-
 
         if (StringUtils.isNotBlank(employeeRegistration.getEmpPassword())) {
             if (!passwordValidator.validate(employeeRegistration.getEmpPassword())) {
@@ -60,7 +72,6 @@ public class RegistrationValidator implements Validator {
                 }
             }
         }
-
 
         if (!StringUtils.isBlank(employeeRegistration.getEmployeePhone())) {
             String phoneNumber = employeeRegistration.getEmployeePhone().replaceAll("[()-]", "");
