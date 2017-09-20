@@ -1,5 +1,6 @@
 package com.technumen.repositories;
 
+import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ public interface TimesheetRepository extends CrudRepository<Timesheet, Long> {
      * @param endDate
      * @return
      */
-    public Timesheet findTimesheetByToDate(Date endDate);
+    public Timesheet findTimesheetByToDateAndEmployee(Date endDate, Employee employee);
 
     /**
      * Returns the list of Timesheets based on the Start Date and End Date.

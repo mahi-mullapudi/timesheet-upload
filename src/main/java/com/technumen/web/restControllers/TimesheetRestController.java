@@ -54,7 +54,7 @@ public class TimesheetRestController {
             log.info("After getting the timesheetObj");
             if (timesheetObj != null) {
                 doc = timesheetObj.getBlobContent();
-                String extn = FilenameUtils.getExtension(timesheetObj.getDscFileName());
+                String extn = FilenameUtils.getExtension(timesheetObj.getDscFileName()).toLowerCase();
                 log.info("File Extension: " + extn);
                 String mimeType = TimesheetConstants.TIMESHEET_FILE_EXTENSION_MAP.get(extn);
                 if (StringUtils.isEmpty(mimeType) || StringUtils.isBlank(mimeType)) {
@@ -124,11 +124,14 @@ public class TimesheetRestController {
      * @throws Exception
      */
     @GetMapping(value = "/getTimesheetByEndDate")
-    public ResponseEntity<Timesheet> getTimesheetByEndDate(@RequestParam("endDate") Date endDate) throws Exception {
-        log.info("Inside getTimesheetByEndDate method of TimesheetRestController:: endDate: " + endDate);
+    public ResponseEntity<Timesheet> getTimesheetByEndDate(@RequestParam("endDate") Date endDate,
+                                                           @RequestParam("employeeId") long employeeId)
+            throws Exception {
+        log.info("Inside getTimesheetByEndDate method of TimesheetRestController:: endDate: " + endDate
+                + "employeeId: " + employeeId);
         try {
-            //TODO Implement logic to also add the Employee Id along with the End date.
-            Timesheet timesheet = timesheetService.getTimesheetByEndDate(endDate);
+            Employee employeeObj = employeeService.getEmployeeByEmployeeId(employeeId);
+            Timesheet timesheet = timesheetService.getTimesheetByEndDate(endDate, employeeObj);
             return new ResponseEntity(timesheet, new HttpHeaders(), HttpStatus.OK);
         } catch (Exception ex) {
             log.error("Exception while getting Timesheet By EndDate: " + ex);

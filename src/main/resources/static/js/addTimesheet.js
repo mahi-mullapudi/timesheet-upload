@@ -13,10 +13,11 @@ $(document).ready(function () {
  */
 function getTimesheetDetails() {
     var endDate = $('#selectTimePeriod').val();
+    var employeeId = $('#employeeId').val();
     console.log("Selected End Date: " + endDate);
     $.ajax({
         type: 'GET',
-        url: '/timesheetApp/api/getTimesheetByEndDate?endDate=' + endDate,
+        url: '/timesheetApp/api/getTimesheetByEndDate?endDate=' + endDate + "&employeeId=" + employeeId,
         success: function (responsedata) {
             console.log("Inside success function after getting the timesheet info.");
             populateTimesheetInfo(responsedata);

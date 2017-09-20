@@ -113,7 +113,7 @@
                                                 Selected TimePeriod :
                                             </label>
 
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-6">
                                                 <span id="selectedTimePeriod"></span>
                                             </div>
 

@@ -50,10 +50,11 @@ $(document).ready(function () {
  * @param endDate
  */
 function getTimesheetByEndDate(endDate) {
+    var employeeId = $('#employeeId').val();
     console.log("Inside getTimesheetByEndDate method:: endDate: " + endDate);
     $.ajax({
         type: 'GET',
-        url: '/timesheetApp/api/getTimesheetByEndDate?endDate=' + endDate,
+        url: '/timesheetApp/api/getTimesheetByEndDate?endDate=' + endDate + "&employeeId=" + employeeId,
         success: function (responsedata) {
             console.log("Inside success function after getting the timesheet info.");
             populateViewTimesheet(responsedata);
@@ -99,7 +100,7 @@ function populateViewTimesheet(timesheetObj) {
     $('#totalHours').html(timesheetObj.regularHours + timesheetObj.extraHours);
     $('#submitterName').html(timesheetObj.nameCreated);
     $('#submittedDate').html(moment(timesheetObj.dateCreated).format("MM/DD/YYYY hh:mm a"));
-    $('#approvalDate').html(timesheetObj.dateApproved.format("MM/DD/YYYY hh:mm a"));
+    $('#approvalDate').html(moment(timesheetObj.dateApproved).format("MM/DD/YYYY hh:mm a"));
     $('#timesheetComments').html(timesheetObj.dscComments);
     $('#uploadedTimesheetName').html(timesheetObj.dscFileName);
     $('#uploadTimesheetLink').attr('href', '/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId);

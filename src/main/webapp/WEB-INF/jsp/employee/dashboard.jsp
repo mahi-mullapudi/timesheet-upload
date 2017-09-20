@@ -27,7 +27,6 @@
         <nav class="sidebar col-xs-12 col-sm-4 col-lg-3 col-xl-2 bg-faded sidebar-style-1">
             <h1 class="site-title">
                 <a href="/timesheetApp/dashboard">
-
                     <img src="./images/technumen-logo.png" class="img-fluid">
                 </a>
             </h1>

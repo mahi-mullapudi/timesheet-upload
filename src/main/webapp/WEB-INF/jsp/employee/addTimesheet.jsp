@@ -121,6 +121,7 @@
                                            enctype="multipart/form-data" id="addTimesheetForm">
 
                                     <input type="hidden" id="summarymodalDisplayFlag" value="${summarymodal}"/>
+                                    <input type="hidden" id="employeeId" value="${user.employeeId}">
 
                                     <div class="form-group row">
                                         <label class="col-lg-2 form-control-label">Employee Name </label>
@@ -386,6 +387,7 @@
 <script src="./js/external/bootstrap.min.js"></script>
 <script src="./js/external/bootstrap-datepicker.js"></script>
 <script src="./js/external/custom.js"></script>
+<script src="./js/external/moment.min.js"></script>
 <script src="./js/addTimesheet.js"></script>
 </body>
 </html>

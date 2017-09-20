@@ -1,6 +1,7 @@
 package com.technumen.services;
 
 import com.technumen.constants.TimesheetConstants;
+import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
 import com.technumen.repositories.TimesheetRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +32,9 @@ public class TimesheetServiceImpl implements TimesheetService {
     }
 
     @Override
-    public Timesheet getTimesheetByEndDate(Date endDate) throws Exception {
+    public Timesheet getTimesheetByEndDate(Date endDate, Employee employee) throws Exception {
         log.info("Inside getTimesheetByEndDate method of TimesheetServiceImpl :: endDate: " + endDate);
-        return timesheetRepository.findTimesheetByToDate(endDate);
+        return timesheetRepository.findTimesheetByToDateAndEmployee(endDate, employee);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.technumen.services;
 
+import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
 
 import java.util.Date;
@@ -28,7 +29,7 @@ public interface TimesheetService {
      * @param endDate
      * @return
      */
-    public Timesheet getTimesheetByEndDate(Date endDate) throws Exception;
+    public Timesheet getTimesheetByEndDate(Date endDate, Employee employee) throws Exception;
 
     /**
      * Returns the list of Timesheets for a given From Date, To Date and Timesheet Status.
