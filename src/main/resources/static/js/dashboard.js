@@ -51,7 +51,7 @@ $(document).ready(function () {
  */
 function getTimesheetByEndDate(endDate) {
     var employeeId = $('#employeeId').val();
-    console.log("Inside getTimesheetByEndDate method:: endDate: " + endDate);
+    console.log("Inside getTimesheetByEndDate method:: endDate: " + endDate + " employeeId: " + employeeId);
     $.ajax({
         type: 'GET',
         url: '/timesheetApp/api/getTimesheetByEndDate?endDate=' + endDate + "&employeeId=" + employeeId,
@@ -91,17 +91,22 @@ function getTimesheetById(timesheetId) {
  * @param timesheetObj
  */
 function populateViewTimesheet(timesheetObj) {
-    console.log("Inside populateViewTimesheet method ::");
-    $('#selectedTimePeriod').html(moment(timesheetObj.fromDate).format("MM/DD/YYYY") + ' - '
-        + moment(timesheetObj.toDate).format("MM/DD/YYYY"));
-    $('#timesheetStatus').html(timesheetObj.timesheetStatus);
-    $('#regularHours').html(timesheetObj.regularHours);
-    $('#extraHours').html(timesheetObj.extraHours);
-    $('#totalHours').html(timesheetObj.regularHours + timesheetObj.extraHours);
-    $('#submitterName').html(timesheetObj.nameCreated);
-    $('#submittedDate').html(moment(timesheetObj.dateCreated).format("MM/DD/YYYY hh:mm a"));
-    $('#approvalDate').html(moment(timesheetObj.dateApproved).format("MM/DD/YYYY hh:mm a"));
-    $('#timesheetComments').html(timesheetObj.dscComments);
-    $('#uploadedTimesheetName').html(timesheetObj.dscFileName);
-    $('#uploadTimesheetLink').attr('href', '/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId);
+    if (timesheetObj) {
+        $('#viewTimesheet').show();
+        console.log("Inside populateViewTimesheet method ::");
+        $('#selectedTimePeriod').html((timesheetObj.fromDate != null ? moment(timesheetObj.fromDate).format("MM/DD/YYYY") : '') + ' - '
+            + (timesheetObj.toDate != null ? moment(timesheetObj.toDate).format("MM/DD/YYYY") : ''));
+        $('#timesheetStatus').html(timesheetObj.timesheetStatus);
+        $('#regularHours').html(timesheetObj.regularHours);
+        $('#extraHours').html(timesheetObj.extraHours);
+        $('#totalHours').html(timesheetObj.regularHours + timesheetObj.extraHours);
+        $('#submitterName').html(timesheetObj.nameCreated);
+        $('#submittedDate').html(timesheetObj.dateCreated != null ? moment(timesheetObj.dateCreated).format("MM/DD/YYYY hh:mm a") : '');
+        $('#approvalDate').html(timesheetObj.dateApproved != null ? moment(timesheetObj.dateApproved).format("MM/DD/YYYY hh:mm a") : '');
+        $('#timesheetComments').html(timesheetObj.dscComments);
+        $('#uploadedTimesheetName').html(timesheetObj.dscFileName);
+        $('#uploadTimesheetLink').attr('href', '/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId);
+    } else {
+        $('#viewTimesheet').hide();
+    }
 }

@@ -166,7 +166,9 @@
                                             </div>
                                         </spring:bind>
 
-                                        <div class="col-md-6">
+                                        <div class="form-group row col-md-6">
+                                            <label class="form-control-label col-lg-4"
+                                                   for="timesheetStatus">Status: </label>
                                             <span id="timesheetStatus" class="text-right"> ${timesheetStatus} </span>
                                         </div>
                                     </div>
@@ -223,7 +225,7 @@
 
                                     <div class="form-group">
                                         <label for="dscCommentsText">Comments : </label>
-                                        <form:textarea path="dscComments" id="dscCommentsText"
+                                        <form:textarea path="dscComments" id="dscCommentsText" maxlength="200"
                                                        class="form-control col-xl-8"/>
                                     </div>
                                     <br>
@@ -359,7 +361,7 @@
                             </button>
                         </div>
 
-                        <div class="modal-body">
+                        <div class="modal-body text-center">
                             <i class="fa fa-check fa-5x" aria-hidden="true"></i>
                             <p> Your Timesheet Information is SUBMITTED successfully. </p>
                         </div>
