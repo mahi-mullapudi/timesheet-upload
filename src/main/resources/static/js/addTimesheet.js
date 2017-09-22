@@ -58,7 +58,6 @@ function populateTimesheetInfo(timesheetObj) {
  * Show or Hide Audit information for Submission, Approval and Rejection status and also enable or disable the input elements.
  * @param timesheetStatus
  */
-
 function showHideAuditInfoBasedOnStatus(timesheetStatus) {
     //Check Timesheet Status and change the Display configurations based on the Status.
     console.log('Timesheet Status: ' + timesheetStatus);
