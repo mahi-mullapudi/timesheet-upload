@@ -263,3 +263,103 @@ public class EmailServiceImpl implements EmailService {
     }
 
 }
+
+/**
+ * TODO Implement the functionality for TimesheetApp.
+ *
+ * @Override public void sendEmailNotification(long contractId, String actionPerformed) {
+ * logger.debug("Sending email notification for :" + actionPerformed);
+ * try {
+ * EcasContract contract = ecasCommonService.getEcasContract(contractId);
+ * String toEmail = StringUtils.EMPTY, emailSubject = StringUtils.EMPTY, templateName = StringUtils.EMPTY, staffEak = StringUtils.EMPTY;
+ * String fromEmail = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_FROM_EMAIL);
+ * //Mapping object as per the template defined.
+ * Map<String, Object> mailModel = new HashMap<>();
+ * mailModel.put("contractKey", contract.getDsc_contract_id());
+ * mailModel.put("sfaName", contract.getNme_sfa());
+ * mailModel.put("entitycode", contract.getIdn_sfa());
+ * mailModel.put("vendorname", contract.getEcasVendorDetails().getNme_vendor());
+ * mailModel.put("contractSpan", contract.getNum_contract_span());
+ * mailModel.put("contractStartDate", DateFormatUtils.format(contract.getDte_contract_start(), "MM/dd/yyyy"));
+ * mailModel.put("contractEndDate", DateFormatUtils.format(contract.getDte_contract_end(), "MM/dd/yyyy"));
+ * mailModel.put("contactCertifiedDate", DateFormatUtils.format(contract.getDte_contract_certified(), "MM/dd/yyyy"));
+ * <p>
+ * SNEARSUser contractCertifyingUser = snearsUserService.getUserForEAK(contract.getEak_user_certified());
+ * <p>
+ * switch (actionPerformed) {
+ * case EcasConstants.CONTRACT_STATUS_CODE_CERTIFIED:
+ * int countyId = contract.getIdn_county();
+ * <p>
+ * staffEak = ecasCommonDAO.getAssignedStaffEakForCountyCode(countyId);
+ * if (staffEak != null && StringUtils.isNotBlank(staffEak)) {
+ * SNEARSUser stateStaffAssignedForCounty = snearsUserService.getUserForEAK(staffEak);
+ * toEmail = stateStaffAssignedForCounty.getUserBusinessEmail();
+ * } else {
+ * toEmail = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_TO_EMAIL_WHEN_STAFF_NOTASSIGNED);
+ * }
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_CERTIFICATION_EMAIL_SUBJECT);
+ * mailModel.put("contactCertifiedUser", contractCertifyingUser.getUserFirstName() + "," + contractCertifyingUser.getUserLastName());
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_CERTIFIED_TEMPLATE);
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * case EcasConstants.CONTRACT_STATUS_CODE_PREAPPROVED:
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_PREAPPROVE_EMAIL_SUBJECT);
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_PREAPPROVE_TEMPLATE);
+ * toEmail = contractCertifyingUser.getUserBusinessEmail();
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * case EcasConstants.CONTRACT_STATUS_CODE_NOTAPPROVED:
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_CERT_NOT_APPROVE_EMAIL_SUBJECT);
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_NOT_APPROVE_CERTIFICATION_TEMPLATE);
+ * toEmail = contractCertifyingUser.getUserBusinessEmail();
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * case EcasConstants.CONTRACT_STATUS_CODE_SIGNED:
+ * <p>
+ * staffEak = ecasCommonDAO.getAssignedStaffEakForCountyCode(contract.getIdn_county());
+ * if (staffEak != null && StringUtils.isNotBlank(staffEak)) {
+ * SNEARSUser stateStaffAssignedForCounty = snearsUserService.getUserForEAK(staffEak);
+ * toEmail = stateStaffAssignedForCounty.getUserBusinessEmail();
+ * } else {
+ * toEmail = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_TO_EMAIL_WHEN_STAFF_NOTASSIGNED);
+ * }
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_SIGNED_EMAIL_SUBJECT);
+ * mailModel.put("contactCertifiedUser", contractCertifyingUser.getUserFirstName() + "," + contractCertifyingUser.getUserLastName());
+ * mailModel.put("ContractSignedDate", DateFormatUtils.format(contract.getDte_contract_signed(), "MM/dd/yyyy"));
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_SIGNED_TEMPLATE);
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * case EcasConstants.CONTRACT_STATUS_CODE_APPROVED:
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_APPROVED_EMAIL_SUBJECT);
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_APPROVED_TEMPLATE);
+ * toEmail = contractCertifyingUser.getUserBusinessEmail();
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * case EcasConstants.ECAS_CV_SECTION_NAME_SIGNATURE:
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_SIGN_NOT_APPROVE_EMAIL_SUBJECT);
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_NOT_APPROVE_SIGN_TEMPLATE);
+ * toEmail = contractCertifyingUser.getUserBusinessEmail();
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * case EcasConstants.ECAS_CV_CERTIFY_CHARGES:
+ * emailSubject = ecasCommonService.getEcasAppProperty(EcasConstants.APP_PROPERTY_CV_CERTIFY_CHARGES);
+ * <p>
+ * templateName = ecasCommonService.getEcasTimeBasedAppProperty(EcasConstants.APP_PROPERTY_CV_EMAIL_CONFIRM_CHARGES_TEMPLATE);
+ * toEmail = contractCertifyingUser.getUserBusinessEmail();
+ * mailService.sendTemplateMailWithoutAttachment(fromEmail, toEmail, null, emailSubject, mailModel, templateName, true);
+ * break;
+ * <p>
+ * }
+ * } catch (Exception ex) {
+ * logger.error("Exception sending email notification for contract Id: " + contractId + " Action performed: " + actionPerformed + "\n" + ex);
+ * //Not throwing exception to fail silently as this is only for notification and should not stop the workflow.
+ * }
+ * <p>
+ * }
+ */
