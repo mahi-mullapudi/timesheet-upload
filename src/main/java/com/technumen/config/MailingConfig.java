@@ -38,7 +38,7 @@ public class MailingConfig {
 
     private Properties getMailProperties() {
         Properties properties = new Properties();
-        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.auth", "false");
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.debug", "false");
         return properties;
@@ -47,8 +47,8 @@ public class MailingConfig {
     @Bean
     public VelocityEngine getVelocityEngine() throws VelocityException, IOException {
         Properties props = new Properties();
-        props.put("resource.loader", "class");
-        props.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        props.setProperty("resource.loader", "class");
+        props.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 
         return new VelocityEngine(props);
     }

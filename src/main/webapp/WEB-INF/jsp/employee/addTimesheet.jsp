@@ -183,7 +183,7 @@
                                                     <form:input path="regularHours"
                                                                 name="regularHoursText" id="regularHoursText"
                                                                 maxlength="5"
-                                                                placeholder="Ex: 40.0" data-toggle="tooltip"
+                                                                data-toggle="tooltip"
                                                                 data-animation="false" data-placement="left"
                                                                 title="Enter the total regular hours you worked for the selected week."
                                                                 class="form-control col-lg-12 ${status.error ? 'form-control-danger' : ''}"/>
@@ -202,7 +202,7 @@
                                                     <form:input path="extraHours"
                                                                 name="extraHoursText" id="extraHoursText"
                                                                 maxlength="5"
-                                                                placeholder="Ex: 10.0" data-toggle="tooltip"
+                                                                data-toggle="tooltip"
                                                                 data-animation="false" data-placement="right"
                                                                 title="Please enter the extra hours worked for the selected week."
                                                                 class="form-control col-lg-12 ${status.error ? 'form-control-danger' : ''}"/>

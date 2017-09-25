@@ -13,7 +13,7 @@ function loadSummaryTable() {
     var status = $('#selectStatus').val();
     console.log("Inside setSummaryTable:: fromDate: " + fromDate + " toDate: " + toDate + " status: " + status);
     //Check if the FromDate is greater than the ToDate
-    if (fromDate >= toDate) {
+    if (new Date(fromDate) >= new Date(toDate)) {
         alert("Timesheet week Start date selected should be before the selected End Date. ");
         return false;
     }
@@ -43,6 +43,10 @@ function fetchData(fromDate, toDate, status) {
             + '&timesheetStatus=' + status,
             dataSrc: ''
         },
+        dom: 'lBfrtip',
+        buttons: [
+            'excel'
+        ],
         columns: [
             {
                 data: 'employeeName'

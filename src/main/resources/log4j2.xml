@@ -2,7 +2,7 @@
 <Configuration status="info">
     <Appenders>
         <File name="FILE"
-              fileName="/Users/mahidharchowdarymullapudi/Projects/application-logs/timesheet-uploadApp/logfile.log"
+              fileName="/data/applicationLogs/timesheetApp/logfile.log"
               append="true">
             <PatternLayout pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n"/>
         </File>
@@ -19,5 +19,4 @@
             <AppenderRef ref="FILE"/>
         </Root>
     </Loggers>
-
 </Configuration>

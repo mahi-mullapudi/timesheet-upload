@@ -12,7 +12,9 @@
     <title>TechNumen Home</title>
     <!-- Bootstrap core CSS -->
     <link href="./css/external/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="./css/external/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="./css/external/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="./css/external/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i"
           rel="stylesheet">
@@ -21,6 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="./css/style.css" rel="stylesheet">
 </head>
+
 <body>
 <div class="container-fluid" id="wrapper">
     <div class="row">
@@ -380,12 +383,18 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="./js/external/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
+<script src="./js/external/tether.min.js"></script>
 <script src="./js/external/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="./js/external/jquery.dataTables.min.js"></script>
+<script src="./js/external/dataTables.bootstrap4.min.js"></script>
+<script src="./js/external/dataTables.buttons.min.js"></script>
+<script src="./js/external/buttons.bootstrap4.min.js"></script>
+<script src="./js/external/dataTables.natural.js"></script>
+<script src="./js/external/buttons.flash.min.js"></script>
+<script src="./js/external/jszip.min.js"></script>
+<script src="./js/external/pdfmake.min.js"></script>
+<script src="./js/external/vfs_fonts.js"></script>
+<script src="./js/external/buttons.html5.min.js"></script>
 <script src="./js/external/bootstrap-datepicker.js"></script>
 <script src="./js/external/custom.js"></script>
 <script src="./js/external/moment.min.js"></script>

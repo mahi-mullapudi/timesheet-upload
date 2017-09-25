@@ -57,6 +57,7 @@ public class TimesheetConstants implements Serializable {
             .put("jpeg", "image/jpeg")
             .put("png", "image/png")
             .put("pdf", "application/pdf")
+            .put("txt", "text/plain")
             .build();
 
     public static final String INIT_VECTOR_RANDOM_KEY = "RandomInitVector"; // 16 bytes IV any random String with 16 characters can be used.
