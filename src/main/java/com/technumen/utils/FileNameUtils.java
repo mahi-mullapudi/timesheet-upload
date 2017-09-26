@@ -1,5 +1,6 @@
 package com.technumen.utils;
 
+import com.technumen.constants.TimesheetConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class FileNameUtils {
      * @return
      */
     public boolean validFileName(String fileName) {
-        log.info("Inside validFileName method of EcasFileUtils");
+        log.info("Inside validFileName method of FileNameUtils");
         return !StringUtils.containsAny(fileName, "!@#$%^&*()");
     }
 
@@ -38,7 +39,7 @@ public class FileNameUtils {
      * @return
      */
     public boolean validFileType(String fileName) {
-        log.info("Inside validateFileType method of EcasFileUtils");
+        log.info("Inside validateFileType method of FileNameUtils");
         Pattern pattern;
         Matcher matcher;
         final String FILETYPE_PATTERN = "([^\\s]+(\\.(?i)(txt|jpg|jpeg|png|pdf))$)";
@@ -46,6 +47,12 @@ public class FileNameUtils {
         matcher = pattern.matcher(fileName);
 
         return matcher.matches();
+    }
+
+    public boolean validFileSize(long fileSize) {
+        log.info("Inside validFileSize method of FileNameUtils");
+        //Check if the File size is less than or equal to 1MB
+        return (fileSize <= Long.parseLong(TimesheetConstants.MAX_UPLOAD_FILE_SIZE));
     }
 
 }

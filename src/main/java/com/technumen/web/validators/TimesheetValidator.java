@@ -3,6 +3,7 @@ package com.technumen.web.validators;
 import com.technumen.models.Timesheet;
 import com.technumen.utils.FileNameUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -32,9 +33,22 @@ public class TimesheetValidator implements Validator {
             errors.rejectValue("regularHours", "NotValid.timesheet.regularHours");
         }
 
+        if (StringUtils.isBlank(timesheetObj.getDscFileName())) {
+            errors.reject("NotEmpty.timesheet.file");
+        }
+
         if (!fileNameUtils.validFileName(timesheetObj.getDscFileName())) {
             errors.reject("NotValid.timesheet.file.name");
         }
+
+        if (!fileNameUtils.validFileType(timesheetObj.getDscFileName())) {
+            errors.reject("NotValid.timesheet.file.type");
+        }
+
+        if (!fileNameUtils.validFileSize(timesheetObj.getFileSize())) {
+            errors.reject("NotValid.timesheet.file.size");
+        }
+
 
     }
 }
