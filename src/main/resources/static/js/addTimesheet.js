@@ -35,9 +35,8 @@ function getTimesheetDetails() {
  * @param timesheetObj
  */
 function populateTimesheetInfo(timesheetObj) {
-    var timesheetStatus = timesheetObj.timesheetStatus;
     //Populate the HTML information.
-    $('#timesheetStatus').html(timesheetStatus !== null ? timesheetStatus : '');
+    $('#timesheetStatus').html(timesheetObj.timesheetStatus != null ? timesheetObj.timesheetStatus : '');
     $('#submitterName').html(timesheetObj.nameCreated !== null ? timesheetObj.nameCreated : '');
     $('#submittedDate').html(timesheetObj.dateCreated !== null ? moment(timesheetObj.dateCreated).format("MM/DD/YYYY hh:mm a") : '');
     $('#approverName').html(timesheetObj.nameApproved !== null ? timesheetObj.nameApproved : '');
@@ -51,7 +50,7 @@ function populateTimesheetInfo(timesheetObj) {
     $('#uploadTimesheetLink').attr('href', timesheetObj.timesheetId !== null ?
         ('/timesheetApp/api/getUploadedTimesheet?timesheetId=' + timesheetObj.timesheetId) : '#');
     //Call the function to Show/Hide the sections based on the status
-    showHideAuditInfoBasedOnStatus(timesheetStatus);
+    showHideAuditInfoBasedOnStatus(timesheetObj.timesheetStatus);
 }
 
 /**

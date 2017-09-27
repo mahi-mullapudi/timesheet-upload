@@ -17,13 +17,13 @@ function loadSummaryTable() {
         alert("Timesheet week Start date selected should be before the selected End Date. ");
         return false;
     }
-    //Fetch Data from the service.
+    //Fetch TImesheet Summary Data from the service.
     fetchData(fromDate, toDate, status);
     return false; //Just avoid the reload of the page.
 }
 
 /**
- * Retrieve the Data from the table and
+ * Retrieve Timesheet Summary Data from the database and populate the datatable with corresponding columns.
  * @param fromDate
  * @param toDate
  * @param status

@@ -215,7 +215,7 @@
 
                                     </div>
 
-                                    <p>Please Upload your approved timesheet for the selected time period</p>
+                                    <p>Please Upload your approved timesheet(pdf/image) for the selected time period</p>
 
                                     <div class="form-group row">
                                         <form:input path="uploadFile" type="file" name="file"
