@@ -71,7 +71,7 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public ModelAndView submitRegistration(@ModelAttribute("employee") Employee employeeRegistration, BindingResult result,
-                                           SessionStatus status, Model model, RedirectAttributes redirectAttributes) throws CustomException {
+                                           SessionStatus status, Model model, RedirectAttributes redirectAttributes) {
         log.info("Inside submitRegistation method of Registration Controller.");
         registrationValidator.validate(employeeRegistration, result);
         if (result.hasErrors()) {
@@ -87,9 +87,13 @@ public class RegistrationController {
             employeeRegistration.setNameUserCreated(employeeRegistration.getEmployeeFullName());
             log.info("Saving the registration details of the Employee.");
             registrationService.saveRegistrationDetails(employeeRegistration);
+            status.setComplete();
         } catch (Exception ex) {
             log.error("Exception while saving Registration details: " + ex);
-            throw new CustomException("employee.registration.save.error", "Error while saving employee registration details. ");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Technical issue while saving the Registration information. " +
+                    "Please contact Admin for more information!!");
+            return new ModelAndView("registration", "employee", employeeRegistration);
         }
         log.info("Successfully Registered the user, forwarding to the Login page.");
         redirectAttributes.addFlashAttribute("msg", "You are successfully registered. Please Login to Continue.");
