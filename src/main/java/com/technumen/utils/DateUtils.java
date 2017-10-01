@@ -122,7 +122,7 @@ public class DateUtils implements Serializable {
         if (inputDate != null) {
             LocalDate localDate = inputDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate lastSunday = localDate.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
-            log.info("Inside inputdate not null loop, lastSunday: " + lastSunday);
+            log.info("Inside input date not null loop, lastSunday: " + lastSunday);
             return Date.from(lastSunday.atStartOfDay(ZoneId.systemDefault()).toInstant());
         } else {
             log.error("Input date not found. So returning null.");
@@ -164,7 +164,6 @@ public class DateUtils implements Serializable {
                 .limit(weeks + 1)
                 .map(d -> Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .collect(Collectors.toList());
-        log.info("list of java.util end dates: " + collect);
         return collect;
     }
 
@@ -183,7 +182,6 @@ public class DateUtils implements Serializable {
         List<LocalDate> collect = Stream.iterate(lastSunday.minusWeeks(weeks), d -> d.plusWeeks(1L))
                 .limit(weeks + 1)
                 .collect(Collectors.toList());
-        log.info("list of java.time LocalDate end dates: " + collect);
         return collect;
     }
 
@@ -195,15 +193,13 @@ public class DateUtils implements Serializable {
     public static List<Date> getListWeekStartDatesOfLastThreeMonths() {
         log.info("Inside getListWeekStartDatesOfLastThreeMonths method of DateUtils.");
         LocalDate startMonday = LocalDate.now()
-                .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-        log.info("startMonday: " + startMonday);
+                .with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         long weeks = ChronoUnit.WEEKS.between(startMonday.minusMonths(3L), startMonday);
         log.info("Number of weeks in last three months: " + weeks);
         List<Date> collect = Stream.iterate(startMonday.minusWeeks(weeks), d -> d.plusWeeks(1L))
                 .limit(weeks + 1)
                 .map(d -> Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .collect(Collectors.toList());
-        log.info("list of java.util week start dates: " + collect);
         return collect;
     }
 
@@ -216,13 +212,11 @@ public class DateUtils implements Serializable {
         log.info("Inside getListLocalStartDatesOfLastThreeMonths method of DateUtils.");
         LocalDate startMonday = LocalDate.now()
                 .with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
-        log.info("startMonday: " + startMonday);
         long weeks = ChronoUnit.WEEKS.between(startMonday.minusMonths(3L), startMonday);
         log.info("Number of weeks in last three months: " + weeks);
         List<LocalDate> collect = Stream.iterate(startMonday.minusWeeks(weeks), d -> d.plusWeeks(1L))
                 .limit(weeks + 1)
                 .collect(Collectors.toList());
-        log.info("list of java.time LocalDate end dates: " + collect);
         return collect;
     }
 
