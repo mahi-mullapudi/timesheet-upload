@@ -3,15 +3,21 @@ package com.technumen.web.controllers;
 import com.technumen.constants.TimesheetConstants;
 import com.technumen.exceptions.CustomException;
 import com.technumen.models.Employee;
+import com.technumen.models.ResetPassword;
+import com.technumen.services.AuthenticationService;
+import com.technumen.services.EmailService;
 import com.technumen.services.RegistrationService;
+import com.technumen.utils.AuthenticationUtils;
 import com.technumen.utils.EncryptDecryptUtils;
 import com.technumen.web.validators.RegistrationValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +38,13 @@ public class RegistrationController {
     @Autowired
     RegistrationService registrationService;
     @Autowired
+    AuthenticationService authService;
+    @Autowired
+    EmailService emailService;
+    @Autowired
     EncryptDecryptUtils encryptDecryptUtils;
+    @Autowired
+    AuthenticationUtils authUtils;
 
     @GetMapping("/registration")
     public ModelAndView getRegistration() {
@@ -85,6 +97,57 @@ public class RegistrationController {
 
         return new ModelAndView("redirect:/login?encodedEmail=" + encryptDecryptUtils.encodeInputString(employeeRegistration.getEmployeeEmailId()));
     }
+
+    @GetMapping("/forgotPassword")
+    public ModelAndView forgotPassword() {
+        log.info("Inside forgotPassword method of Registration Controller.");
+        return new ModelAndView("forgotPassword", "resetPassword", new ResetPassword());
+    }
+
+    @PostMapping("/forgotPassword")
+    public ModelAndView submitForgotPassword(@ModelAttribute("resetPassword") ResetPassword resetPassword, BindingResult result,
+                                             SessionStatus status, Model model, Errors errors, RedirectAttributes redirectAttributes) {
+        log.info("Inside submitForgotPassword method of Registration Controller.");
+        try {
+            if (!authService.checkEmailIdExists(resetPassword.getEmailId())) {
+                log.info("EmailId not found in the system: ");
+                errors.rejectValue("emailId", "NotValid.login.email");
+            }
+        } catch (Exception ex) {
+            log.error("Exception while checking for the EmailId: " + ex);
+            errors.rejectValue("emailId", "Error.login.email");
+        }
+        if (result.hasErrors()) {
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Invalid / Missing Information. Please correct the information entered below!!");
+            return new ModelAndView("forgotPassword");
+        }
+        //Create a alpha numeric password
+        String tempPassword = RandomStringUtils.randomAlphanumeric(8);
+        log.info("After getting the tempPassword::");
+        try {
+            int numRows = registrationService.updatePassword(tempPassword, resetPassword.getEmailId());
+            log.info("Number of rows affected: " + numRows);
+        } catch (Exception ex) {
+            log.error("Exception while saving the new random password: " + ex);
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Technical issue while resetting the password. Please contact Admin for more details!!");
+            return new ModelAndView("forgotPassword");
+        }
+        //Send an Email with the temporary password.
+        emailService.sendPlainTextMailWithoutAttachment(TimesheetConstants.fromAddress, resetPassword.getEmailId(),
+                "",
+                "TechNumen Inc., Timesheet Application - Password Reset",
+                "We got a request to Reset your password. Below is the temporary password: /n "
+                        + tempPassword + ". Please use this temporary password to Login to your account and then " +
+                        "you can change your password from the Preferences section.");
+
+        model.addAttribute("resetEmail", resetPassword.getEmailId());
+        model.addAttribute("resetConfirmationModal", "yes");
+
+        return new ModelAndView("forgotPassword");
+    }
+
 
 }
 

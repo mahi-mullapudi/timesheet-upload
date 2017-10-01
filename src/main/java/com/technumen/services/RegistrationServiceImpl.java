@@ -22,4 +22,9 @@ public class RegistrationServiceImpl implements RegistrationService {
         employee.setEmpPassword(authUtils.getHashValue(employee.getEmpPassword())); //Generating Hash for the password.
         employeeRepository.save(employee);
     }
+
+    @Override
+    public int updatePassword(String password, String emailId) throws Exception {
+        return employeeRepository.updatePassword(authUtils.getHashValue(password), emailId);
+    }
 }

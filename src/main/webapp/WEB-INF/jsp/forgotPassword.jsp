@@ -45,10 +45,13 @@
                     </div>
                 </c:if>
 
-                <spring:url value="/login" var="loginActionUrl"/>
-                <form:form method="POST" modelAttribute="loginObj" action="${loginActionUrl}">
+                <spring:url value="/forgotPassword" var="resetActionUrl"/>
+                <form:form method="POST" modelAttribute="resetPassword" action="${resetActionUrl}">
+
+                    <input type="hidden" id="resetModalDisplayFlag" value="${resetConfirmationModal}"/>
                     <spring:bind path="emailId">
                         <div class="form-group required ${status.error ? 'has-danger' : ''}">
+                            <label for="emailId">Please enter your <b>Email Address</b> to reset your password: </label>
                             <div class="inputGroupContainer">
                                 <form:input path="emailId" type="email"
                                             name="emailId" id="emailId" maxlength="50"
@@ -63,52 +66,58 @@
                         </div>
                     </spring:bind>
 
-                    <spring:bind path="password">
-                        <div class="form-group required ${status.error ? 'has-danger' : ''}">
-                            <div class="inputGroupContainer">
-                                <form:password path="password"
-                                               name="password" id="password" maxlength="50"
-                                               placeholder="Password" data-toggle="tooltip"
-                                               data-animation="false"
-                                               class="form-control ${status.error ? 'form-control-danger' : ''}"
-                                               required="required"/>
-                                <div class="form-control-feedback">
-                                    <form:errors path="password"/>
-                                </div>
-                            </div>
-                        </div>
-                    </spring:bind>
-
-                    <form:hidden path="clientIpAddress"/>
-
-                    <p class="text-center">By logging in, you <b>agree</b> to
-                        <a href="">Terms & Conditions/Privacy Policy</a>.
-                    </p>
-
                     <div class="form-signin">
-                        <button class="btn btn-md btn-primary btn-block" type="submit">Sign in</button>
+                        <button class="btn btn-md btn-primary btn-block" type="submit">Reset Password</button>
                     </div>
 
                 </form:form>
             </div>
-
-            <div class="form-signin">
-                <a href="/timesheetApp/forgotPassword"> Having Trouble Logging In? </a>
-                <hr>
-                <span>Need an account? <a href="/timesheetApp/registration"> Sign Up</a>. </span>
-            </div>
-
         </section>
+        <!-- Modal for Forwarding to the Dashboard page after successful submission of the Timesheet Information -->
+        <div id="resetConfirmationModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog" id="my-account">
+                <div class="modal-content">
+                    <div class="modal-header bg-success">
+                        <h4 class="modal-title"> Password reset Successful!! </h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                        <p> We have reset your password and sent an email with detailed instructions to ${resetEmail}.
+                            Please follow the provided instructions to access your account.
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a href="/timesheetApp/login" class="btn btn-success">
+                            Back to Login Page!!
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Modal -->
     </main>
 </div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/external/jquery-3.2.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
+<script src="js/external/tether.min.js"></script>
 <script src="js/external/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //To activate Tooltip for this page
+        $('[data-toggle="tooltip"]').tooltip();
+        //On successful submit display the Modal
+        if ($('#resetModalDisplayFlag').val() === 'yes') {
+            $('#resetConfirmationModal').modal('show');
+        }
+    });
+</script>
 
 </body>
 </html>

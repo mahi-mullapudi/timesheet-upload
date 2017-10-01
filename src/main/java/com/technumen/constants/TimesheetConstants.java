@@ -64,4 +64,6 @@ public class TimesheetConstants implements Serializable {
 
     public static final String MAX_UPLOAD_FILE_SIZE = "1000000"; // 1MB file limit.
 
+    public static final String fromAddress = "admin@technumen.com";
+
 }

@@ -11,4 +11,14 @@ public interface RegistrationService {
      * @throws Exception
      */
     public void saveRegistrationDetails(Employee employee) throws Exception;
+
+    /**
+     * Update the password with the temporary password by given Email Id.
+     *
+     * @param password
+     * @param emailId
+     * @return
+     * @throws Exception
+     */
+    public int updatePassword(String password, String emailId) throws Exception;
 }
