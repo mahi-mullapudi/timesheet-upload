@@ -79,7 +79,11 @@
                          aria-labelledby="dropdownMenuLink"><a class="dropdown-item" href="#"><em
                             class="fa fa-user-circle mr-1"></em> View Profile</a>
                         <a class="dropdown-item" href="#"><em class="fa fa-sliders mr-1"></em> Preferences</a>
-                        <a class="dropdown-item" href="#"><em class="fa fa-power-off mr-1"></em> Logout</a></div>
+                        <a class="dropdown-item" href="/timesheetApp/logout">
+                            <em class="fa fa-power-off mr-1"></em>
+                            Logout
+                        </a>
+                    </div>
                 </div>
 
                 <div class="clear"></div>
