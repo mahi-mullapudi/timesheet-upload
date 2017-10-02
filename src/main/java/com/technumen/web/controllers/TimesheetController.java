@@ -3,6 +3,7 @@ package com.technumen.web.controllers;
 import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
 import com.technumen.models.Timesheet;
+import com.technumen.services.EmailService;
 import com.technumen.services.TimesheetService;
 import com.technumen.utils.DateUtils;
 import com.technumen.web.validators.TimesheetValidator;
@@ -31,6 +32,8 @@ public class TimesheetController {
 
     @Autowired
     TimesheetService timesheetService;
+    @Autowired
+    EmailService emailService;
     @Autowired
     TimesheetValidator timesheetValidator;
 
@@ -107,7 +110,7 @@ public class TimesheetController {
 
                 return new ModelAndView("employee/addTimesheet");
             }
-            //Save the Timesheet information in the database.
+            //Save the Time sheet information in the database.
             timesheetService.save(timesheetObj);
 
             model.addAttribute("css", "success");

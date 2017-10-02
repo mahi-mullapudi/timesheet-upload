@@ -1,7 +1,6 @@
 package com.technumen.web.controllers;
 
 import com.technumen.constants.TimesheetConstants;
-import com.technumen.exceptions.CustomException;
 import com.technumen.models.Employee;
 import com.technumen.models.ResetPassword;
 import com.technumen.services.AuthenticationService;
@@ -25,6 +24,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
@@ -87,6 +87,11 @@ public class RegistrationController {
             employeeRegistration.setNameUserCreated(employeeRegistration.getEmployeeFullName());
             log.info("Saving the registration details of the Employee.");
             registrationService.saveRegistrationDetails(employeeRegistration);
+            emailService.sendPlainTextMailWithoutAttachment(TimesheetConstants.fromAddress, employeeRegistration.getEmployeeEmailId(),
+                    "",
+                    "TechNumen Inc., Time sheet Application - Registration Successful",
+                    "This is to confirm that you have successfully created your profile.");
+
             status.setComplete();
         } catch (Exception ex) {
             log.error("Exception while saving Registration details: " + ex);
@@ -110,7 +115,7 @@ public class RegistrationController {
 
     @PostMapping("/forgotPassword")
     public ModelAndView submitForgotPassword(@ModelAttribute("resetPassword") ResetPassword resetPassword, BindingResult result,
-                                             SessionStatus status, Model model, Errors errors, RedirectAttributes redirectAttributes) {
+                                             SessionStatus status, Model model, Errors errors) {
         log.info("Inside submitForgotPassword method of Registration Controller.");
         try {
             if (!authService.checkEmailIdExists(resetPassword.getEmailId())) {
@@ -131,6 +136,7 @@ public class RegistrationController {
         log.info("After getting the tempPassword::");
         try {
             int numRows = registrationService.updatePassword(tempPassword, resetPassword.getEmailId());
+            status.setComplete();
             log.info("Number of rows affected: " + numRows);
         } catch (Exception ex) {
             log.error("Exception while saving the new random password: " + ex);
@@ -141,8 +147,8 @@ public class RegistrationController {
         //Send an Email with the temporary password.
         emailService.sendPlainTextMailWithoutAttachment(TimesheetConstants.fromAddress, resetPassword.getEmailId(),
                 "",
-                "TechNumen Inc., Timesheet Application - Password Reset",
-                "We got a request to Reset your password. Below is the temporary password: /n "
+                "TechNumen Inc., Time sheet Application - Password Reset",
+                "We got a request to Reset your password. Below is the temporary password: "
                         + tempPassword + ". Please use this temporary password to Login to your account and then " +
                         "you can change your password from the Preferences section.");
 
@@ -150,6 +156,94 @@ public class RegistrationController {
         model.addAttribute("resetConfirmationModal", "yes");
 
         return new ModelAndView("forgotPassword");
+    }
+
+    @GetMapping("/viewProfile")
+    public ModelAndView viewProfile(HttpSession session, Model model) {
+        log.info("Inside viewProfile method of Registration Controller.");
+        Employee employee = (Employee) session.getAttribute("user");
+        //Check if the employee object exist in the session.
+        if (employee == null) {
+            log.error("Cannot find employee object in the session, so forwarding to Login page");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Your session expired, please login to continue!!");
+            return new ModelAndView("redirect:/login");
+        }
+        model.addAttribute("employee", employee);
+        if (employee.isEmployeeRole()) {
+            return new ModelAndView("employee/viewProfile");
+        } else if (employee.isSupervisorRole()) {
+            return new ModelAndView("staff/viewProfileStaff");
+        } else if (employee.isAdminRole()) {
+            return new ModelAndView("staff/viewProfileStaff");
+        } else {
+            log.error("Cannot validate the role. Redirecting to the Login page.");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Cannot validate the role, please login to continue!!");
+            return new ModelAndView("redirect:/login");
+        }
+
+    }
+
+    @PostMapping("/updateProfile")
+    public ModelAndView updateProfile(@ModelAttribute("employee") Employee employee, BindingResult result,
+                                      SessionStatus status, Model model, Errors errors) {
+        log.info("Inside updateProfile method of Registration Controller.");
+        if (employee.isEmployeeRole()) {
+            if (result.hasErrors()) {
+                model.addAttribute("css", "danger");
+                model.addAttribute("msg", "Invalid / Missing Information. Please correct the information entered below!!");
+                return new ModelAndView("employee/viewProfile");
+            }
+            try {
+                registrationService.updateEmployeeProfile(employee);
+            } catch (Exception ex) {
+                log.error("Exception while updating Employee profile information.");
+                model.addAttribute("css", "danger");
+                model.addAttribute("msg", "Application issue while updating the profile information. Please contact Admin for more information!!");
+                return new ModelAndView("employee/viewProfile");
+            }
+            status.setComplete();
+            model.addAttribute("confirmationModal", "yes");
+            //Send a confirmation Email.
+            emailService.sendPlainTextMailWithoutAttachment(TimesheetConstants.fromAddress, employee.getEmployeeEmailId(),
+                    "",
+                    "TechNumen Inc., Time sheet Application - Updated Profile Information",
+                    "This is to confirm that we have successfully updated your profile information.");
+            return new ModelAndView("employee/viewProfile");
+
+        } else if (employee.isSupervisorRole()) {
+            if (result.hasErrors()) {
+                model.addAttribute("css", "danger");
+                model.addAttribute("msg", "Invalid / Missing Information. Please correct the information entered below!!");
+                return new ModelAndView("staff/viewProfileStaff");
+            }
+            try {
+                registrationService.updateStaffProfile(employee);
+            } catch (Exception ex) {
+                log.error("Exception while updating Supervisor profile information.");
+                model.addAttribute("css", "danger");
+                model.addAttribute("msg", "Application issue while updating the profile information. Please contact Admin for more information!!");
+                return new ModelAndView("staff/viewProfileStaff");
+            }
+            status.setComplete();
+            model.addAttribute("confirmationModal", "yes");
+            emailService.sendPlainTextMailWithoutAttachment(TimesheetConstants.fromAddress, employee.getEmployeeEmailId(),
+                    "",
+                    "TechNumen Inc., Time sheet Application - Updated Profile Information",
+                    "This is to confirm that we have successfully updated your profile information.");
+            return new ModelAndView("staff/viewProfileStaff");
+
+        } else if (employee.isAdminRole()) {
+            //TODO implement functionality for Admin role.
+            return new ModelAndView("staff/viewProfileStaff");
+        } else {
+            log.error("Cannot find the role. So forwarding to Login.");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Cannot validate the role, please login to continue!!");
+            return new ModelAndView("redirect:/login");
+        }
+
     }
 
 }

@@ -10,7 +10,7 @@ public interface RegistrationService {
      * @return
      * @throws Exception
      */
-    public void saveRegistrationDetails(Employee employee) throws Exception;
+    void saveRegistrationDetails(Employee employee) throws Exception;
 
     /**
      * Update the password with the temporary password by given Email Id.
@@ -20,5 +20,23 @@ public interface RegistrationService {
      * @return
      * @throws Exception
      */
-    public int updatePassword(String password, String emailId) throws Exception;
+    int updatePassword(String password, String emailId) throws Exception;
+
+    /**
+     * Update the profile information for Employee role.
+     *
+     * @param employee
+     * @return
+     * @throws Exception
+     */
+    int updateEmployeeProfile(Employee employee) throws Exception;
+
+    /**
+     * Update the profile information for Supervisor role.
+     *
+     * @param employee
+     * @return
+     * @throws Exception
+     */
+    int updateStaffProfile(Employee employee) throws Exception;
 }

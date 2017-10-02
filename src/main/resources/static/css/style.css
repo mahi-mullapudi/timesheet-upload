@@ -666,54 +666,9 @@ p {
     letter-spacing: .1rem;
 }
 
-.todo-list-item {
-    list-style: none;
-    padding: .75rem 1rem .15rem 1rem;
-    border-radius: .3rem;
-}
-
-.todo-list-item .fa {
-    margin: 0 .25rem 0 0;
-    color: #444444;
-}
-
-.todo-list-item .fa:hover {
-    color: #7376df;
-}
-
-.todo-list-item input[type=checkbox] {
-    margin: 0 0.5rem 0 0 !important;
-    border: 1px solid #333;
-}
-
-.todo-list {
-    padding: 0;
-    margin: -15px;
-    background: #fff;
-    color: #444444;
-}
-
 input[type=checkbox]:checked + label {
     text-decoration: line-through;
     color: #a0a0a0;
-}
-
-.todo-list-item:hover, a.todo-list-item:focus {
-    text-decoration: none;
-    background-color: #f7f7f7;
-}
-
-.todo-list-item .trash .fa:hover {
-    color: #ef4040;
-}
-
-.todo-list-footer {
-    margin: -20px;
-    margin-top: 2rem;
-}
-
-.todo-list-footer .btn {
-    border-radius: .4rem;
 }
 
 label {

@@ -1,5 +1,6 @@
 package com.technumen.repositories;
 
+import com.technumen.constants.QueryProperties;
 import com.technumen.models.Employee;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,14 +11,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
-    public Employee findEmployeeByEmployeeEmailId(String emailId);
+    Employee findEmployeeByEmployeeEmailId(String emailId);
 
-    public int countEmployeeByEmployeeEmailId(String emailId);
+    int countEmployeeByEmployeeEmailId(String emailId);
 
-    public int countEmployeeByEmployeeEmailIdAndEmpPassword(String emailId, String password);
+    int countEmployeeByEmployeeEmailIdAndEmpPassword(String emailId, String password);
 
     @Modifying
     @Query("UPDATE Employee emp SET emp.empPassword = :password where emp.employeeEmailId = :emailId")
-    public int updatePassword(@Param("password") String password, @Param("emailId") String emailId);
+    int updatePassword(@Param("password") String password, @Param("emailId") String emailId);
 
+    @Modifying
+    @Query(QueryProperties.updateEmployeeProfileByEmpId)
+    int updateEmployeeProfile(@Param("employeeFirstName") String employeeFirstName,
+                              @Param("employeeLastName") String employeeLastName,
+                              @Param("employeeTitle") String employeeTitle,
+                              @Param("employeePhone") String employeePhone,
+                              @Param("employeeId") long employeeId);
+
+    @Modifying
+    @Query(QueryProperties.updateStaffProfileByEmpId)
+    int updateStaffProfile(@Param("employeeFirstName") String employeeFirstName,
+                           @Param("employeeLastName") String employeeLastName,
+                           @Param("employeeTitle") String employeeTitle,
+                           @Param("employeePhone") String employeePhone,
+                           @Param("employeeId") long employeeId);
 }

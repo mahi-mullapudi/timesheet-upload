@@ -1,5 +1,6 @@
 package com.technumen.models;
 
+import com.technumen.constants.TimesheetConstants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -68,6 +69,18 @@ public class Employee implements Serializable {
     public String getEmployeeFullName() {
         return (StringUtils.isNotBlank(this.employeeFirstName) ? this.employeeFirstName : "") +
                 " " + (StringUtils.isNotBlank(this.employeeLastName) ? this.employeeLastName : "");
+    }
+
+    public boolean isEmployeeRole() {
+        return this.employeeRoleId == TimesheetConstants.USER_ROLE_EMPLOYEE_ID;
+    }
+
+    public boolean isSupervisorRole() {
+        return this.employeeRoleId == TimesheetConstants.USER_ROLE_SUPERVISOR_ID;
+    }
+
+    public boolean isAdminRole() {
+        return this.employeeRoleId == TimesheetConstants.USER_ROLE_ADMIN_ID;
     }
 
 }
