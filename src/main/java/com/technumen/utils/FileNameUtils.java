@@ -27,8 +27,9 @@ public class FileNameUtils {
      * @return
      */
     public boolean validFileName(String fileName) {
-        log.info("Inside validFileName method of FileNameUtils");
-        return !StringUtils.containsAny(fileName, "!@#$%^&*()");
+        boolean validFlag = !StringUtils.containsAny(fileName, "!@#$%^&*");
+        log.info("Inside validFileName method of FileNameUtils:: fileName: " + fileName + "validFlag: " + validFlag);
+        return validFlag;
     }
 
     /**
@@ -42,17 +43,20 @@ public class FileNameUtils {
         log.info("Inside validateFileType method of FileNameUtils");
         Pattern pattern;
         Matcher matcher;
-        final String FILETYPE_PATTERN = "([^\\s]+(\\.(?i)(txt|jpg|jpeg|png|pdf))$)";
+        final String FILETYPE_PATTERN = "(.*\\.(?i)(txt|jpg|jpeg|png|pdf))$";
         pattern = Pattern.compile(FILETYPE_PATTERN);
         matcher = pattern.matcher(fileName);
-
-        return matcher.matches();
+        boolean validFlag = matcher.matches();
+        log.info("validFlag: " + validFlag);
+        return validFlag;
     }
 
     public boolean validFileSize(long fileSize) {
-        log.info("Inside validFileSize method of FileNameUtils");
-        //Check if the File size is less than or equal to 1MB
-        return (fileSize <= Long.parseLong(TimesheetConstants.MAX_UPLOAD_FILE_SIZE));
+        log.info("Inside validFileSize() method of FileNameUtils");
+        //Check if the File size is less than or equal to 5MB
+        boolean validFlag = (fileSize <= Long.parseLong(TimesheetConstants.MAX_UPLOAD_FILE_SIZE));
+        log.info("validFlag: " + validFlag);
+        return validFlag;
     }
 
 }

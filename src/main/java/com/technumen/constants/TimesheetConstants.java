@@ -62,7 +62,7 @@ public class TimesheetConstants implements Serializable {
 
     public static final String INIT_VECTOR_RANDOM_KEY = "RandomInitVector"; // 16 bytes IV any random String with 16 characters can be used.
 
-    public static final String MAX_UPLOAD_FILE_SIZE = "1000000"; // 1MB file limit.
+    public static final String MAX_UPLOAD_FILE_SIZE = "5000000"; // 5MB file limit.
 
     public static final String fromAddress = "admin@technumen.com";
 

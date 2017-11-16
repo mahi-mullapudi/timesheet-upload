@@ -16,6 +16,7 @@ public class FileNameUtilsTest {
         assertEquals("Wrong File Name ", true, ecasFileUtils.validFileName("test.jpeg"));
         assertEquals("Wrong File Name ", true, ecasFileUtils.validFileName("test file. ghit .png"));
         assertEquals("Wrong File Name ", true, ecasFileUtils.validFileName("file msg it.fns.txt"));
+        assertEquals("Wrong File Name ", true, ecasFileUtils.validFileName("Mahidhar- client letter.PDF"));
         //Non-allowed File Names
         assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("test@$sadfsad"));
         assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("testsd/sdf%sfsdf"));
@@ -25,9 +26,7 @@ public class FileNameUtilsTest {
         assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes$fsdf.com"));
         assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes%^fsdf.com"));
         assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes&&fsdf.com"));
-        assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes()fsdf.com"));
-        assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes(fsdf.com"));
-        assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes)&^fsdf.com"));
+        assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes&^fsdf.com"));
         assertEquals("Wrong File Name ", false, ecasFileUtils.validFileName("tes@*fsdf.com"));
     }
 
@@ -38,6 +37,7 @@ public class FileNameUtilsTest {
         assertEquals("Wrong File Type", true, ecasFileUtils.validFileType("test1.jpeg"));
         assertEquals("Wrong File Type", true, ecasFileUtils.validFileType("test1.pdf.pdf"));
         assertEquals("Wrong File Type ", true, ecasFileUtils.validFileType("teadf.sadf.jpg"));
+        assertEquals("Wrong File Type ", true, ecasFileUtils.validFileType("Mahidhar- client letter.PDF"));
         //Test for the upper case file extensions matching
         assertEquals("Wrong File Type", true, ecasFileUtils.validFileType("TEST1.PNG"));
         assertEquals("Wrong File Type", true, ecasFileUtils.validFileType("TEST1.JPG"));

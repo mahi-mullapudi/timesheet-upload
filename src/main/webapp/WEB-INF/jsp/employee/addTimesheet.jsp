@@ -218,10 +218,18 @@
 
                                     <p>Please Upload your approved timesheet(pdf/image) for the selected time period</p>
 
-                                    <div class="form-group row">
-                                        <form:input path="uploadFile" type="file" name="file"
-                                                    class="form-control-file"/>
-                                    </div>
+                                    <spring:bind path="uploadFile">
+                                        <div class="form-group row col-md-6 ${status.error ? 'has-danger' : ''}">
+                                            <div class="inputGroupContainer col-lg-8">
+                                                <form:input path="uploadFile"
+                                                            type="file" name="file"
+                                                            class="form-control-file ${status.error ? 'form-control-danger' : ''}"/>
+                                                <div class="form-control-feedback">
+                                                    <form:errors path="uploadFile"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </spring:bind>
                                     <br>
 
                                     <div class="form-group">

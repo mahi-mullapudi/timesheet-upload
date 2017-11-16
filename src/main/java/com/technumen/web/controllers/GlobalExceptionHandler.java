@@ -64,7 +64,7 @@ public class GlobalExceptionHandler {
         String s = sw.toString();
         errorInfo.setStackTrace(s);
         errorInfo.setTimeStamp(System.currentTimeMillis());
-        model.addObject("ecasErrorInfo", errorInfo);
+        model.addObject("errorInfo", errorInfo);
         return model;
     }
 
@@ -76,7 +76,7 @@ public class GlobalExceptionHandler {
         AppErrorInfo errorInfo = new AppErrorInfo();
         HttpSession session = request.getSession(false);
 
-        errorInfo.setErrorCode("ECAS.SERVER.ERROR");
+        errorInfo.setErrorCode("TIMESHEET.SERVER.ERROR");
         errorInfo.setErrorDetails("");
         errorInfo.setErrorMessage(messageSource.getMessage("internal.server.error",
                 new String[]{}, Locale.US));

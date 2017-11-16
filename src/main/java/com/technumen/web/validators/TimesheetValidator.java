@@ -34,19 +34,19 @@ public class TimesheetValidator implements Validator {
         }
 
         if (StringUtils.isBlank(timesheetObj.getDscFileName())) {
-            errors.reject("NotEmpty.timesheet.file");
+            errors.rejectValue("uploadFile", "NotEmpty.timesheet.file");
         }
 
         if (!fileNameUtils.validFileName(timesheetObj.getDscFileName())) {
-            errors.reject("NotValid.timesheet.file.name");
+            errors.rejectValue("uploadFile", "NotValid.timesheet.file.name");
         }
 
         if (!fileNameUtils.validFileType(timesheetObj.getDscFileName())) {
-            errors.reject("NotValid.timesheet.file.type");
+            errors.rejectValue("uploadFile", "NotValid.timesheet.file.type");
         }
 
         if (!fileNameUtils.validFileSize(timesheetObj.getFileSize())) {
-            errors.reject("NotValid.timesheet.file.size");
+            errors.rejectValue("uploadFile", "NotValid.timesheet.file.size");
         }
 
 
