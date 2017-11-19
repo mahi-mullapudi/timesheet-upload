@@ -109,13 +109,14 @@
                             <div class="row">
                                 <spring:bind path="empPassword">
                                     <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
-                                        <label class="form-control-label" for="password">Password</label>
+                                        <label class="form-control-label" for="password" data-toggle="tooltip"
+                                               data-animation="false" data-placement="bottom"
+                                               title="Password can be 6 to 25 characters. Should consist of atleast one uppercase character, digit and special symbol (@#$%)"
+                                        >Password</label>
                                         <div class="inputGroupContainer">
                                             <form:password path="empPassword"
                                                            name="password" id="password" maxlength="25"
-                                                           placeholder="Password" data-toggle="tooltip"
-                                                           data-animation="false" data-placement="left"
-                                                           title="Password can be 6 to 25 characters. Should consist of atleast one uppercase character, digit and special symbol (@#$%)"
+                                                           placeholder="Password"
                                                            class="form-control ${status.error ? 'form-control-danger' : ''}"/>
                                             <div class="form-control-feedback">
                                                 <form:errors path="empPassword"/>
@@ -126,13 +127,13 @@
 
                                 <spring:bind path="empPassword2">
                                     <div class="form-group required col-md-6 ${status.error ? 'has-danger' : ''}">
-                                        <label class="form-control-label" for="password2">Re-enter Password</label>
+                                        <label class="form-control-label" for="password2" data-toggle="tooltip"
+                                               data-animation="false" data-placement="bottom"
+                                               title="Please re-enter the same password.">Re-enter Password</label>
                                         <div class="inputGroupContainer">
                                             <form:password path="empPassword2"
                                                            name="password2" id="password2" maxlength="25"
-                                                           placeholder="Re-enter Password" data-toggle="tooltip"
-                                                           data-animation="false" data-placement="right"
-                                                           title="Please re-enter the same password."
+                                                           placeholder="Re-enter Password"
                                                            class="form-control ${status.error ? 'form-control-danger' : ''}"/>
                                             <div class="form-control-feedback">
                                                 <form:errors path="empPassword2"/>

@@ -4,6 +4,7 @@ import com.technumen.constants.TimesheetConstants;
 import com.technumen.models.Employee;
 import com.technumen.models.RestResponseEntity;
 import com.technumen.models.Timesheet;
+import com.technumen.services.EmailService;
 import com.technumen.services.EmployeeService;
 import com.technumen.services.TimesheetService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,9 @@ public class TimesheetRestController {
 
     @Autowired
     TimesheetService timesheetService;
+
+    @Autowired
+    EmailService emailService;
 
     /**
      * Get the file from the database TIMESHEET table and then
@@ -179,7 +183,15 @@ public class TimesheetRestController {
         log.info("Inside approveTimesheet method of TimesheetRestController:: timesheetId: " + timesheetId
                 + "reviewerName: " + reviewerName + " reviewComments: " + reviewComments);
         try {
+            Timesheet timesheetObj = timesheetService.getTimesheetByTimesheetId(timesheetId);
+            Employee employeeObj = timesheetObj.getEmployee();
             timesheetService.approveTimesheet(timesheetId, reviewerName, reviewComments);
+            emailService.sendPlainTextMailWithoutAttachment(
+                    TimesheetConstants.fromAddress, employeeObj.getEmployeeEmailId(), "",
+                    "Timesheet APPROVED for " + timesheetObj.getFromDate()
+                            + " to " + timesheetObj.getToDate(),
+                    "Your timesheet for the period: " + timesheetObj.getFromDate()
+                            + " to " + timesheetObj.getToDate() + " is APPROVED successfully. ");
             restResponseEntity = new RestResponseEntity(TimesheetConstants.REST_RESPONSE_CODE_SUCCESS,
                     "Selected Timesheet Approved Successfully!!", "alert-success");
         } catch (Exception ex) {
@@ -209,7 +221,17 @@ public class TimesheetRestController {
         log.info("Inside rejectTimesheet method of TimesheetRestController:: timesheetId: " + timesheetId
                 + "reviewerName: " + reviewerName + " reviewComments: " + reviewComments);
         try {
+            Timesheet timesheetObj = timesheetService.getTimesheetByTimesheetId(timesheetId);
+            Employee employeeObj = timesheetObj.getEmployee();
             timesheetService.rejectTimesheet(timesheetId, reviewerName, reviewComments);
+            emailService.sendPlainTextMailWithoutAttachment(
+                    TimesheetConstants.fromAddress, employeeObj.getEmployeeEmailId(), "",
+                    "Timesheet REJECTED for " + timesheetObj.getFromDate()
+                            + " to " + timesheetObj.getToDate(),
+                    "Your timesheet for the period: " + timesheetObj.getFromDate()
+                            + " to " + timesheetObj.getToDate() + " is REJECTED because of: "
+                            + timesheetObj.getReviewerComments()
+                            + ". Please correct your timesheet and re-submit again.");
             restResponseEntity = new RestResponseEntity(TimesheetConstants.REST_RESPONSE_CODE_SUCCESS,
                     "Selected Timesheet Disapproved Successfully", "alert-success");
         } catch (Exception ex) {

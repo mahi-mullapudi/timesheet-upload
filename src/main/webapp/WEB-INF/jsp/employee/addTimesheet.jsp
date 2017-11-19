@@ -178,15 +178,16 @@
 
                                         <spring:bind path="regularHours">
                                             <div class="form-group row col-md-6 ${status.error ? 'has-danger' : ''}">
-                                                <label class="form-control-label col-lg-4" for="regularHoursText">Regular
-                                                    Hours: </label>
+                                                <label class="form-control-label col-lg-4" for="regularHoursText"
+                                                       data-toggle="tooltip"
+                                                       data-animation="false" data-placement="bottom"
+                                                       title="Enter the total regular hours you worked for the selected week.">
+                                                    Regular Hours:
+                                                </label>
                                                 <div class="inputGroupContainer col-lg-8">
                                                     <form:input path="regularHours"
                                                                 name="regularHoursText" id="regularHoursText"
                                                                 maxlength="5"
-                                                                data-toggle="tooltip"
-                                                                data-animation="false" data-placement="left"
-                                                                title="Enter the total regular hours you worked for the selected week."
                                                                 class="form-control col-lg-12 ${status.error ? 'form-control-danger' : ''}"/>
                                                     <div class="form-control-feedback">
                                                         <form:errors path="regularHours"/>
@@ -197,15 +198,16 @@
 
                                         <spring:bind path="extraHours">
                                             <div class="form-group row col-md-6 ${status.error ? 'has-danger' : ''}">
-                                                <label class="form-control-label col-lg-4" for="extraHoursText">Extra
-                                                    Hours: </label>
+                                                <label class="form-control-label col-lg-4" for="extraHoursText"
+                                                       data-toggle="tooltip"
+                                                       data-animation="false" data-placement="bottom"
+                                                       title="Please enter the extra hours worked for the selected week.">
+                                                    Extra Hours:
+                                                </label>
                                                 <div class="inputGroupContainer col-lg-8">
                                                     <form:input path="extraHours"
                                                                 name="extraHoursText" id="extraHoursText"
                                                                 maxlength="5"
-                                                                data-toggle="tooltip"
-                                                                data-animation="false" data-placement="right"
-                                                                title="Please enter the extra hours worked for the selected week."
                                                                 class="form-control col-lg-12 ${status.error ? 'form-control-danger' : ''}"/>
                                                     <div class="form-control-feedback">
                                                         <form:errors path="extraHours"/>

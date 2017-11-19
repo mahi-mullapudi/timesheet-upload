@@ -327,7 +327,6 @@
                     </section>
                 </div>
             </section>
-            <!-- TODO implement logic to show/hide the modal -->
             <!-- Modal for Forwarding to the Dashboard page after successful Approval of the Timesheet Information -->
             <div id="successModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog" id="my-account">
@@ -339,15 +338,15 @@
                             </button>
                         </div>
 
-                        <div class="modal-body">
-                            <i class="fa fa-check fa-5x text-center" aria-hidden="true"></i>
+                        <div class="modal-body text-center">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
                             <p> Timesheet Information is APPROVED successfully. </p>
                         </div>
 
                         <div class="modal-footer">
-                            <a href="/timesheetApp/dashboard" class="btn btn-success">
-                                CLOSE
-                            </a>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">CLOSE</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -364,15 +363,15 @@
                             </button>
                         </div>
 
-                        <div class="modal-body">
-                            <i class="fa fa-check fa-5x text-center" aria-hidden="true"></i>
+                        <div class="modal-body text-center">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
                             <p> The Selected Timesheet Information is REJECTED. </p>
                         </div>
 
                         <div class="modal-footer">
-                            <a href="/timesheetApp/dashboard" class="btn btn-warning">
-                                CLOSE
-                            </a>
+                            <button type="button" class="btn-warning" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">CLOSE</span>
+                            </button>
                         </div>
                     </div>
                 </div>

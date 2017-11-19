@@ -162,6 +162,7 @@ function approveTimesheet() {
             console.log("Inside success function of Approve Timesheet.");
             getTimesheetInfoById(timesheetId, true); //To reload the View Timesheet information.
             loadSummaryTable();
+            $('#successModal').modal('show');
             $('#alertDiv').show();
             $('#alertSubDiv').addClass(responsedata.responseClass);
             $('#alertMsg').html(responsedata.responseMessage);
@@ -199,6 +200,7 @@ function rejectTimesheet() {
             console.log("Inside success function of Reject Timesheet.");
             getTimesheetInfoById(timesheetId, true); //To reload the View Timesheet information.
             loadSummaryTable();
+            $('#rejectionModal').modal('show');
             $('#alertDiv').show();
             $('#alertSubDiv').addClass(responsedata.responseClass);
             $('#alertMsg').html(responsedata.responseMessage);

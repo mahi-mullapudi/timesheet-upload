@@ -307,10 +307,9 @@
                                         </div>
                                         <br>
 
-                                        <div>
-                                            <button class="btn btn-lg btn-success btn-block" type="submit">
-                                                Update Profile
-                                            </button>
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-success"
+                                                   value="Update Profile"/>
                                         </div>
 
                                     </form:form>

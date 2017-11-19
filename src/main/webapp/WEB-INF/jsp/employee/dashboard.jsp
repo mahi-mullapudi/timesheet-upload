@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,6 +20,7 @@
     <!-- Custom styles for this template -->
     <link href="./css/style.css" rel="stylesheet">
 </head>
+
 <body>
 <div class="container-fluid" id="wrapper">
     <div class="row">
@@ -70,7 +71,7 @@
                              width="50" height="auto">
 
                         <div class="username mt-1">
-                            <h4 class="mb-1">${user.employeeFirstName} ${user.employeeFirstName}</h4>
+                            <h4 class="mb-1">${user.employeeFirstName} ${user.employeeLastName}</h4>
                             <h6 class="text-muted">${user.employeeRoleDesc}</h6>
                         </div>
                     </a>
