@@ -59,7 +59,7 @@
         <main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
             <header class="page-header row justify-center">
                 <div class="col-md-6 col-lg-8">
-                    <h1 class="float-left text-center text-md-left">Dashboard</h1>
+                    <h1 class="float-left text-center text-md-left">View Profile</h1>
                 </div>
 
                 <div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right">
@@ -76,13 +76,9 @@
 
                     <div class="dropdown-menu dropdown-menu-right" style="margin-right: 1.5rem;"
                          aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="/timesheetApp/viewProfile">
-                            <em class="fa fa-user-circle mr-1"></em>
-                            View Profile
-                        </a>
                         <a class="dropdown-item" href="#">
                             <em class="fa fa-sliders mr-1"></em>
-                            Preferences
+                            Settings
                         </a>
                         <a class="dropdown-item" href="/timesheetApp/logout">
                             <em class="fa fa-power-off mr-1"></em>
@@ -101,7 +97,7 @@
                             <section class="row">
                                 <div class="col-md-12">
                                     <c:if test="${not empty msg}">
-                                        <div class="col-md-12">
+                                        <div class="col-md-10">
                                             <div class="alert alert-${css} alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"
                                                         aria-label="Close">
@@ -113,8 +109,7 @@
                                     </c:if>
 
                                     <spring:url value="/updateProfile" var="updateProfileUrl"/>
-                                    <form:form method="POST" modelAttribute="employee"
-                                               action="${updateProfileUrl}">
+                                    <form:form method="POST" modelAttribute="employee" action="${updateProfileUrl}">
 
                                         <form:hidden path="employeeRoleId"/>
                                         <form:hidden path="employeeRoleDesc"/>
@@ -244,8 +239,7 @@
                                                                     id="clientAddress"
                                                                     placeholder="Client Address" data-toggle="tooltip"
                                                                     data-animation="false"
-                                                                    class="form-control ${status.error ? 'form-control-danger' : ''}"
-                                                                    readonly="true"/>
+                                                                    class="form-control ${status.error ? 'form-control-danger' : ''}"/>
                                                         <div class="form-control-feedback">
                                                             <form:errors path="clientAddress"/>
                                                         </div>

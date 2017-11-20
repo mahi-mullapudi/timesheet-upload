@@ -1,5 +1,6 @@
 package com.technumen.web.controllers;
 
+import com.technumen.models.Employee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,32 @@ public class IndexController {
     public String reports(Model model) {
         log.info("Inside reports method of IndexController");
         return "employee/reports";
+    }
+
+    @GetMapping("/settings")
+    public String settings(HttpSession session, Model model) {
+        log.info("Inside settings method of IndexController");
+        Employee employee = (Employee) session.getAttribute("user");
+        //Check if the employee object exist in the session.
+        if (employee == null) {
+            log.error("Cannot find employee object in the session, so forwarding to Login page");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Your session expired, please login to continue!!");
+            return "redirect:/login";
+        }
+        //Check for employee role and forward to corresponding page.
+        if (employee.isEmployeeRole()) {
+            return "employee/settings";
+        } else if (employee.isSupervisorRole()) {
+            return "staff/settings";
+        } else if (employee.isAdminRole()) {
+            return "staff/settings";
+        } else {
+            log.error("Cannot validate the role. Redirecting to the Login page.");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Cannot validate the role, please login to continue!!");
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/logout")

@@ -9,6 +9,7 @@ import com.technumen.services.RegistrationService;
 import com.technumen.utils.AuthenticationUtils;
 import com.technumen.utils.EncryptDecryptUtils;
 import com.technumen.web.validators.RegistrationValidator;
+import com.technumen.web.validators.UpdatePasswordValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,6 @@ import java.util.TreeMap;
 public class RegistrationController {
 
     @Autowired
-    RegistrationValidator registrationValidator;
-    @Autowired
     RegistrationService registrationService;
     @Autowired
     AuthenticationService authService;
@@ -45,6 +44,10 @@ public class RegistrationController {
     EncryptDecryptUtils encryptDecryptUtils;
     @Autowired
     AuthenticationUtils authUtils;
+    @Autowired
+    RegistrationValidator registrationValidator;
+    @Autowired
+    UpdatePasswordValidator updatePasswordValidator;
 
     @GetMapping("/registration")
     public ModelAndView getRegistration() {
@@ -150,7 +153,7 @@ public class RegistrationController {
                 "TechNumen Inc., Time sheet Application - Password Reset",
                 "We got a request to Reset your password. Below is the temporary password: "
                         + tempPassword + ". Please use this temporary password to Login to your account and then " +
-                        "you can change your password from the Preferences section.");
+                        "you can change your password from the Settings section.");
 
         model.addAttribute("resetEmail", resetPassword.getEmailId());
         model.addAttribute("resetConfirmationModal", "yes");
@@ -189,6 +192,7 @@ public class RegistrationController {
     public ModelAndView updateProfile(@ModelAttribute("employee") Employee employee, BindingResult result,
                                       SessionStatus status, Model model, Errors errors) {
         log.info("Inside updateProfile method of Registration Controller.");
+        //TODO implement validator for update profile information.
         if (employee.isEmployeeRole()) {
             if (result.hasErrors()) {
                 model.addAttribute("css", "danger");
@@ -235,7 +239,6 @@ public class RegistrationController {
             return new ModelAndView("staff/viewProfileStaff");
 
         } else if (employee.isAdminRole()) {
-            //TODO implement functionality for Admin role.
             return new ModelAndView("staff/viewProfileStaff");
         } else {
             log.error("Cannot find the role. So forwarding to Login.");
@@ -245,6 +248,51 @@ public class RegistrationController {
         }
 
     }
+
+    @GetMapping("/updatePassword")
+    public ModelAndView updatePassword(HttpSession session, Model model) {
+        log.info("Inside updatePassword method of Registration Controller.");
+        Employee employee = (Employee) session.getAttribute("user");
+        //Check if the employee object exist in the session.
+        if (employee == null) {
+            log.error("Cannot find employee object in the session, so forwarding to Login page");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Session expired, please login to continue!!");
+            return new ModelAndView("redirect:/login");
+        }
+        employee.setEmpPassword("");
+        model.addAttribute("employee", employee);
+        return new ModelAndView("updatePassword");
+    }
+
+    @PostMapping("/updatePassword")
+    public ModelAndView updatePassword(@ModelAttribute("employee") Employee employee, BindingResult result,
+                                       SessionStatus status, Model model, Errors errors) {
+        log.info("Inside updatePassword method of Registration Controller. EmployeeId: " + employee.getEmployeeEmailId());
+        updatePasswordValidator.validate(employee, errors);
+        if (result.hasErrors()) {
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Invalid / Missing Information. Please correct the information entered below!!");
+            return new ModelAndView("updatePassword");
+        }
+        try {
+            registrationService.updatePassword(employee.getEmployeeEmailId(), employee.getEmpPassword());
+        } catch (Exception ex) {
+            log.error("Exception while updating Employee password.");
+            model.addAttribute("css", "danger");
+            model.addAttribute("msg", "Application issue while updating your password. Please contact Admin for more information!!");
+            return new ModelAndView("updatePassword");
+        }
+        status.setComplete();
+        //Send a confirmation Email.
+        emailService.sendPlainTextMailWithoutAttachment(TimesheetConstants.fromAddress, employee.getEmployeeEmailId(),
+                "",
+                "TechNumen Inc., Time sheet Application - Password updated",
+                "This is to let you know that your password is updated successfully.");
+        return new ModelAndView("updatePassword");
+
+    }
+
 
 }
 
