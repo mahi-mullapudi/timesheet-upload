@@ -42,6 +42,7 @@ function populateTimesheetInfo(timesheetObj) {
     $('#approverName').html(timesheetObj.nameApproved !== null ? timesheetObj.nameApproved : '');
     $('#approvalDate').html(timesheetObj.dateApproved !== null ? moment(timesheetObj.dateApproved).format("MM/DD/YYYY hh:mm a") : '');
     //Populate the input values.
+    $('#timesheetId').val(timesheetObj.timesheetId != null ? timesheetObj.timesheetId : 0);
     $('#regularHoursText').val(timesheetObj.regularHours !== null ? timesheetObj.regularHours : 0.0);
     $('#extraHoursText').val(timesheetObj.extraHours !== null ? timesheetObj.extraHours : 0.0);
     $('#dscCommentsText').val(timesheetObj.dscComments !== null ? timesheetObj.dscComments : '');
