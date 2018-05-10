@@ -46,7 +46,7 @@ public class LoginController {
         loginObj = new Login();
         loginObj.setClientIpAddress(request.getRemoteAddr());
         loginObj.setEmailId(encryptDecryptUtils.decodeInputString(encodedEmail));
-
+        log.info("Before returning the login");
         return new ModelAndView("login", "loginObj", loginObj);
     }
 
